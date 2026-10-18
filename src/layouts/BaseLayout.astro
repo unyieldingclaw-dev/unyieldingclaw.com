@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Eric Nolan | UnyieldingClaw',
+  description = 'Technical product leadership, trustworthy AI engineering, developer tooling, and practical projects by Eric Nolan.',
+} = Astro.props;
+
+const fullTitle = title === 'Eric Nolan | UnyieldingClaw' ? title : `${title} | Eric Nolan`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Eric Nolan',
+  url: 'https://unyieldingclaw.com',
+  sameAs: ['https://github.com/unyieldingclaw-dev'],
+  jobTitle: 'Technical Product Manager',
+  knowsAbout: [
+    'Technical Product Management',
+    'AI Engineering',
+    'AI Governance',
+    'Release Engineering',
+    'Developer Productivity',
+    'Harness Engineering',
+    'Woodworking',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="Eric Nolan home">
+          <span>Eric Nolan</span>
+          <small>UnyieldingClaw</small>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="/work/">Work</a>
+          <a href="/harness-engineering/">Harness Engineering</a>
+          <a href="/woodworking/">Woodworking</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>© {new Date().getFullYear()} Eric Nolan.</p>
+        <p>Public-safe personal work only. Employer code, data, credentials, and confidential implementation details are excluded.</p>
+      </div>
+    </footer>
+  </body>
+</html>

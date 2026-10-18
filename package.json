@@ -1,0 +1,19 @@
+{
+  "name": "unyieldingclaw.com",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

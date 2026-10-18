@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Selected Work"
+  description="Selected public projects by Eric Nolan across AI engineering, developer tooling, and practical software products."
+>
+  <header class="page-header">
+    <div class="shell">
+      <p class="eyebrow">Work</p>
+      <h1>Selected public work</h1>
+      <p class="lede">A small set of projects chosen for what they demonstrate, not a catalog of every repository.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="shell stack">
+      <article class="card">
+        <h2>Personal Memory Bank</h2>
+        <p>Persistent project memory and governance for AI-assisted development. The interesting problem is not storing Markdown—it is managing authority, stale context, provenance, scope, handoffs, and deterministic enforcement over time.</p>
+        <p><a href="https://github.com/unyieldingclaw-dev/personal-memory-bank">Repository →</a></p>
+      </article>
+
+      <article class="card">
+        <h2>AI Code Review Agent</h2>
+        <p>A local AI-assisted review system built around specialized, isolated review perspectives, explicit failure behavior, structured outputs, and privacy-conscious inference.</p>
+        <p><a href="https://github.com/unyieldingclaw-dev/ai-code-review-agent">Repository →</a></p>
+      </article>
+
+      <article class="card">
+        <h2>PitLogic</h2>
+        <p>A browser-based BBQ cook logging and analytics product with live device integration, alerts, predictions, testing, accessibility work, and static deployment.</p>
+        <p><a href="https://github.com/unyieldingclaw-dev/pitlogic">Repository →</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
