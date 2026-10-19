@@ -5905,3 +5905,241 @@ nav a:focus-visible,
     100% { left: calc(100% + 3rem); transform: translateY(-64%) scale(0.78); }
   }
 }
+
+
+/* ==========================================================================
+   Workshop wipe-to-reveal interaction
+   The payoff stays hidden until the bench is actually cleaned.
+   ========================================================================== */
+
+.sawdust-bench__wipe-cue {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.85rem;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 2.65rem auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.55rem;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  padding: 0.55rem 0.72rem;
+  border: 1px solid rgba(255,244,227,0.22);
+  border-radius: 0.7rem;
+  background: rgba(68,41,22,0.72);
+  color: rgba(255,244,227,0.9);
+  box-shadow: 0 8px 24px rgba(57,34,18,0.18);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.45rem);
+}
+
+.sawdust-bench__wipe-cue svg {
+  grid-row: 1 / 3;
+  width: 2.65rem;
+  height: auto;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+}
+
+.sawdust-bench__wipe-cue span {
+  font: 900 0.66rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sawdust-bench__wipe-cue i {
+  position: relative;
+  width: 7.2rem;
+  height: 1px;
+  overflow: visible;
+  background: linear-gradient(90deg, transparent, rgba(255,245,232,0.7), transparent);
+}
+
+.sawdust-bench__wipe-cue i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -0.28rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-top: 1px solid rgba(255,245,232,0.78);
+  border-right: 1px solid rgba(255,245,232,0.78);
+  transform: rotate(45deg);
+}
+
+.sawdust-bench.is-buried:not(.is-cleaning):not(.is-cleared) .sawdust-bench__wipe-cue {
+  visibility: visible;
+  animation:
+    wipe-cue-arrive 320ms 420ms ease forwards,
+    wipe-cue-drift 2.8s 1.2s ease-in-out infinite;
+}
+
+.sawdust-bench.is-cleaning .sawdust-bench__wipe-cue,
+.sawdust-bench.is-cleared .sawdust-bench__wipe-cue {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Do not leak the reward under the dust. */
+.sawdust-bench .sawdust-bench__engraving,
+.sawdust-bench.is-buried .sawdust-bench__engraving {
+  opacity: 0 !important;
+  visibility: hidden;
+  transform:
+    perspective(700px)
+    translateZ(-80px)
+    scale(0.72);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.sawdust-bench.is-revealing .sawdust-bench__engraving {
+  visibility: visible;
+  animation: bench-message-slam 1.18s cubic-bezier(.18,.82,.22,1) forwards;
+}
+
+.sawdust-bench.is-revealed .sawdust-bench__engraving {
+  opacity: 1 !important;
+  visibility: visible;
+  transform: perspective(700px) translateZ(0) scale(1);
+}
+
+/* At completion, any leftover dust disappears with the final wipe. */
+.sawdust-bench.is-cleared canvas {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+/* Small impact puff when the message slams back onto the bench. */
+.sawdust-bench__impact {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  z-index: 10;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.sawdust-bench__impact i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--impact-size);
+  height: calc(var(--impact-size) * 0.48);
+  border-radius: 999px;
+  background: #ddb77d;
+  box-shadow: 0 0 2px rgba(102,65,30,0.18);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.sawdust-bench__impact.is-puffing i {
+  animation: bench-impact-dust 820ms var(--impact-delay) cubic-bezier(.12,.65,.24,1) forwards;
+}
+
+@keyframes wipe-cue-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wipe-cue-drift {
+  0%, 100% {
+    translate: 0 0;
+  }
+  48% {
+    translate: -0.5rem 0;
+  }
+  52% {
+    translate: 0.18rem 0;
+  }
+}
+
+@keyframes bench-message-slam {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) translateZ(-110px) translateY(7px) scale(0.68);
+    filter: blur(2px);
+  }
+  28% {
+    opacity: 1;
+    transform: perspective(700px) translateZ(150px) translateY(-7px) scale(1.24);
+    filter: blur(0);
+  }
+  56% {
+    opacity: 1;
+    transform: perspective(700px) translateZ(35px) translateY(-2px) scale(1.08);
+  }
+  72% {
+    opacity: 1;
+    transform: perspective(700px) translateZ(-10px) translateY(2px) scale(0.96);
+  }
+  84% {
+    opacity: 1;
+    transform: perspective(700px) translateZ(7px) translateY(-1px) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) translateZ(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes bench-impact-dust {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--impact-x)),
+        calc(-50% + var(--impact-y))
+      )
+      scale(1.2)
+      rotate(var(--impact-r));
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .sawdust-bench__wipe-cue {
+    right: 0.65rem;
+    bottom: 0.65rem;
+  }
+
+  .sawdust-bench__wipe-cue span {
+    font-size: 0.61rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sawdust-bench.is-buried:not(.is-cleaning):not(.is-cleared) .sawdust-bench__wipe-cue {
+    animation: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .sawdust-bench.is-revealing .sawdust-bench__engraving {
+    animation: none;
+    opacity: 1 !important;
+    visibility: visible;
+    transform: none;
+  }
+
+  .sawdust-bench__impact {
+    display: none;
+  }
+}
