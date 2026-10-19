@@ -3,6 +3,8 @@ import { expect } from '@playwright/test';
 
 const { nvdaTest: test } = guidepupPlaywright;
 
+test.use({ nvdaStartOptions: { capture: true } });
+
 const routes = [
   '/',
   '/work/',
@@ -19,7 +21,11 @@ const routes = [
 ];
 
 const normalize = (value) =>
-  value.replace(/\s+/g, ' ').trim().toLowerCase();
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 test('NVDA can reach the primary heading on every public page', async ({ page, nvda }) => {
   for (const route of routes) {
