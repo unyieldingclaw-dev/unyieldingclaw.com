@@ -7169,3 +7169,213 @@ nav a:focus-visible,
     transition: none !important;
   }
 }
+
+
+/* ==========================================================================
+   Workshop saw v3 — quicker cut, real tool proportions, visible kerf progression.
+   Keep this late in the cascade so it cleanly supersedes earlier saw experiments.
+   ========================================================================== */
+
+.circular-saw--svg {
+  --saw-y: -67%;
+  --saw-scale: 1;
+  left: -17rem;
+  width: 16rem;
+  height: 10.25rem;
+  transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale));
+  transform-origin: center left;
+  filter: drop-shadow(0 12px 12px rgba(0,0,0,0.22));
+  opacity: 0;
+  will-change: left, transform, opacity;
+}
+
+.circular-saw--svg > svg {
+  overflow: visible;
+}
+
+.circular-saw--svg .saw-svg__machine,
+.circular-saw--svg .saw-svg__blade-group {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.saw-cut-line {
+  height: 1px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(250,229,204,0.28) 0 10px,
+      transparent 10px 18px
+    );
+  opacity: 0.42;
+}
+
+.saw-cut-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 3px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(39,19,9,0.88) 0 1px,
+      rgba(255,220,178,0.18) 1px 2px,
+      rgba(65,31,13,0.62) 2px 3px
+    );
+  box-shadow: 0 2px 4px rgba(48,23,10,0.18);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg {
+  animation: saw-pass-v3 2.4s linear forwards;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__machine {
+  animation: saw-machine-vibration-v3 0.07s steps(2, end) infinite;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__blade-group {
+  animation: saw-spin-v3 0.058s linear infinite;
+}
+
+.saw-cut-stage.is-cutting .saw-cut-line::after {
+  animation: saw-kerf-v3 2.4s linear forwards;
+}
+
+.saw-cut-stage.is-cut-engaged .saw-cut-slab {
+  animation: stock-shudder-v3 0.085s steps(2, end) infinite;
+}
+
+.saw-cut-stage.is-cut-clearing .saw-cut-slab--bottom {
+  transform: translateY(2px);
+}
+
+.saw-cut-stage.is-cutting .saw-cut-hint {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.saw-cut-stage.is-cut .saw-cut-slab--top {
+  transform: translate3d(0, -104%, 0) rotate(-0.45deg);
+  opacity: 0.18;
+}
+
+.saw-cut-stage.is-cut .saw-cut-slab--bottom {
+  transform: translate3d(2.2%, 44%, 0) rotate(5.5deg) scale(0.985);
+  opacity: 0;
+}
+
+.sawdust-burst i {
+  top: 51.5%;
+  width: var(--size);
+  height: calc(var(--size) * 0.48);
+  border-radius: 55% 45% 60% 40%;
+  background: #e0b36f;
+  opacity: 0;
+  animation: dust-fly-v3 var(--life, .72s) cubic-bezier(.12,.68,.2,1) forwards;
+  transform-origin: center;
+}
+
+.sawdust-burst i.is-chip {
+  height: calc(var(--size) * 0.32);
+  border-radius: 42% 58% 38% 62%;
+  background: linear-gradient(90deg, #8e5b31, #e3bd82 55%, #b37b47);
+  box-shadow: 0 1px 2px rgba(50,26,10,0.2);
+}
+
+@keyframes saw-pass-v3 {
+  0% {
+    left: -17rem;
+    opacity: 0;
+    transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(-1.15deg);
+  }
+  3% {
+    opacity: 1;
+  }
+  8% {
+    left: -11.5rem;
+    transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(-0.25deg);
+  }
+  48% {
+    transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(0.08deg);
+  }
+  91% {
+    left: calc(100% - 1.75rem);
+    transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(-0.12deg);
+  }
+  97% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 6.5rem);
+    opacity: 0;
+    transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(0.35deg);
+  }
+}
+
+@keyframes saw-spin-v3 {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes saw-machine-vibration-v3 {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: translate3d(.7px, -.45px, 0) rotate(.08deg); }
+  100% { transform: translate3d(-.45px, .35px, 0) rotate(-.06deg); }
+}
+
+@keyframes saw-kerf-v3 {
+  0%, 6% { transform: scaleX(0); }
+  94%, 100% { transform: scaleX(1); }
+}
+
+@keyframes stock-shudder-v3 {
+  0%   { translate: 0 0; }
+  50%  { translate: 0 .45px; }
+  100% { translate: 0 -.35px; }
+}
+
+@keyframes dust-fly-v3 {
+  0% {
+    opacity: var(--alpha, .82);
+    transform: translate3d(0,0,0) rotate(0deg);
+  }
+  72% {
+    opacity: calc(var(--alpha, .82) * .56);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--spin));
+  }
+}
+
+@media (max-width: 720px) {
+  .circular-saw--svg {
+    --saw-y: -64%;
+    --saw-scale: .80;
+    width: 14rem;
+    height: 9rem;
+    left: -15rem;
+  }
+
+  @keyframes saw-pass-v3 {
+    0% {
+      left: -15rem;
+      opacity: 0;
+      transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(-.8deg);
+    }
+    4% { opacity: 1; }
+    92% {
+      left: calc(100% - 1rem);
+      opacity: 1;
+      transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(.08deg);
+    }
+    100% {
+      left: calc(100% + 5rem);
+      opacity: 0;
+      transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale)) rotate(.25deg);
+    }
+  }
+}

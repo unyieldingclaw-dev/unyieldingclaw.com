@@ -114,92 +114,168 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
           <div class="saw-cut-line" aria-hidden="true"></div>
           <div class="circular-saw circular-saw--svg" data-circular-saw aria-hidden="true">
-            <svg viewBox="0 0 240 150" role="presentation" focusable="false">
+            <svg viewBox="0 0 360 230" role="presentation" focusable="false">
               <defs>
-                <linearGradient id="sawBody" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#f0c84b"/>
-                  <stop offset="42%" stop-color="#c98f27"/>
-                  <stop offset="100%" stop-color="#765018"/>
+                <linearGradient id="sawBlue" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#315f86"/>
+                  <stop offset="30%" stop-color="#17456d"/>
+                  <stop offset="68%" stop-color="#0e3152"/>
+                  <stop offset="100%" stop-color="#071b2d"/>
                 </linearGradient>
-                <linearGradient id="sawMetal" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#f4f6f7"/>
-                  <stop offset="35%" stop-color="#aab2b7"/>
-                  <stop offset="68%" stop-color="#697277"/>
-                  <stop offset="100%" stop-color="#c9d0d4"/>
+                <linearGradient id="sawBlueEdge" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4f7796"/>
+                  <stop offset="18%" stop-color="#204e73"/>
+                  <stop offset="100%" stop-color="#09233b"/>
                 </linearGradient>
-                <linearGradient id="sawDark" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#4a4337"/>
-                  <stop offset="100%" stop-color="#181b1d"/>
+                <linearGradient id="sawRubber" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#343a3d"/>
+                  <stop offset="48%" stop-color="#171c1f"/>
+                  <stop offset="100%" stop-color="#090c0e"/>
                 </linearGradient>
-                <radialGradient id="bladeMetal" cx="45%" cy="38%" r="65%">
-                  <stop offset="0%" stop-color="#f7f8f8"/>
-                  <stop offset="36%" stop-color="#cdd3d6"/>
-                  <stop offset="72%" stop-color="#889196"/>
-                  <stop offset="100%" stop-color="#555d61"/>
+                <linearGradient id="sawMetal" x1="0" y1="0" x2="0.88" y2="1">
+                  <stop offset="0%" stop-color="#f2f4f4"/>
+                  <stop offset="16%" stop-color="#c8ced0"/>
+                  <stop offset="44%" stop-color="#7f898e"/>
+                  <stop offset="62%" stop-color="#d8ddde"/>
+                  <stop offset="100%" stop-color="#60696e"/>
+                </linearGradient>
+                <linearGradient id="sawShoe" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#a9afb1"/>
+                  <stop offset="42%" stop-color="#747c80"/>
+                  <stop offset="100%" stop-color="#3f474b"/>
+                </linearGradient>
+                <radialGradient id="bladeMetal" cx="37%" cy="31%" r="72%">
+                  <stop offset="0%" stop-color="#f6f7f7"/>
+                  <stop offset="32%" stop-color="#d8dcde"/>
+                  <stop offset="61%" stop-color="#9aa2a6"/>
+                  <stop offset="83%" stop-color="#6b7479"/>
+                  <stop offset="100%" stop-color="#424a4f"/>
                 </radialGradient>
-                <filter id="sawShadow" x="-30%" y="-30%" width="170%" height="190%">
-                  <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".32"/>
+                <radialGradient id="bladeHub" cx="35%" cy="30%" r="75%">
+                  <stop offset="0%" stop-color="#cbd1d3"/>
+                  <stop offset="55%" stop-color="#687176"/>
+                  <stop offset="100%" stop-color="#252b2e"/>
+                </radialGradient>
+                <filter id="sawShadowV3" x="-30%" y="-35%" width="175%" height="205%">
+                  <feDropShadow dx="0" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".34"/>
+                  <feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#000" flood-opacity=".24"/>
+                </filter>
+                <filter id="metalGrain" x="-20%" y="-20%" width="140%" height="140%">
+                  <feTurbulence type="fractalNoise" baseFrequency=".78" numOctaves="2" seed="7" result="noise"/>
+                  <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+                  <feComponentTransfer in="mono" result="faint">
+                    <feFuncA type="table" tableValues="0 .075"/>
+                  </feComponentTransfer>
+                  <feBlend in="SourceGraphic" in2="faint" mode="multiply"/>
                 </filter>
               </defs>
 
-              <g filter="url(#sawShadow)">
-                <path class="saw-svg__shoe" d="M11 125 L218 125 L231 133 L220 141 L16 141 L7 135 Z" fill="url(#sawMetal)" stroke="#596166" stroke-width="2"/>
-                <path d="M17 128 L218 128" stroke="#fff" stroke-opacity=".48" stroke-width="2"/>
+              <g class="saw-svg__machine" filter="url(#sawShadowV3)">
+                <path class="saw-svg__shoe"
+                  d="M20 181 L324 181 L346 190 L334 201 L28 201 L12 193 Z"
+                  fill="url(#sawShoe)" stroke="#30383c" stroke-width="2.5"/>
+                <path d="M25 184 L324 184" stroke="#f7f8f8" stroke-opacity=".34" stroke-width="2"/>
+                <path d="M34 197 L324 197" stroke="#171c1f" stroke-opacity=".46" stroke-width="2"/>
 
                 <g class="saw-svg__blade-group">
-                  <circle class="saw-svg__blade" cx="70" cy="103" r="49" fill="url(#bladeMetal)" stroke="#4f575b" stroke-width="3"/>
-                  <g class="saw-svg__teeth" fill="#d8dde0" stroke="#596166" stroke-width="1">
-                    <path d="M70 50 l5 -8 4 10 z"/>
-                    <path d="M91 54 l8 -6 1 11 z"/>
-                    <path d="M109 67 l10 -3 -3 11 z"/>
-                    <path d="M119 87 l10 1 -7 9 z"/>
-                    <path d="M121 109 l9 5 -10 6 z"/>
-                    <path d="M113 130 l6 8 -11 2 z"/>
-                    <path d="M95 145 l2 10 -10 -4 z"/>
-                    <path d="M74 151 l-2 10 -8 -7 z"/>
-                    <path d="M51 147 l-6 8 -4 -10 z"/>
-                    <path d="M33 134 l-9 5 1 -11 z"/>
-                    <path d="M21 115 l-10 1 5 -10 z"/>
-                    <path d="M20 93 l-10 -3 8 -8 z"/>
-                    <path d="M29 71 l-8 -7 11 -3 z"/>
-                    <path d="M47 56 l-4 -9 11 1 z"/>
+                  <circle cx="112" cy="155" r="67" fill="url(#bladeMetal)" stroke="#4e575c" stroke-width="3" filter="url(#metalGrain)"/>
+                  <circle cx="112" cy="155" r="62" fill="none" stroke="#eef1f2" stroke-opacity=".35" stroke-width="1.5"/>
+                  <circle cx="112" cy="155" r="70" fill="none" stroke="#c9d0d3" stroke-width="8"
+                          stroke-dasharray="4 10" stroke-linecap="square"/>
+                  <g stroke="#707a7f" stroke-opacity=".32" stroke-width="1.3">
+                    <path d="M112 98v38"/><path d="M140 106l-18 33"/><path d="M160 126l-33 19"/>
+                    <path d="M169 155h-39"/><path d="M160 184l-34-20"/><path d="M140 204l-19-34"/>
+                    <path d="M112 212v-38"/><path d="M84 204l18-34"/><path d="M64 184l33-19"/>
+                    <path d="M55 155h39"/><path d="M64 126l34 20"/><path d="M84 106l19 34"/>
                   </g>
-                  <circle cx="70" cy="103" r="12" fill="#4a5155" stroke="#b8c0c4" stroke-width="4"/>
-                  <circle cx="70" cy="103" r="4" fill="#1f2325"/>
+                  <circle cx="112" cy="155" r="18" fill="url(#bladeHub)" stroke="#d6dcde" stroke-width="3"/>
+                  <circle cx="112" cy="155" r="7" fill="#1b2023" stroke="#8e989d" stroke-width="2"/>
                 </g>
 
-                <path class="saw-svg__guard" d="M28 101 A49 49 0 0 1 116 73 L111 87 A34 34 0 0 0 43 103 Z"
-                      fill="url(#sawMetal)" stroke="#5e666a" stroke-width="3"/>
-                <path d="M35 88 A41 41 0 0 1 106 69" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="3"/>
+                <path class="saw-svg__guard"
+                  d="M50 157 A66 66 0 0 1 177 122 L164 139 A49 49 0 0 0 67 159 Z"
+                  fill="url(#sawMetal)" stroke="#596267" stroke-width="3"/>
+                <path d="M61 139 A56 56 0 0 1 164 116"
+                      fill="none" stroke="#fff" stroke-opacity=".44" stroke-width="3" stroke-linecap="round"/>
+                <path d="M60 157 C64 120 83 99 113 92"
+                      fill="none" stroke="#4b5459" stroke-opacity=".45" stroke-width="2"/>
 
                 <path class="saw-svg__body"
-                      d="M93 48 C105 33 132 29 164 33 L194 47 C207 53 214 66 211 81 L205 105 C202 115 194 121 182 121 L112 120 C99 120 90 110 90 97 L88 66 C88 59 89 54 93 48 Z"
-                      fill="url(#sawBody)" stroke="#6f4a15" stroke-width="3"/>
-                <path d="M104 51 C125 39 160 40 190 54" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="4" stroke-linecap="round"/>
+                  d="M145 89
+                     C154 71 177 62 210 63
+                     L277 67
+                     C303 69 321 83 326 104
+                     L329 130
+                     C331 145 323 158 308 164
+                     L196 178
+                     C172 181 151 166 148 143
+                     L139 112
+                     C136 103 138 96 145 89 Z"
+                  fill="url(#sawBlue)" stroke="#071827" stroke-width="3.5"/>
+                <path d="M157 92 C188 73 257 75 304 91"
+                      fill="none" stroke="#88a8bf" stroke-opacity=".27" stroke-width="5" stroke-linecap="round"/>
+                <path d="M294 83 C311 91 317 103 318 119"
+                      fill="none" stroke="#6e8da5" stroke-opacity=".22" stroke-width="4" stroke-linecap="round"/>
+                <path d="M155 150 C191 163 263 155 315 141"
+                      fill="none" stroke="#05192a" stroke-opacity=".46" stroke-width="4"/>
 
-                <g class="saw-svg__vents" stroke="#5c411d" stroke-width="3" stroke-linecap="round" opacity=".78">
-                  <path d="M139 91 l0 17"/>
-                  <path d="M147 89 l0 19"/>
-                  <path d="M155 88 l0 20"/>
-                  <path d="M163 89 l0 18"/>
+                <g class="saw-svg__vents" stroke="#071725" stroke-width="4.2" stroke-linecap="round" opacity=".82">
+                  <path d="M238 96l-3 32"/><path d="M249 95l-3 34"/><path d="M260 95l-3 35"/>
+                  <path d="M271 96l-3 33"/><path d="M282 98l-3 29"/>
+                </g>
+                <g stroke="#6f8da5" stroke-opacity=".24" stroke-width="1.5">
+                  <path d="M237 94l-3 35"/><path d="M248 93l-3 37"/><path d="M259 93l-3 38"/>
+                  <path d="M270 94l-3 36"/><path d="M281 96l-3 32"/>
                 </g>
 
-                <circle cx="188" cy="79" r="17" fill="#34393c" stroke="#7c8589" stroke-width="4"/>
-                <circle cx="188" cy="79" r="8" fill="#1d2022"/>
+                <circle cx="304" cy="121" r="20" fill="#171d21" stroke="#69747a" stroke-width="4"/>
+                <circle cx="304" cy="121" r="11" fill="#080b0d" stroke="#252d31" stroke-width="2"/>
+                <circle cx="304" cy="121" r="3.2" fill="#838c90"/>
 
                 <path class="saw-svg__handle"
-                      d="M112 52 C116 22 133 10 161 12 C181 13 194 26 196 44 L178 48 C176 36 168 29 156 28 C142 27 134 35 132 53 Z"
-                      fill="url(#sawDark)" stroke="#17191a" stroke-width="3"/>
-                <path d="M142 31 C151 25 165 27 173 36" fill="none" stroke="#6f6758" stroke-width="4" stroke-linecap="round"/>
-                <rect x="166" y="41" width="17" height="8" rx="4" fill="#17191a"/>
+                  d="M177 77
+                     C184 43 205 26 237 27
+                     C267 28 286 46 289 72
+                     L266 76
+                     C264 58 253 49 236 48
+                     C218 47 207 57 204 78 Z"
+                  fill="url(#sawRubber)" stroke="#090c0e" stroke-width="4"/>
+                <path d="M207 52 C221 40 247 42 259 55"
+                      fill="none" stroke="#596064" stroke-width="5" stroke-linecap="round" opacity=".58"/>
+                <path d="M263 69 L280 69" stroke="#050708" stroke-width="7" stroke-linecap="round"/>
+                <rect x="253" y="65" width="17" height="9" rx="4.5" fill="#090b0d"/>
+                <rect x="257" y="66.5" width="9" height="6" rx="3" fill="#c25735" opacity=".78"/>
 
                 <path class="saw-svg__front-grip"
-                      d="M86 59 C88 44 96 35 108 34 L119 37 L116 65 L101 73 Z"
-                      fill="url(#sawDark)" stroke="#1b1d1e" stroke-width="3"/>
-                <path d="M94 50 L111 47" stroke="#6e6658" stroke-width="3" stroke-linecap="round"/>
+                  d="M133 103
+                     C134 82 143 69 158 66
+                     L175 72
+                     L171 105
+                     L150 116 Z"
+                  fill="url(#sawRubber)" stroke="#0a0d0f" stroke-width="3"/>
+                <path d="M143 87 L164 81" stroke="#62696c" stroke-width="4" stroke-linecap="round" opacity=".62"/>
 
-                <path d="M111 117 L202 117" stroke="#4f3d23" stroke-width="2" opacity=".5"/>
-                <text x="181" y="111" font-family="ui-monospace, monospace" font-size="10" font-weight="900" fill="#5a3a11">7¼</text>
+                <path d="M165 165 L190 193" fill="none" stroke="#525d62" stroke-width="5"/>
+                <path d="M189 192 H214" fill="none" stroke="#2a3236" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="181" cy="181" r="6" fill="#202629" stroke="#8a9499" stroke-width="2"/>
+
+                <g fill="#bcc3c6" stroke="#3e474c" stroke-width="2">
+                  <circle cx="177" cy="119" r="6"/>
+                  <circle cx="208" cy="153" r="5"/>
+                  <circle cx="294" cy="151" r="4.5"/>
+                </g>
+                <g fill="#4f595e">
+                  <circle cx="177" cy="119" r="2"/>
+                  <circle cx="208" cy="153" r="1.7"/>
+                  <circle cx="294" cy="151" r="1.5"/>
+                </g>
+
+                <path d="M327 116 C341 119 347 126 353 137" fill="none" stroke="#171c1f" stroke-width="7" stroke-linecap="round"/>
+                <path d="M327 116 C341 119 347 126 353 137" fill="none" stroke="#454c4f" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/>
+
+                <path d="M202 170 H311" stroke="#95a4ab" stroke-opacity=".24" stroke-width="2"/>
+                <text x="285" y="158" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+                      font-size="9" font-weight="850" letter-spacing="1.2" fill="#b7c7d2" fill-opacity=".55">7¼</text>
               </g>
             </svg>
           </div>
@@ -488,15 +564,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       const spawnDust = (progress) => {
         if (!dustBurst) return;
-        for (let i = 0; i < 4; i++) {
+
+        const engaged = progress > 0.055 && progress < 0.955;
+        const count = engaged ? 7 : 3;
+
+        for (let i = 0; i < count; i++) {
           const particle = document.createElement('i');
-          particle.style.setProperty('--x', (5 + progress * 90) + '%');
-          particle.style.setProperty('--dx', (-20 + Math.random() * 70) + 'px');
-          particle.style.setProperty('--dy', (-18 - Math.random() * 58) + 'px');
-          particle.style.setProperty('--spin', (-140 + Math.random() * 280) + 'deg');
-          particle.style.setProperty('--size', (2 + Math.random() * 5) + 'px');
+          const chip = Math.random() < 0.28;
+          const x = Math.max(2, Math.min(98, 2 + progress * 96));
+
+          particle.classList.toggle('is-chip', chip);
+          particle.style.setProperty('--x', x + '%');
+          particle.style.setProperty('--dx', (-26 - Math.random() * (chip ? 88 : 54)) + 'px');
+          particle.style.setProperty('--dy', (-46 + Math.random() * (chip ? 92 : 70)) + 'px');
+          particle.style.setProperty('--spin', (-220 + Math.random() * 440) + 'deg');
+          particle.style.setProperty('--size', (chip ? 3.4 + Math.random() * 5.2 : 1.1 + Math.random() * 3.2) + 'px');
+          particle.style.setProperty('--life', (chip ? 0.72 + Math.random() * 0.42 : 0.52 + Math.random() * 0.38) + 's');
+          particle.style.setProperty('--alpha', (0.58 + Math.random() * 0.34).toFixed(2));
           dustBurst.appendChild(particle);
-          setTimeout(() => particle.remove(), 1450);
+          setTimeout(() => particle.remove(), 1250);
         }
       };
 
@@ -521,7 +607,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         cutStage.classList.add('is-cutting');
         const started = performance.now();
-        const duration = 3000;
+        const duration = 2400;
         let lastDustAt = 0;
         let lastBenchDustAt = 0;
 
@@ -538,6 +624,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             lastBenchDustAt = now;
           }
 
+          if (progress >= 0.055) cutStage.classList.add('is-cut-engaged');
+          if (progress >= 0.90) cutStage.classList.add('is-cut-clearing');
+
           if (progress < 1 && cutting) {
             requestAnimationFrame(emit);
           } else {
@@ -549,7 +638,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         setTimeout(() => {
           cutStage.classList.add('is-cut');
-          cutStage.classList.remove('is-cutting');
+          cutStage.classList.remove('is-cutting', 'is-cut-engaged', 'is-cut-clearing');
           cutComplete = true;
           cutting = false;
         }, duration);
