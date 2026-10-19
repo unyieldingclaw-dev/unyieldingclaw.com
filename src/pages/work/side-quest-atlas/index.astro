@@ -1,0 +1,48 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Side Quest Atlas"
+  description="Case study: private group travel memory capture built around low-friction entry, shared history, and clear data boundaries."
+  eyebrow="Product design · Travel memory"
+  lede="Travel memories are easy to create and surprisingly easy to lose. Side Quest Atlas is designed to capture the meaningful part quickly, then let the group enrich it later without turning the experience into data entry."
+  status="In development"
+  access="Private repository · Public-safe case study"
+  tags={['Flutter', 'Supabase', 'RLS', 'Domain modeling']}
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      A trip gets scattered across camera rolls, map history, saved places, text messages, and people's memories. Trying to record everything in the moment kills the experience; waiting until later means the details disappear.
+    </p>
+  </section>
+
+  <section>
+    <h2>The product principle</h2>
+    <p>
+      <strong>Capture now, enrich later.</strong> The core workflow is intentionally low-friction: save the place or moment while it is fresh, then add photos, notes, context, and shared memories asynchronously.
+    </p>
+    <ul>
+      <li>Private travel groups own their shared history.</li>
+      <li>Places and visits are separate concepts so repeat visits do not overwrite the past.</li>
+      <li>Wishlists remain distinct from visit history rather than being destructively converted.</li>
+      <li>Quests are derived from actual visits instead of storing counters that can drift.</li>
+      <li>Row-level security is part of the product model because one group's memories should never leak into another's.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>What is intentionally missing</h2>
+    <p>
+      No public review feed. No follower graph. No recommendation engine added just because travel products often have one. The product is for a small group preserving its own history, not for becoming another social network.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why the repository stays private</h2>
+    <p>
+      The application is built around personal and family travel data. A public case study can show the product model, architecture decisions, privacy boundaries, and tradeoffs without turning the underlying repository or real user history into portfolio material.
+    </p>
+  </section>
+</CaseStudyLayout>
