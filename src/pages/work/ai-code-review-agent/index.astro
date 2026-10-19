@@ -6,10 +6,11 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   title="AI Code Review Agent"
   description="Case study: local multi-agent code review with specialist isolation, structured findings, and privacy-conscious inference."
   eyebrow="Developer tooling · Local AI"
-  lede="Code review is a good place for multiple perspectives, but only if the system resists groupthink, handles uncertainty, and fits the developer's actual workflow."
+  lede="Code review benefits from more than one set of eyes. It does not benefit from fifteen copies of the same opinion. ACR separates the lenses, keeps normal review local, and makes the noisy part somebody's problem on purpose."
   status="Active"
   access="Open source · MIT"
   tags={['Ollama', 'Multi-agent review', 'Security', 'Verification']}
+  sections={['The problem', 'The system', 'The design constraint', 'What I care about here']}
   tone="emerald"
   visual="acr"
   repoUrl="https://github.com/unyieldingclaw-dev/ai-code-review-agent"
@@ -17,7 +18,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   <section>
     <h2>The problem</h2>
     <p>
-      A single broad “review this diff” prompt tends to blur security, correctness, performance, testing, architecture, and operational concerns together. It can also encourage findings to inherit each other's assumptions.
+      “Review this diff” sounds simple until security, correctness, performance, tests, migrations, dependencies, and production behavior all start talking at once. One broad prompt tends to flatten those concerns together—and one bad assumption can color the whole review.
     </p>
   </section>
 
@@ -43,9 +44,9 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   </section>
 
   <section>
-    <h2>What this demonstrates</h2>
+    <h2>What I care about here</h2>
     <p>
-      The useful part is the review system around the model: isolation, sanitization, confidence, output structure, failure modes, opt-in write behavior, and interfaces that let the tool meet developers where they already work.
+      The model is not the interesting part by itself. I care about whether the reviewers stay independent, whether secrets stay out of the prompt, whether weak findings look weak, whether a failure is obvious, and whether the tool fits into a developer's day without demanding a new religion.
     </p>
   </section>
 </CaseStudyLayout>
