@@ -70,13 +70,15 @@ const personSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
+    <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="cursor-spotlight" aria-hidden="true"></div>
+    <div class="egg-toast" role="status" aria-live="polite"></div>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-label="Eric Nolan home">
-          <span class="brand-mark" aria-hidden="true">UC</span>
+          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW" aria-hidden="true">UC</span>
           <span class="brand-copy">
             <strong>Eric Nolan</strong>
             <small>Unyielding Claw</small>
@@ -100,7 +102,7 @@ const personSchema = {
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div>
-          <a class="footer-brand" href="/">Eric Nolan · Unyielding Claw</a>
+          <a class="footer-brand egg-signature" data-egg="Built with code, sawdust, smoke & stubbornness." href="/">Eric Nolan · Unyielding Claw</a>
           <p>Technical product leadership, AI engineering systems, practical software, and things built by hand.</p>
         </div>
         <div>
@@ -122,6 +124,26 @@ const personSchema = {
       (() => {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        const eggToast = document.querySelector('.egg-toast');
+        let eggBuffer = '';
+        let eggTimer;
+
+        document.addEventListener('keydown', (event) => {
+          const target = event.target;
+          if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable) return;
+          if (event.key.length !== 1) return;
+
+          eggBuffer = (eggBuffer + event.key.toLowerCase()).slice(-12);
+
+          if (eggBuffer.endsWith('miz') && eggToast) {
+            clearTimeout(eggTimer);
+            eggToast.textContent = 'ZOU!';
+            eggToast.classList.add('is-visible');
+            eggTimer = setTimeout(() => eggToast.classList.remove('is-visible'), 1800);
+            eggBuffer = '';
+          }
+        });
 
         if (reduceMotion) return;
 
