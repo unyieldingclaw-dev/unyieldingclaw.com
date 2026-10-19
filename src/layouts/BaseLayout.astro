@@ -73,6 +73,28 @@ const personSchema = {
     <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="cursor-spotlight" aria-hidden="true"></div>
     <div class="egg-toast" role="status" aria-live="polite"></div>
+
+    <aside class="trail-guide" data-trail-guide hidden aria-label="Hidden trail guide">
+      <button class="trail-guide__toggle" type="button" aria-expanded="false">
+        <span aria-hidden="true">⌖</span>
+        <strong>TRAIL <b data-trail-count>0/6</b></strong>
+      </button>
+      <div class="trail-guide__panel">
+        <p class="trail-guide__kicker">UNYIELDING CLAW // FIELD GUIDE</p>
+        <strong class="trail-guide__title">You found a trail marker.</strong>
+        <p class="trail-guide__copy">Your prize is the knowledge that you clicked something nobody asked you to click.</p>
+        <ol>
+          <li data-trail-item="home"><span>Basecamp</span><b>?</b></li>
+          <li data-trail-item="work"><span>Build Log</span><b>?</b></li>
+          <li data-trail-item="harness"><span>Systems Trail</span><b>?</b></li>
+          <li data-trail-item="workshop"><span>Sawdust Trail</span><b>?</b></li>
+          <li data-trail-item="about"><span>Origin Story</span><b>?</b></li>
+          <li data-trail-item="contact"><span>Basecamp Radio</span><b>?</b></li>
+        </ol>
+        <p class="trail-guide__footer" data-trail-message>There are more. Probably.</p>
+      </div>
+    </aside>
+
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
@@ -129,6 +151,14 @@ const personSchema = {
         let eggBuffer = '';
         let eggTimer;
 
+        const showToast = (message, duration = 1800) => {
+          if (!eggToast) return;
+          clearTimeout(eggTimer);
+          eggToast.textContent = message;
+          eggToast.classList.add('is-visible');
+          eggTimer = setTimeout(() => eggToast.classList.remove('is-visible'), duration);
+        };
+
         document.addEventListener('keydown', (event) => {
           const target = event.target;
           if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable) return;
@@ -136,14 +166,67 @@ const personSchema = {
 
           eggBuffer = (eggBuffer + event.key.toLowerCase()).slice(-12);
 
-          if (eggBuffer.endsWith('miz') && eggToast) {
-            clearTimeout(eggTimer);
-            eggToast.textContent = 'ZOU!';
-            eggToast.classList.add('is-visible');
-            eggTimer = setTimeout(() => eggToast.classList.remove('is-visible'), 1800);
+          if (eggBuffer.endsWith('miz')) {
+            showToast('ZOU!');
             eggBuffer = '';
           }
         });
+
+        const trailGuide = document.querySelector('[data-trail-guide]');
+        const trailToggle = trailGuide?.querySelector('.trail-guide__toggle');
+        const trailCount = trailGuide?.querySelector('[data-trail-count]');
+        const trailMessage = trailGuide?.querySelector('[data-trail-message]');
+        const trailKey = 'unyielding-claw-trail-v1';
+        const trailTotal = 6;
+        let foundMarkers = [];
+
+        try {
+          foundMarkers = JSON.parse(localStorage.getItem(trailKey) || '[]');
+          if (!Array.isArray(foundMarkers)) foundMarkers = [];
+        } catch {
+          foundMarkers = [];
+        }
+
+        const renderTrail = () => {
+          if (!trailGuide) return;
+          const unique = [...new Set(foundMarkers)];
+          trailGuide.hidden = unique.length === 0;
+          if (trailCount) trailCount.textContent = unique.length + '/' + trailTotal;
+
+          trailGuide.querySelectorAll('[data-trail-item]').forEach((item) => {
+            const found = unique.includes(item.getAttribute('data-trail-item'));
+            item.classList.toggle('is-found', found);
+            const status = item.querySelector('b');
+            if (status) status.textContent = found ? '✓' : '?';
+          });
+
+          if (trailMessage) {
+            trailMessage.textContent = unique.length >= trailTotal
+              ? 'TRAIL COMPLETE // You clicked everything nobody asked you to click.'
+              : unique.length >= 3
+                ? 'You are here. Probably. Context matters.'
+                : 'There are more. Probably.';
+          }
+        };
+
+        document.querySelectorAll('[data-trail-marker]').forEach((marker) => {
+          marker.addEventListener('click', () => {
+            const id = marker.getAttribute('data-trail-marker');
+            if (!id || foundMarkers.includes(id)) return;
+            foundMarkers.push(id);
+            try { localStorage.setItem(trailKey, JSON.stringify(foundMarkers)); } catch {}
+            marker.classList.add('is-found');
+            renderTrail();
+            showToast('TRAIL MARKER FOUND // ' + [...new Set(foundMarkers)].length + '/' + trailTotal, 2200);
+          });
+        });
+
+        trailToggle?.addEventListener('click', () => {
+          const open = trailGuide.classList.toggle('is-open');
+          trailToggle.setAttribute('aria-expanded', String(open));
+        });
+
+        renderTrail();
 
         if (reduceMotion) return;
 
