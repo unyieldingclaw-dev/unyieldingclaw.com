@@ -8316,3 +8316,86 @@ html.motion-paused .trail-marker {
     content: none;
   }
 }
+
+
+/* ==========================================================================
+   iPhone interaction fixes
+   Keep desktop behavior intact; make touch/Safari interactions explicit.
+   ========================================================================== */
+
+.footer-key-clue {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+  touch-action: manipulation;
+}
+
+.miz-mobile-entry {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+.miz-mobile-entry[hidden] {
+  display: none !important;
+}
+
+.miz-mobile-entry input {
+  width: 4.25rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid rgba(255, 214, 0, 0.42);
+  border-radius: 0.45rem;
+  background: rgba(7, 24, 42, 0.88);
+  color: #ffd600;
+  font: 900 0.9rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.24em;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.miz-mobile-entry input::placeholder {
+  color: rgba(255, 214, 0, 0.52);
+}
+
+.miz-mobile-entry input:focus-visible {
+  outline: 3px solid #b8d2ff;
+  outline-offset: 2px;
+}
+
+.saw-cut-stage,
+.saw-cut-trigger {
+  touch-action: manipulation;
+}
+
+@media (max-width: 720px) {
+  .saw-cut-slab span {
+    width: 100%;
+    padding-inline: 0.75rem;
+    font-size: clamp(1.35rem, 7.8vw, 2.05rem);
+    letter-spacing: -0.055em;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .saw-cut-trigger {
+    right: 0.45rem;
+    bottom: 0.4rem;
+    max-width: calc(100% - 0.9rem);
+  }
+
+  .footer-key-clue {
+    min-width: 2.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .miz-mobile-entry {
+    margin-top: 0.45rem;
+    margin-left: 0;
+  }
+}
