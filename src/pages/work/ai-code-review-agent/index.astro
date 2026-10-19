@@ -1,0 +1,49 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="AI Code Review Agent"
+  description="Case study: local multi-agent code review with specialist isolation, structured findings, and privacy-conscious inference."
+  eyebrow="Developer tooling · Local AI"
+  lede="Code review is a good place for multiple perspectives, but only if the system resists groupthink, handles uncertainty, and fits the developer's actual workflow."
+  status="Active"
+  access="Open source · MIT"
+  tags={['Ollama', 'Multi-agent review', 'Security', 'Verification']}
+  repoUrl="https://github.com/unyieldingclaw-dev/ai-code-review-agent"
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      A single broad “review this diff” prompt tends to blur security, correctness, performance, testing, architecture, and operational concerns together. It can also encourage findings to inherit each other's assumptions.
+    </p>
+  </section>
+
+  <section>
+    <h2>The system</h2>
+    <p>
+      The reviewer runs locally and sends a sanitized diff to isolated specialist agents. Each reviewer sees the code change through one lens, then an orchestrator deduplicates, cross-references, and applies confidence-aware severity handling.
+    </p>
+    <ul>
+      <li>Local Ollama inference keeps normal review runs off cloud APIs.</li>
+      <li>Specialists are isolated so one agent's framing does not automatically bias the others.</li>
+      <li>Security, correctness, dependencies, migrations, observability, integration risk, test coverage, and other domains have explicit ownership.</li>
+      <li>Generated tests are opt-in; normal review does not quietly write to the codebase.</li>
+      <li>The same review engine is available through CLI, MCP, and editor integration.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>The design constraint</h2>
+    <p>
+      More agents are not automatically better. The project only earns its complexity if independent lenses produce materially better findings without creating an unmanageable pile of low-confidence noise. The orchestrator exists to reduce that cost, not to make the architecture look sophisticated.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this demonstrates</h2>
+    <p>
+      The useful part is the review system around the model: isolation, sanitization, confidence, output structure, failure modes, opt-in write behavior, and interfaces that let the tool meet developers where they already work.
+    </p>
+  </section>
+</CaseStudyLayout>
