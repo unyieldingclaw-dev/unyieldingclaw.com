@@ -8213,3 +8213,45 @@ main:focus {
     width: min(18rem, calc(100% - 1.1rem));
   }
 }
+
+
+/* WCAG 2.2 2.2.2 — user can pause automatic, non-essential looping motion. */
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.75rem;
+  margin-left: 0.5rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid rgba(83, 107, 122, 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: 800 0.58rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.motion-toggle:hover,
+.motion-toggle:focus-visible {
+  background: rgba(47, 111, 237, 0.08);
+}
+
+.motion-toggle:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+html.motion-paused .proof-track,
+html.motion-paused .proof-board-live i,
+html.motion-paused .trail-guide__toggle,
+html.motion-paused .trail-marker {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 720px) {
+  .motion-toggle {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
