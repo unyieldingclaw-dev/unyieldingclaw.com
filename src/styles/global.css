@@ -7592,3 +7592,49 @@ nav a:focus-visible,
     transition: none;
   }
 }
+
+
+/* Tiny clue for the keyboard-only Easter egg. Visible, but easy to ignore. */
+.footer-key-clue {
+  display: inline-grid;
+  place-items: center;
+  margin-left: 0.35rem;
+  min-width: 1.25rem;
+  height: 1.05rem;
+  border: 1px solid rgba(255, 214, 0, 0.16);
+  border-radius: 0.25rem;
+  color: rgba(255, 214, 0, 0.38);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+  vertical-align: 0.08em;
+  cursor: help;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.footer-key-clue:hover,
+.footer-key-clue:focus-visible {
+  border-color: rgba(255, 214, 0, 0.48);
+  background: rgba(255, 214, 0, 0.055);
+  color: rgba(255, 214, 0, 0.9);
+  outline: none;
+}
+
+.footer-key-clue::after {
+  left: auto;
+  right: 0;
+  transform: translate(0, -0.18rem) scale(0.96);
+  transform-origin: top right;
+}
+
+.footer-key-clue:hover::after,
+.footer-key-clue:focus-visible::after {
+  transform: translate(0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-key-clue {
+    transition: none;
+  }
+}
