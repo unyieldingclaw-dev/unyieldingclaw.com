@@ -29,7 +29,7 @@ const mark = title
   .join('');
 ---
 
-<article class={`project-card project-card--${tone}`}>
+<a class={`project-card project-card--${tone}`} href={href} aria-label={`${title}: ${linkLabel}`}>
   <div class="project-card__mark" aria-hidden="true">{mark}</div>
   <div class="project-card__top">
     <p class="project-kicker">{eyebrow}</p>
@@ -42,5 +42,5 @@ const mark = title
       {tags.map((tag) => <li>{tag}</li>)}
     </ul>
   )}
-  <a class="project-link" href={href}>{linkLabel} <span aria-hidden="true">→</span></a>
-</article>
+  <span class="project-link">{linkLabel} <span aria-hidden="true">→</span></span>
+</a>
