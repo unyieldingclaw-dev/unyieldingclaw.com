@@ -77,19 +77,20 @@ const personSchema = {
     <aside class="trail-guide" data-trail-guide hidden aria-label="Hidden trail guide">
       <button class="trail-guide__toggle" type="button" aria-expanded="false">
         <span aria-hidden="true">⌖</span>
-        <strong>TRAIL <b data-trail-count>0/6</b></strong>
+        <strong>TRAIL <b data-trail-count>0/?</b></strong>
       </button>
       <div class="trail-guide__panel">
         <p class="trail-guide__kicker">UNYIELDING CLAW // FIELD GUIDE</p>
         <strong class="trail-guide__title">You found a trail marker.</strong>
         <p class="trail-guide__copy">Your prize is the knowledge that you clicked something nobody asked you to click.</p>
         <ol>
-          <li data-trail-item="home"><span>Basecamp</span><b>?</b></li>
-          <li data-trail-item="work"><span>Build Log</span><b>?</b></li>
-          <li data-trail-item="harness"><span>Systems Trail</span><b>?</b></li>
-          <li data-trail-item="workshop"><span>Sawdust Trail</span><b>?</b></li>
-          <li data-trail-item="about"><span>Origin Story</span><b>?</b></li>
-          <li data-trail-item="contact"><span>Basecamp Radio</span><b>?</b></li>
+          <li data-trail-chapter="home" data-trail-total="3"><span>Basecamp</span><b>0/3</b></li>
+          <li data-trail-chapter="work" data-trail-total="2"><span>Build Log</span><b>0/2</b></li>
+          <li data-trail-chapter="harness" data-trail-total="3"><span>Systems Trail</span><b>0/3</b></li>
+          <li data-trail-chapter="workshop" data-trail-total="3"><span>Sawdust Trail</span><b>0/3</b></li>
+          <li data-trail-chapter="about" data-trail-total="3"><span>Origin Story</span><b>0/3</b></li>
+          <li data-trail-chapter="contact" data-trail-total="2"><span>Basecamp Radio</span><b>0/2</b></li>
+          <li class="trail-guide__secret" data-trail-chapter="offtrail" data-trail-total="1"><span>Off Trail</span><b>?</b></li>
         </ol>
         <p class="trail-guide__footer" data-trail-message>There are more. Probably.</p>
       </div>
@@ -168,6 +169,7 @@ const personSchema = {
 
           if (eggBuffer.endsWith('miz')) {
             showToast('ZOU!');
+            window.unyieldingTrailDiscover?.('home-miz', 'MIZ // ZOU');
             eggBuffer = '';
           }
         });
@@ -176,49 +178,120 @@ const personSchema = {
         const trailToggle = trailGuide?.querySelector('.trail-guide__toggle');
         const trailCount = trailGuide?.querySelector('[data-trail-count]');
         const trailMessage = trailGuide?.querySelector('[data-trail-message]');
-        const trailKey = 'unyielding-claw-trail-v1';
-        const trailTotal = 6;
+        const trailKey = 'unyielding-claw-trail-v2';
+        const legacyTrailKey = 'unyielding-claw-trail-v1';
+        const trailTotal = 17;
         let foundMarkers = [];
+
+        const legacyMap = {
+          home: 'home-basecamp',
+          work: 'work-buildlog',
+          harness: 'harness-trail',
+          workshop: 'workshop-trail',
+          about: 'about-origin',
+          contact: 'contact-radio',
+        };
 
         try {
           foundMarkers = JSON.parse(localStorage.getItem(trailKey) || '[]');
           if (!Array.isArray(foundMarkers)) foundMarkers = [];
+
+          if (foundMarkers.length === 0) {
+            const legacy = JSON.parse(localStorage.getItem(legacyTrailKey) || '[]');
+            if (Array.isArray(legacy)) {
+              foundMarkers = legacy.map((id) => legacyMap[id]).filter(Boolean);
+            }
+          }
         } catch {
           foundMarkers = [];
         }
+
+        const saveTrail = () => {
+          try {
+            localStorage.setItem(trailKey, JSON.stringify([...new Set(foundMarkers)]));
+          } catch {}
+        };
 
         const renderTrail = () => {
           if (!trailGuide) return;
           const unique = [...new Set(foundMarkers)];
           trailGuide.hidden = unique.length === 0;
-          if (trailCount) trailCount.textContent = unique.length + '/' + trailTotal;
 
-          trailGuide.querySelectorAll('[data-trail-item]').forEach((item) => {
-            const found = unique.includes(item.getAttribute('data-trail-item'));
-            item.classList.toggle('is-found', found);
+          if (trailCount) {
+            trailCount.textContent = unique.length < 6
+              ? unique.length + '/?'
+              : unique.length + '/' + trailTotal;
+          }
+
+          trailGuide.querySelectorAll('[data-trail-chapter]').forEach((item) => {
+            const chapter = item.getAttribute('data-trail-chapter');
+            const total = Number(item.getAttribute('data-trail-total') || 0);
+            const found = unique.filter((id) => id.startsWith(chapter + '-')).length;
+            item.classList.toggle('is-found', found >= total && total > 0);
+            item.classList.toggle('has-progress', found > 0);
+
             const status = item.querySelector('b');
-            if (status) status.textContent = found ? '✓' : '?';
+            if (!status) return;
+
+            if (chapter === 'offtrail' && found === 0) {
+              status.textContent = '?';
+            } else {
+              status.textContent = found + '/' + total;
+            }
           });
 
           if (trailMessage) {
             trailMessage.textContent = unique.length >= trailTotal
-              ? 'TRAIL COMPLETE // You clicked everything nobody asked you to click.'
-              : unique.length >= 3
-                ? 'You are here. Probably. Context matters.'
-                : 'There are more. Probably.';
+              ? 'TRAIL COMPLETE // Apparently curiosity is a core competency.'
+              : unique.length >= 12
+                ? 'At this point you are either thorough or avoiding work.'
+                : unique.length >= 6
+                  ? 'The map got bigger. You knew it would.'
+                  : unique.length >= 3
+                    ? 'You are here. Probably. Context matters.'
+                    : 'There are more. Definitely.';
           }
         };
+
+        const discoverTrail = (id, toast = 'TRAIL FIND') => {
+          if (!id || foundMarkers.includes(id)) return false;
+          foundMarkers.push(id);
+          saveTrail();
+          renderTrail();
+          showToast(toast + ' // ' + [...new Set(foundMarkers)].length + '/?', 2200);
+          return true;
+        };
+
+        window.unyieldingTrailDiscover = discoverTrail;
 
         document.querySelectorAll('[data-trail-marker]').forEach((marker) => {
           marker.addEventListener('click', () => {
             const id = marker.getAttribute('data-trail-marker');
-            if (!id || foundMarkers.includes(id)) return;
-            foundMarkers.push(id);
-            try { localStorage.setItem(trailKey, JSON.stringify(foundMarkers)); } catch {}
-            marker.classList.add('is-found');
-            renderTrail();
-            showToast('TRAIL MARKER FOUND // ' + [...new Set(foundMarkers)].length + '/' + trailTotal, 2200);
+            if (discoverTrail(id, 'TRAIL MARKER FOUND')) marker.classList.add('is-found');
           });
+        });
+
+        document.querySelectorAll('[data-trail-hover]').forEach((target) => {
+          let discovered = false;
+          const findIt = () => {
+            if (discovered) return;
+            discovered = discoverTrail(target.getAttribute('data-trail-hover'), 'TRAIL DETAIL FOUND');
+          };
+
+          target.addEventListener('pointerenter', findIt, { passive: true });
+          target.addEventListener('focusin', findIt);
+          target.addEventListener('click', findIt);
+        });
+
+        document.querySelectorAll('[data-trail-auto]').forEach((target) => {
+          discoverTrail(target.getAttribute('data-trail-auto'), 'OFF-TRAIL FIND');
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const target = event.target.closest('[data-trail-discovery]');
+          if (!target) return;
+          discoverTrail(target.getAttribute('data-trail-discovery'), 'TRAIL DETAIL FOUND');
         });
 
         trailToggle?.addEventListener('click', () => {
