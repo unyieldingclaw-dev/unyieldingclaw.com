@@ -159,7 +159,7 @@ const personSchema = {
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div>
-          <a class="footer-brand egg-signature" data-egg="Built with code, sawdust, smoke & stubbornness." href="/">Eric Nolan · Unyielding Claw</a>
+          <a class="footer-brand egg-signature" data-egg="Built with code, sawdust, smoke & stubbornness. Not every Easter egg is clicked." href="/">Eric Nolan · Unyielding Claw</a>
           <p>Technical product leadership, AI engineering systems, practical software, and things built by hand.</p>
         </div>
         <div>
@@ -173,7 +173,15 @@ const personSchema = {
       </div>
       <div class="shell footer-bottom">
         <span>© {new Date().getFullYear()} Eric Nolan.</span>
-        <span>Site code MIT · authored content all rights reserved unless stated otherwise.</span>
+        <span>
+          Site code MIT · authored content all rights reserved unless stated otherwise.
+          <b
+            class="egg-inline footer-key-clue"
+            data-egg="CALL. RESPONSE. THREE LETTERS. NO ENTER KEY."
+            tabindex="0"
+            aria-label="A small keyboard clue"
+          >⌨</b>
+        </span>
       </div>
     </footer>
 
@@ -320,11 +328,19 @@ const personSchema = {
 
           if (trailMessage) {
             const remaining = Math.max(0, mainTrailTotal - mainCount);
-            trailMessage.textContent = mainCount >= mainTrailTotal
-              ? bonusCount > 0
-                ? 'All 16 found + the off-trail bonus. Mission complete.'
-                : 'All 16 found. Mission complete. One bonus may still be off trail.'
-              : remaining + (remaining === 1 ? ' discovery remains.' : ' discoveries remain.');
+
+            if (mainCount >= mainTrailTotal) {
+              trailMessage.textContent = bonusCount > 0
+                ? 'All 16 found + the off-trail bonus. Mission complete. The site still has secrets. Think call-and-response.'
+                : 'All 16 found. Mission complete. One Trail bonus may still be off trail—and not every secret on this site is clickable.';
+            } else if (mainCount >= 8) {
+              trailMessage.textContent =
+                remaining + (remaining === 1 ? ' discovery remains.' : ' discoveries remain.') +
+                ' Field note: some things on this site listen for keys, not clicks.';
+            } else {
+              trailMessage.textContent =
+                remaining + (remaining === 1 ? ' discovery remains.' : ' discoveries remain.');
+            }
           }
         };
 
