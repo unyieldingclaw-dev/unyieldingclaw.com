@@ -98,7 +98,12 @@ test('NVDA can activate the Workshop saw and hear the result', async ({ page, nv
   await nvda.navigateToWebContent();
 
   const { spokenPhrase } = await nvda.capture(
-    () => page.locator('[data-saw-trigger]').click(),
+    async () => {
+      await page.locator('[data-saw-trigger]').click();
+      // This is a polite status region, so keep the capture window open long
+      // enough for NVDA to announce the queued update after the button name.
+      await page.waitForTimeout(1500);
+    },
     { capture: true },
   );
 
