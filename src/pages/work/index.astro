@@ -1,38 +1,123 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 ---
 
 <BaseLayout
-  title="Selected Work"
-  description="Selected public projects by Eric Nolan across AI engineering, developer tooling, and practical software products."
+  title="Work"
+  description="Case studies and selected projects by Eric Nolan across AI engineering, developer tooling, practical software, and product design."
 >
   <header class="page-header">
     <div class="shell">
       <p class="eyebrow">Work</p>
-      <h1>Selected public work</h1>
-      <p class="lede">A small set of projects chosen for what they demonstrate, not a catalog of every repository.</p>
+      <h1>Products, systems, and the decisions behind them.</h1>
+      <p class="lede">
+        Public repositories where openness makes sense. Public-safe case studies where the product or data should remain private. The evidence matters more than repository visibility.
+      </p>
     </div>
   </header>
 
   <section class="section">
-    <div class="shell stack">
-      <article class="card">
-        <h2>Personal Memory Bank</h2>
-        <p>Persistent project memory and governance for AI-assisted development. The interesting problem is not storing Markdown—it is managing authority, stale context, provenance, scope, handoffs, and deterministic enforcement over time.</p>
-        <p><a href="https://github.com/unyieldingclaw-dev/personal-memory-bank">Repository →</a></p>
-      </article>
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Featured case studies</p>
+          <h2>Different problems. Consistent judgment.</h2>
+        </div>
+        <p class="section-intro">
+          The set intentionally mixes AI infrastructure with end-user products. I do not want the portfolio to imply that every useful problem needs an agent.
+        </p>
+      </div>
 
-      <article class="card">
-        <h2>AI Code Review Agent</h2>
-        <p>A local AI-assisted review system built around specialized, isolated review perspectives, explicit failure behavior, structured outputs, and privacy-conscious inference.</p>
-        <p><a href="https://github.com/unyieldingclaw-dev/ai-code-review-agent">Repository →</a></p>
-      </article>
+      <div class="project-grid">
+        <ProjectCard
+          title="Personal Memory Bank"
+          href="/work/personal-memory-bank/"
+          eyebrow="AI engineering"
+          description="Persistent project memory governed by authority, freshness, provenance, hooks, diagnostics, review workflows, and CI."
+          status="Open source"
+          tags={['Context', 'Governance', 'CLI', 'Developer productivity']}
+        />
+        <ProjectCard
+          title="AI Code Review Agent"
+          href="/work/ai-code-review-agent/"
+          eyebrow="Developer tooling"
+          description="Local multi-agent review with specialist isolation, confidence-aware findings, privacy-conscious inference, and multiple developer interfaces."
+          status="Open source"
+          tags={['Ollama', 'Review', 'Security', 'Verification']}
+          tone="slate"
+        />
+        <ProjectCard
+          title="Side Quest Atlas"
+          href="/work/side-quest-atlas/"
+          eyebrow="Travel memory product"
+          description="Private small-group travel memory capture designed around 'capture now, enrich later,' group ownership, and clear access boundaries."
+          status="Private case study"
+          tags={['Flutter', 'Supabase', 'RLS', 'Product modeling']}
+          tone="gold"
+        />
+        <ProjectCard
+          title="PitLogic"
+          href="/work/pitlogic/"
+          eyebrow="Telemetry product"
+          description="Client-side BBQ telemetry and analytics with live device integration, alerts, stall detection, forecasting, history, and data portability."
+          status="Open source"
+          tags={['React', 'PWA', 'Telemetry', 'Analytics']}
+          tone="copper"
+        />
+      </div>
+    </div>
+  </section>
 
-      <article class="card">
-        <h2>PitLogic</h2>
-        <p>A browser-based BBQ cook logging and analytics product with live device integration, alerts, predictions, testing, accessibility work, and static deployment.</p>
-        <p><a href="https://github.com/unyieldingclaw-dev/pitlogic">Repository →</a></p>
-      </article>
+  <section class="section section--warm">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Private, not hidden</p>
+          <h2>Some products are better documented than published.</h2>
+        </div>
+        <p class="section-intro">
+          Privacy, family data, club history, and user-specific records are legitimate reasons to keep a repository closed. The case studies expose the product decisions without exposing the people or data.
+        </p>
+      </div>
+
+      <div class="project-grid">
+        <ProjectCard
+          title="Tipsy Bunghole"
+          href="/work/tipsy-bunghole/"
+          eyebrow="Live event workflow"
+          description="A private whiskey-club product that coordinates blind tasting events across participant, steward, and host roles while preserving institutional memory."
+          status="Private case study"
+          tags={['React', 'Supabase', 'Roles', 'Event state']}
+          tone="copper"
+        />
+        <ProjectCard
+          title="Bowling Tracker"
+          href="/work/bowling-tracker/"
+          eyebrow="Sports tracking"
+          description="A focused bowling product for sessions, scoring, equipment, patterns, leagues, drills, and analytics—designed around the bowler's actual workflow."
+          status="Private case study"
+          tags={['Flutter', 'Offline sync', 'Analytics', 'Domain rules']}
+          tone="slate"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell split-feature">
+      <div>
+        <p class="eyebrow">Research</p>
+        <h2>Harness Engineering</h2>
+        <p class="section-intro">
+          The projects above repeatedly exposed the same deeper problem: AI quality depends on much more than the model. Harness Engineering is where I work through those surrounding systems explicitly.
+        </p>
+        <p><a class="text-link" style="color:#fff;" href="/harness-engineering/">Read the research overview →</a></p>
+      </div>
+      <aside class="feature-note" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14);">
+        <strong style="color:#fff;">A framework, not a claim of doctrine.</strong>
+        <p>It is evolving public research grounded in observed engineering problems, reference implementations, and explicit tradeoffs.</p>
+      </aside>
     </div>
   </section>
 </BaseLayout>
