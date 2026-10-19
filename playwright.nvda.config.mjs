@@ -1,5 +1,7 @@
 import { devices } from '@playwright/test';
-import { withGuidepup } from '@guidepup/playwright';
+import guidepupPlaywright from '@guidepup/playwright';
+
+const { withGuidepup } = guidepupPlaywright;
 
 export default withGuidepup({
   testDir: './tests/screen-reader',
