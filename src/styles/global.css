@@ -2531,9 +2531,9 @@ h2 {
     radial-gradient(circle at 30% 20%, rgba(255,255,255,0.12), transparent 25%),
     linear-gradient(145deg, #2f6fed, #123a63);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.77rem;
+  font-size: 0.84rem;
   font-weight: 900;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
 }
 
 .harness-node {
@@ -2548,17 +2548,19 @@ h2 {
 }
 
 .harness-node span {
-  color: #9dbaff;
+  color: #b3c8ff;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.62rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.07em;
 }
 
 .harness-node small {
-  margin-top: 0.15rem;
-  color: #849bad;
-  font-size: 0.68rem;
+  margin-top: 0.22rem;
+  color: #a8bccb;
+  font-size: 0.78rem;
+  line-height: 1.25;
 }
 
 .node-context { top: 1.4rem; left: 50%; transform: translateX(-50%); }
