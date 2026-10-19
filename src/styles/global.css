@@ -5803,3 +5803,25 @@ nav a:focus-visible,
     transform-origin: center left;
   }
 }
+
+
+/* Workshop dust story: the message only exists after the saw has made the mess. */
+.sawdust-bench__engraving {
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.sawdust-bench.is-buried .sawdust-bench__engraving {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sawdust-bench.is-cut-active .sawdust-bench__hint {
+  color: rgba(255,245,230,0.78);
+}
+
+.sawdust-bench.is-buried .sawdust-bench__hint {
+  color: rgba(255,245,230,0.92);
+  text-shadow: 0 1px 2px rgba(72,43,22,0.55);
+}
