@@ -5,52 +5,101 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 <BaseLayout>
   <section class="hero">
-    <div class="shell hero-grid">
-      <div>
-        <p class="eyebrow">Technical Product Manager · AI systems · Product builder</p>
-        <h1>I build systems that survive contact with <em>reality.</em></h1>
+    <div class="shell hero-grid hero-grid--wow">
+      <div class="hero-copy">
+        <div class="hero-badges" aria-label="Professional focus">
+          <span>Technical Product Manager</span>
+          <span class="badge-electric">Hands-on AI Development</span>
+          <span class="badge-emerald">AI Governance</span>
+        </div>
+
+        <p class="hero-kicker">I don't just roadmap AI.</p>
+        <h1>I build the systems that make AI <em>useful.</em></h1>
         <p class="lede">
-          My work sits between product intent and engineering execution: turning recurring friction into software, making AI-assisted systems governable, and designing for the messy parts that show up after the demo works.
+          I design and build AI-assisted products, developer tools, context systems, governed automation, and the integration layer around them—then make the failure modes visible enough to trust in real work.
         </p>
+
         <div class="hero-actions">
-          <a class="button" href="/work/">Explore the work</a>
-          <a class="button secondary" href="/about/">How I think</a>
+          <a class="button button-pop" href="/work/">See what I've built <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="/harness-engineering/">How I engineer AI</a>
+        </div>
+
+        <div class="hero-tech-line" aria-label="AI development capabilities">
+          <span>Python</span>
+          <span>FastAPI</span>
+          <span>LangGraph</span>
+          <span>Local LLMs</span>
+          <span>Agent orchestration</span>
+          <span>Evaluation</span>
+          <span>Guardrails</span>
         </div>
       </div>
 
-      <aside class="hero-panel" aria-label="What I focus on">
-        <p class="hero-panel__label">Current operating model</p>
-        <dl class="signal-list">
+      <div class="ai-proof-board" aria-label="Hands-on AI development proof">
+        <div class="proof-board-top">
+          <span class="proof-board-label">AI DEVELOPMENT // EVIDENCE</span>
+          <span class="proof-board-live"><i></i> BUILDING</span>
+        </div>
+
+        <article class="proof-module proof-module--blue">
+          <span class="proof-module-index">01</span>
           <div>
-            <dt>Build</dt>
-            <dd>Useful products around real workflows.</dd>
+            <strong>Context & Memory Systems</strong>
+            <p>Authority, freshness, provenance, drift detection, hooks, and context ceilings.</p>
           </div>
+        </article>
+
+        <article class="proof-module proof-module--emerald">
+          <span class="proof-module-index">02</span>
           <div>
-            <dt>Govern</dt>
-            <dd>Bound AI authority with explicit rules and checks.</dd>
+            <strong>Agent & Tool Orchestration</strong>
+            <p>Specialist agents, local inference, APIs, workflow routing, bounded execution.</p>
           </div>
+        </article>
+
+        <article class="proof-module proof-module--copper">
+          <span class="proof-module-index">03</span>
           <div>
-            <dt>Verify</dt>
-            <dd>Prefer evidence, failure visibility, and repeatable behavior.</dd>
+            <strong>Verification & Governance</strong>
+            <p>Independent review, CI gates, security controls, confidence, and failure handling.</p>
           </div>
-          <div>
-            <dt>Make</dt>
-            <dd>Software when software fits. Wood when wood fits.</dd>
-          </div>
-        </dl>
-      </aside>
+        </article>
+
+        <div class="proof-board-punch">
+          <span>OPEN SOURCE</span>
+          <strong>PMB + ACR + HE</strong>
+          <small>Public evidence, not résumé adjectives.</small>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <div class="proof-ribbon" aria-label="Selected AI engineering evidence">
+    <div class="proof-track">
+      <span>OPEN-SOURCE AI GOVERNANCE</span><b>◆</b>
+      <span>15-AGENT LOCAL CODE REVIEW</span><b>◆</b>
+      <span>CONTEXT AUTHORITY + PROVENANCE</span><b>◆</b>
+      <span>LOCAL LLM INFERENCE</span><b>◆</b>
+      <span>HUMAN-IN-THE-LOOP AUTOMATION</span><b>◆</b>
+      <span>BUILD · GOVERN · VERIFY · SHIP</span><b>◆</b>
+      <span aria-hidden="true">OPEN-SOURCE AI GOVERNANCE</span><b aria-hidden="true">◆</b>
+      <span aria-hidden="true">15-AGENT LOCAL CODE REVIEW</span><b aria-hidden="true">◆</b>
+      <span aria-hidden="true">CONTEXT AUTHORITY + PROVENANCE</span><b aria-hidden="true">◆</b>
+      <span aria-hidden="true">LOCAL LLM INFERENCE</span><b aria-hidden="true">◆</b>
+      <span aria-hidden="true">HUMAN-IN-THE-LOOP AUTOMATION</span><b aria-hidden="true">◆</b>
+      <span aria-hidden="true">BUILD · GOVERN · VERIFY · SHIP</span><b aria-hidden="true">◆</b>
+    </div>
+  </div>
+
+  <section class="section section--projects">
     <div class="shell">
-      <div class="section-heading">
+      <div class="section-heading section-heading--punch">
         <div>
-          <p class="eyebrow">Selected work</p>
-          <h2>Projects with something to prove.</h2>
+          <p class="eyebrow">Selected AI + product work</p>
+          <h2>The proof is in the systems.</h2>
         </div>
         <p class="section-intro">
-          These are not repository cards dressed up as a portfolio. Each project exists because a real workflow, constraint, or recurring failure was worth solving.
+          I want the work to answer the hiring question. Can I reason about AI architecture, build the thing, govern it, integrate it, test it, and still think like a product owner? These projects are the evidence.
         </p>
       </div>
 
@@ -58,8 +107,8 @@ import ProjectCard from '../components/ProjectCard.astro';
         <ProjectCard
           title="Personal Memory Bank"
           href="/work/personal-memory-bank/"
-          eyebrow="AI engineering · Developer workflow"
-          description="Persistent project context with explicit authority, freshness, provenance, diagnostics, hooks, review workflows, and deterministic guardrails."
+          eyebrow="AI engineering · Context systems"
+          description="Persistent project context with authority, freshness, provenance, diagnostics, hooks, review workflows, drift detection, and deterministic guardrails."
           status="Open source"
           tags={['Context engineering', 'Governance', 'CLI', 'CI']}
           tone="blue"
@@ -67,99 +116,103 @@ import ProjectCard from '../components/ProjectCard.astro';
         <ProjectCard
           title="AI Code Review Agent"
           href="/work/ai-code-review-agent/"
-          eyebrow="Local AI · Developer tooling"
-          description="A privacy-conscious multi-agent review system that isolates specialist perspectives, structures evidence, and makes failure behavior part of the product."
+          eyebrow="Local AI · Multi-agent tooling"
+          description="A local multi-agent review system with specialist isolation, sanitized diffs, confidence-aware findings, security controls, and IDE/CLI integration."
           status="Open source"
-          tags={['Local inference', 'Review', 'Security', 'Verification']}
-          tone="slate"
+          tags={['Ollama', 'Agents', 'Review', 'Security']}
+          tone="emerald"
         />
         <ProjectCard
-          title="Side Quest Atlas"
-          href="/work/side-quest-atlas/"
-          eyebrow="Product design · Travel memory"
-          description="A private group travel-memory product built around low-friction capture, shared history, clear domain boundaries, and durable data ownership."
-          status="Private case study"
-          tags={['Flutter', 'Supabase', 'RLS', 'Domain modeling']}
-          tone="gold"
+          title="Harness Engineering"
+          href="/harness-engineering/"
+          eyebrow="AI systems · Research framework"
+          description="My engineering framework for the layer around the model: context, memory, instructions, tools, orchestration, governance, evaluation, and execution boundaries."
+          status="Public research"
+          tags={['AI architecture', 'Evaluation', 'Governance', 'Execution']}
+          tone="slate"
+          linkLabel="Explore the framework"
         />
         <ProjectCard
           title="PitLogic"
           href="/work/pitlogic/"
-          eyebrow="Product engineering · BBQ telemetry"
-          description="A client-side cook logging and analytics product with live probe integration, alarms, stall intelligence, forecasting, portability, and offline-capable PWA behavior."
+          eyebrow="Product engineering · Live telemetry"
+          description="A deployed analytics PWA with device integration, alarms, stall detection, finish-time prediction, offline behavior, and 169 passing tests."
           status="Open source"
-          tags={['React', 'Telemetry', 'PWA', 'Analytics']}
+          tags={['React', 'Telemetry', 'PWA', 'Testing']}
           tone="copper"
         />
       </div>
 
-      <p style="margin-top: 1.5rem;"><a class="text-link" href="/work/">See the full project set, including private case studies →</a></p>
+      <p class="section-cta"><a class="text-link" href="/work/">See Side Quest Atlas, Tipsy Bunghole, Bowling Tracker, and the full project set →</a></p>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section section--dark section--ai-manifesto">
     <div class="shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Working principles</p>
-          <h2>Useful beats impressive.</h2>
+      <div class="manifesto-grid">
+        <div class="manifesto-head">
+          <p class="eyebrow">How I build AI</p>
+          <h2>Models are powerful. Systems make them dependable.</h2>
         </div>
-        <p class="section-intro">
-          I am interested in the layer between a compelling idea and a system people can actually rely on.
-        </p>
+
+        <div class="manifesto-copy">
+          <p>
+            Prompting matters. So do context authority, tool contracts, state, retries, approval gates, verification, privacy, degraded behavior, and whether anyone can tell what happened when the model is wrong.
+          </p>
+          <p>
+            That surrounding layer is where I spend a lot of my time.
+          </p>
+          <a class="button manifesto-button" href="/harness-engineering/">Enter Harness Engineering →</a>
+        </div>
       </div>
 
-      <div class="principle-grid">
+      <div class="principle-grid principle-grid--punch">
         <article class="principle">
-          <span>01</span>
-          <h3>Start with the workflow.</h3>
-          <p>Technology should follow the user problem, constraints, and operating environment—not become the reason the product exists.</p>
+          <span>BUILD</span>
+          <h3>Get close to the code.</h3>
+          <p>APIs, Python, orchestration, local models, data boundaries, developer workflows, and the actual implementation constraints.</p>
         </article>
         <article class="principle">
-          <span>02</span>
-          <h3>Bound authority.</h3>
-          <p>Automation earns scope. Consequential actions need explicit limits, deterministic checks, and approval points where judgment matters.</p>
+          <span>GOVERN</span>
+          <h3>Bound the machine.</h3>
+          <p>Give automation explicit authority, deterministic controls, and human approval where consequences deserve judgment.</p>
         </article>
         <article class="principle">
-          <span>03</span>
-          <h3>Make failure legible.</h3>
-          <p>Uncertainty, degraded states, and recovery paths belong in the design. Quiet guessing is not resilience.</p>
+          <span>VERIFY</span>
+          <h3>Do not let AI grade itself.</h3>
+          <p>Use independent review, tests, CI, structured evidence, and observable failure instead of quiet confidence theater.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell split-feature">
-      <div>
-        <p class="eyebrow">Research & engineering practice</p>
-        <h2>Harness Engineering</h2>
-        <p class="section-intro">
-          My working framework for reasoning about the systems around AI models: context, memory, instructions, tools, orchestration, governance, evaluation, and execution boundaries.
+  <section class="section section--range">
+    <div class="shell range-grid">
+      <div class="range-lead">
+        <p class="eyebrow">More than AI</p>
+        <h2>I build because I like solving things.</h2>
+        <p>
+          The AI work is central professionally. The rest of the site proves the same operating style shows up everywhere: travel products, live event workflows, bowling analytics, BBQ telemetry, woodworking, and Scouting leadership.
         </p>
-        <p><a class="text-link" href="/harness-engineering/">Explore the framework →</a></p>
       </div>
-      <aside class="feature-note">
-        <strong>No new machinery without an observed need.</strong>
-        <p>Measure first. Use deterministic sources where they already exist. Add telemetry, agents, or infrastructure only when the failure mode justifies them.</p>
-      </aside>
-    </div>
-  </section>
 
-  <section class="section section--warm">
-    <div class="shell split-feature">
-      <div>
-        <p class="eyebrow">Outside the terminal</p>
-        <h2>Nolan's Workshop</h2>
-        <p class="section-intro">
-          Jigs, work surfaces, shop systems, furniture, finishing, and the occasional overbuilt solution—because sometimes the right toolchain includes hardwood, steel, sawdust, and patience.
-        </p>
-        <p><a class="text-link" href="/woodworking/">Step into the workshop →</a></p>
+      <div class="range-cards">
+        <a class="range-card range-card--scouting" href="/about/">
+          <span>Leadership</span>
+          <strong>Eagle Scout · Sachem</strong>
+          <small>Service, mentoring, preparedness, and decades in Scouting.</small>
+        </a>
+        <a class="range-card range-card--workshop" href="/woodworking/">
+          <span>Maker</span>
+          <strong>Nolan's Workshop</strong>
+          <small>Jigs, tools, furniture, work surfaces, finishing, and sawdust.</small>
+        </a>
+        <a class="range-card range-card--products" href="/work/">
+          <span>Product builder</span>
+          <strong>Real workflows first</strong>
+          <small>Software when software fits. No agent required.</small>
+        </a>
       </div>
-      <aside class="feature-note">
-        <strong>Same bias, different material.</strong>
-        <p>Understand the job, respect the constraints, build for use, and leave enough evidence that the next version gets better.</p>
-      </aside>
     </div>
   </section>
 </BaseLayout>
