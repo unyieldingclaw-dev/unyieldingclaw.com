@@ -189,7 +189,8 @@ try {
     await page.goto(new URL('/woodworking/', baseURL).toString(), { waitUntil: 'networkidle' });
 
     const saw = page.locator('[data-saw-cut]');
-    await saw.focus();
+    const sawTrigger = page.locator('[data-saw-trigger]');
+    await sawTrigger.focus();
     await page.keyboard.press('Enter');
 
     if (!(await saw.evaluate((el) => el.classList.contains('is-cutting') || el.classList.contains('is-cut')))) {
