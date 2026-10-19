@@ -30,6 +30,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <aside class="workshop-bench" aria-label="Workshop build philosophy">
         <div class="bench-rule bench-rule--top"></div>
         <div class="bench-stamp egg-mark egg-mark--workshop" data-egg="NO FANTASY SHOP REQUIRED">NOLAN'S<br/>WORKSHOP</div>
+        <button class="trail-marker trail-marker--workshop" type="button" data-trail-marker="workshop" aria-label="Hidden trail marker: Sawdust Trail">◇</button>
         <div class="bench-note">
           <span>01</span>
           <strong>Fit the workflow</strong>
@@ -82,6 +83,58 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <section class="section workshop-playground">
+    <div class="shell">
+      <div class="section-heading section-heading--punch">
+        <div>
+          <p class="eyebrow">Shop rules are more like guidelines</p>
+          <h2>Please keep hands clear of the imaginary blade.</h2>
+        </div>
+        <p class="section-intro">
+          Some pages have hover effects. The Workshop has power tools. Move around. You'll figure it out.
+        </p>
+      </div>
+
+      <div class="workshop-play-grid">
+        <div class="saw-cut-stage" data-saw-cut tabindex="0" role="button" aria-label="Run the circular saw easter egg">
+          <div class="saw-cut-reveal">
+            <span>OFFCUT REMOVED</span>
+            <strong>Measure twice. Cut once.</strong>
+            <small>Stare at it for 20 minutes anyway.</small>
+          </div>
+
+          <div class="saw-cut-slab saw-cut-slab--top" aria-hidden="true">
+            <div class="saw-cut-grain"></div>
+            <span>NOLAN'S WORKSHOP</span>
+          </div>
+          <div class="saw-cut-slab saw-cut-slab--bottom" aria-hidden="true">
+            <div class="saw-cut-grain"></div>
+            <small>BUILT TO BE USED</small>
+          </div>
+
+          <div class="saw-cut-line" aria-hidden="true"></div>
+          <div class="circular-saw" data-circular-saw aria-hidden="true">
+            <div class="circular-saw__handle"></div>
+            <div class="circular-saw__body"></div>
+            <div class="circular-saw__blade"></div>
+          </div>
+          <div class="sawdust-burst" data-saw-dust aria-hidden="true"></div>
+          <span class="saw-cut-hint">hover here // yes, really</span>
+        </div>
+
+        <div class="sawdust-bench" data-sawdust-bench>
+          <div class="sawdust-bench__engraving">
+            <span>BENCH TEST</span>
+            <strong>Congratulations.</strong>
+            <small>You have now cleaned more of my shop than I have today.</small>
+          </div>
+          <canvas data-sawdust-canvas aria-hidden="true"></canvas>
+          <span class="sawdust-bench__hint">brush the sawdust away</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section workshop-process">
     <div class="shell process-grid">
       <div>
@@ -117,4 +170,137 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </aside>
     </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      const cutStage = document.querySelector('[data-saw-cut]');
+      const dustBurst = document.querySelector('[data-saw-dust]');
+      let cutting = false;
+      let cutResetTimer;
+
+      const spawnDust = (progress) => {
+        if (!dustBurst) return;
+        for (let i = 0; i < 3; i++) {
+          const particle = document.createElement('i');
+          particle.style.setProperty('--x', (5 + progress * 90) + '%');
+          particle.style.setProperty('--dx', (-20 + Math.random() * 70) + 'px');
+          particle.style.setProperty('--dy', (-18 - Math.random() * 58) + 'px');
+          particle.style.setProperty('--spin', (-140 + Math.random() * 280) + 'deg');
+          particle.style.setProperty('--size', (2 + Math.random() * 5) + 'px');
+          dustBurst.appendChild(particle);
+          setTimeout(() => particle.remove(), 950);
+        }
+      };
+
+      const runCut = () => {
+        if (!cutStage || cutting) return;
+        cutting = true;
+        clearTimeout(cutResetTimer);
+
+        if (reduceMotion) {
+          cutStage.classList.add('is-cut');
+          cutResetTimer = setTimeout(() => {
+            cutStage.classList.remove('is-cut');
+            cutting = false;
+          }, 2400);
+          return;
+        }
+
+        cutStage.classList.add('is-cutting');
+        const started = performance.now();
+        const duration = 1350;
+
+        const emit = (now) => {
+          const progress = Math.min(1, (now - started) / duration);
+          spawnDust(progress);
+          if (progress < 1 && cutting) requestAnimationFrame(emit);
+        };
+        requestAnimationFrame(emit);
+
+        setTimeout(() => {
+          cutStage.classList.add('is-cut');
+          cutStage.classList.remove('is-cutting');
+        }, duration);
+
+        cutResetTimer = setTimeout(() => {
+          cutStage.classList.remove('is-cut', 'is-cutting');
+          cutting = false;
+        }, 4300);
+      };
+
+      cutStage?.addEventListener('pointerenter', () => {
+        if (finePointer) runCut();
+      });
+      cutStage?.addEventListener('click', runCut);
+      cutStage?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          runCut();
+        }
+      });
+
+      const bench = document.querySelector('[data-sawdust-bench]');
+      const canvas = document.querySelector('[data-sawdust-canvas]');
+      if (!bench || !canvas || reduceMotion) return;
+
+      const ctx = canvas.getContext('2d');
+      let resetTimer;
+
+      const drawDust = () => {
+        const rect = bench.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        ctx.globalCompositeOperation = 'source-over';
+
+        const count = Math.floor((rect.width * rect.height) / 190);
+        const dustColors = ['#d7b27a', '#c99a5d', '#e2c08b', '#b9874f'];
+
+        for (let i = 0; i < count; i++) {
+          const x = Math.random() * rect.width;
+          const y = Math.random() * rect.height;
+          const radius = 0.6 + Math.random() * 2.1;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = dustColors[Math.floor(Math.random() * dustColors.length)];
+          ctx.globalAlpha = 0.35 + Math.random() * 0.55;
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      };
+
+      const clearDust = (event) => {
+        if (!finePointer) return;
+        clearTimeout(resetTimer);
+        const rect = bench.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        const gradient = ctx.createRadialGradient(x, y, 4, x, y, 54);
+        gradient.addColorStop(0, 'rgba(0,0,0,0.95)');
+        gradient.addColorStop(0.55, 'rgba(0,0,0,0.65)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(x, y, 54, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      };
+
+      drawDust();
+      bench.addEventListener('pointermove', clearDust);
+      bench.addEventListener('pointerleave', () => {
+        resetTimer = setTimeout(drawDust, 3200);
+      });
+      window.addEventListener('resize', drawDust, { passive: true });
+    })();
+  </script>
 </BaseLayout>
