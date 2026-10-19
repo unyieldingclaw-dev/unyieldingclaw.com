@@ -5108,3 +5108,349 @@ nav a:focus-visible,
     rotate: 0deg !important;
   }
 }
+
+
+/* Trail completion reward — earned, not advertised. */
+.trail-complete {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(3, 12, 22, 0.86);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.trail-complete.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.trail-complete__flash {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(3.2rem, 11vw, 9rem);
+  font-weight: 950;
+  letter-spacing: -0.06em;
+  text-align: center;
+  text-shadow:
+    0 0 34px rgba(91,140,255,0.72),
+    0 0 90px rgba(22,133,107,0.35);
+  opacity: 0;
+  transform: scale(0.72) rotate(-2deg);
+}
+
+.trail-complete.is-active .trail-complete__flash {
+  animation: hire-nolan-flash 1.35s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.trail-complete__card {
+  position: relative;
+  z-index: 2;
+  width: min(31rem, calc(100vw - 2rem));
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  padding: 2rem 1.4rem 1.5rem;
+  border: 1px solid rgba(111,158,255,0.32);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(47,111,237,0.20), transparent 16rem),
+    linear-gradient(145deg, rgba(9,31,52,0.98), rgba(5,18,31,0.98));
+  color: #dbe7f2;
+  text-align: center;
+  box-shadow: 0 34px 100px rgba(0,0,0,0.46);
+  opacity: 0;
+  transform: translateY(1.2rem) scale(0.94) rotate(0.6deg);
+}
+
+.trail-complete.is-active .trail-complete__card {
+  animation: trail-badge-arrive 620ms 1.02s cubic-bezier(.18,.85,.25,1.12) forwards;
+}
+
+.trail-complete__card p {
+  margin: 0;
+  color: #78a6ff;
+  font: 900 0.65rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+}
+
+.trail-complete__card > strong {
+  color: #fff;
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.3rem);
+  line-height: 1;
+}
+
+.trail-complete__card > small {
+  max-width: 24rem;
+  color: #9eb2c4;
+  font-size: 0.86rem;
+}
+
+.trail-complete__card button {
+  margin-top: 0.45rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(85,218,177,0.42);
+  border-radius: 999px;
+  background: rgba(22,133,107,0.15);
+  color: #9cf0d5;
+  font: 900 0.68rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.trail-complete__card button:hover {
+  background: rgba(22,133,107,0.27);
+  transform: translateY(-2px) rotate(-0.8deg);
+}
+
+.trail-badge {
+  position: relative;
+  width: 8.6rem;
+  height: 8.6rem;
+  display: grid;
+  place-items: center;
+  border: 0.62rem double #c7834e;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(91,140,255,0.28), transparent 42%),
+    repeating-conic-gradient(from 0deg, rgba(255,255,255,0.045) 0deg 5deg, transparent 5deg 10deg),
+    #0d2f50;
+  color: #fff;
+  box-shadow:
+    inset 0 0 0 0.22rem #10253a,
+    0 16px 36px rgba(0,0,0,0.34);
+  transform: rotate(-3deg);
+}
+
+.trail-badge::before {
+  content: "⌖";
+  position: absolute;
+  top: 0.65rem;
+  color: #65d9b7;
+  font-size: 1.25rem;
+}
+
+.trail-badge span {
+  margin-top: 0.6rem;
+  font-size: 2rem;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+}
+
+.trail-badge b {
+  position: absolute;
+  bottom: 1rem;
+  color: #efbd91;
+  font: 950 0.56rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.11em;
+}
+
+.trail-complete.is-pinned .trail-badge {
+  animation: badge-pin 700ms cubic-bezier(.18,.9,.3,1.2) forwards;
+}
+
+.trail-guide.has-earned-badge .trail-guide__toggle::after {
+  content: "★";
+  display: grid;
+  width: 1.1rem;
+  height: 1.1rem;
+  place-items: center;
+  margin-left: 0.15rem;
+  border-radius: 50%;
+  background: #b46a3c;
+  color: #fff4e6;
+  font-size: 0.62rem;
+  box-shadow: 0 0 0 2px rgba(180,106,60,0.18);
+}
+
+.trail-guide__secret {
+  opacity: 0.62;
+}
+
+.trail-guide__secret.has-progress,
+.trail-guide__secret.is-found {
+  opacity: 1;
+}
+
+@keyframes hire-nolan-flash {
+  0%   { opacity: 0; transform: scale(0.72) rotate(-2deg); }
+  18%  { opacity: 1; transform: scale(1.06) rotate(1deg); }
+  48%  { opacity: 1; transform: scale(0.98) rotate(-0.4deg); }
+  72%  { opacity: 1; transform: scale(1.02) rotate(0deg); }
+  100% { opacity: 0; transform: scale(1.14) rotate(0deg); }
+}
+
+@keyframes trail-badge-arrive {
+  from { opacity: 0; transform: translateY(1.2rem) scale(0.94) rotate(0.6deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.35deg); }
+}
+
+@keyframes badge-pin {
+  0%   { transform: rotate(-3deg) scale(1); }
+  45%  { transform: rotate(2deg) scale(0.91); }
+  72%  { transform: rotate(-1deg) scale(1.08); }
+  100% { transform: rotate(-3deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-complete.is-active .trail-complete__flash {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .trail-complete.is-active .trail-complete__card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    margin-top: 8rem;
+  }
+
+  .trail-complete.is-pinned .trail-badge {
+    animation: none;
+  }
+}
+
+
+/* Mission-complete payoff: build the joke, then land the punchline. */
+.trail-complete__mission {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 1rem;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-align: center;
+  pointer-events: none;
+}
+
+.trail-complete__mission span,
+.trail-complete__mission strong,
+.trail-complete__mission small,
+.trail-complete__mission b {
+  opacity: 0;
+  transform: translateY(0.8rem) scale(0.96);
+}
+
+.trail-complete__mission span {
+  color: #68dfbc;
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.trail-complete__mission strong {
+  max-width: 13ch;
+  font-size: clamp(1.8rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.trail-complete__mission small {
+  color: #aec5d9;
+  font-size: clamp(0.82rem, 1.7vw, 1.08rem);
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
+.trail-complete__mission b {
+  margin-top: 0.35rem;
+  color: #fff;
+  font-size: clamp(3rem, 11vw, 8.5rem);
+  font-weight: 1000;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+  text-shadow:
+    0 0 36px rgba(91,140,255,0.72),
+    0 0 100px rgba(22,133,107,0.38);
+}
+
+.trail-complete.is-active .trail-complete__mission span {
+  animation:
+    mission-line-in 380ms 80ms ease forwards,
+    mission-line-out 260ms 900ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission strong {
+  animation:
+    mission-line-in 420ms 420ms ease forwards,
+    mission-line-out 260ms 1450ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission small {
+  animation:
+    mission-line-in 420ms 870ms ease forwards,
+    mission-line-out 260ms 2050ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission b {
+  animation: hire-nolan-mission 1400ms 1550ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* The souvenir arrives only after the punchline lands. */
+.trail-complete.is-active .trail-complete__card {
+  animation: trail-badge-arrive 620ms 2.85s cubic-bezier(.18,.85,.25,1.12) forwards;
+}
+
+@keyframes mission-line-in {
+  from { opacity: 0; transform: translateY(0.8rem) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mission-line-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-0.45rem) scale(1.02); }
+}
+
+@keyframes hire-nolan-mission {
+  0%   { opacity: 0; transform: scale(0.72) rotate(-2deg); }
+  18%  { opacity: 1; transform: scale(1.07) rotate(1deg); }
+  52%  { opacity: 1; transform: scale(0.98) rotate(-0.45deg); }
+  78%  { opacity: 1; transform: scale(1.025) rotate(0deg); }
+  100% { opacity: 0; transform: scale(1.15) rotate(0deg); }
+}
+
+@media (max-width: 720px) {
+  .trail-complete__mission {
+    gap: 0.55rem;
+  }
+
+  .trail-complete__mission strong {
+    max-width: 12ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-complete.is-active .trail-complete__mission span,
+  .trail-complete.is-active .trail-complete__mission strong,
+  .trail-complete.is-active .trail-complete__mission small,
+  .trail-complete.is-active .trail-complete__mission b {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .trail-complete.is-active .trail-complete__card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    margin-top: 14rem;
+  }
+}

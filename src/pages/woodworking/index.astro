@@ -30,7 +30,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <aside class="workshop-bench" aria-label="Workshop build philosophy">
         <div class="bench-rule bench-rule--top"></div>
         <div class="bench-stamp egg-mark egg-mark--workshop" data-egg="NO FANTASY SHOP REQUIRED">NOLAN'S<br/>WORKSHOP</div>
-        <button class="trail-marker trail-marker--workshop" type="button" data-trail-marker="workshop" aria-label="Hidden trail marker: Sawdust Trail">◇</button>
+        <button class="trail-marker trail-marker--workshop" type="button" data-trail-marker="workshop-trail" aria-label="Hidden trail marker: Sawdust Trail">◇</button>
         <div class="bench-note">
           <span>01</span>
           <strong>Fit the workflow</strong>
@@ -122,7 +122,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <span class="saw-cut-hint">hover here // yes, really</span>
         </div>
 
-        <div class="sawdust-bench" data-sawdust-bench>
+        <div class="sawdust-bench" data-sawdust-bench data-trail-discovery="workshop-dust">
           <div class="sawdust-bench__engraving">
             <span>BENCH TEST</span>
             <strong>Congratulations.</strong>
@@ -197,6 +197,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       const runCut = () => {
         if (!cutStage || cutting) return;
+        window.unyieldingTrailDiscover?.('workshop-saw', 'SHOP TRAIL FIND');
         cutting = true;
         clearTimeout(cutResetTimer);
 
@@ -280,6 +281,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       const clearDust = (event) => {
         if (!finePointer && !brushing) return;
+        window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
         clearTimeout(resetTimer);
         const rect = bench.getBoundingClientRect();
         const x = event.clientX - rect.left;
