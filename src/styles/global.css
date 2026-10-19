@@ -3672,10 +3672,14 @@ nav a:focus-visible,
    Jeep-style easter eggs — discoverable, not distracting
    ========================================================================== */
 
-.egg-mark,
+.egg-mark:not(.harness-core),
 .egg-inline,
 .egg-signature {
   position: relative;
+}
+
+.harness-core.egg-mark {
+  position: absolute;
 }
 
 .egg-mark::after,
