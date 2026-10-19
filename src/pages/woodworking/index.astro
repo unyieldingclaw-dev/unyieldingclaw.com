@@ -113,18 +113,95 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           </div>
 
           <div class="saw-cut-line" aria-hidden="true"></div>
-          <div class="circular-saw" data-circular-saw aria-hidden="true">
-            <div class="circular-saw__shoe"></div>
-            <div class="circular-saw__blade"></div>
-            <div class="circular-saw__guard"></div>
-            <div class="circular-saw__body">
-              <span class="circular-saw__motor-cap"></span>
-              <span class="circular-saw__vent"></span>
-            </div>
-            <div class="circular-saw__handle">
-              <span class="circular-saw__trigger"></span>
-            </div>
-            <div class="circular-saw__front-grip"></div>
+          <div class="circular-saw circular-saw--svg" data-circular-saw aria-hidden="true">
+            <svg viewBox="0 0 240 150" role="presentation" focusable="false">
+              <defs>
+                <linearGradient id="sawBody" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f0c84b"/>
+                  <stop offset="42%" stop-color="#c98f27"/>
+                  <stop offset="100%" stop-color="#765018"/>
+                </linearGradient>
+                <linearGradient id="sawMetal" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f4f6f7"/>
+                  <stop offset="35%" stop-color="#aab2b7"/>
+                  <stop offset="68%" stop-color="#697277"/>
+                  <stop offset="100%" stop-color="#c9d0d4"/>
+                </linearGradient>
+                <linearGradient id="sawDark" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#4a4337"/>
+                  <stop offset="100%" stop-color="#181b1d"/>
+                </linearGradient>
+                <radialGradient id="bladeMetal" cx="45%" cy="38%" r="65%">
+                  <stop offset="0%" stop-color="#f7f8f8"/>
+                  <stop offset="36%" stop-color="#cdd3d6"/>
+                  <stop offset="72%" stop-color="#889196"/>
+                  <stop offset="100%" stop-color="#555d61"/>
+                </radialGradient>
+                <filter id="sawShadow" x="-30%" y="-30%" width="170%" height="190%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".32"/>
+                </filter>
+              </defs>
+
+              <g filter="url(#sawShadow)">
+                <path class="saw-svg__shoe" d="M11 125 L218 125 L231 133 L220 141 L16 141 L7 135 Z" fill="url(#sawMetal)" stroke="#596166" stroke-width="2"/>
+                <path d="M17 128 L218 128" stroke="#fff" stroke-opacity=".48" stroke-width="2"/>
+
+                <g class="saw-svg__blade-group">
+                  <circle class="saw-svg__blade" cx="70" cy="103" r="49" fill="url(#bladeMetal)" stroke="#4f575b" stroke-width="3"/>
+                  <g class="saw-svg__teeth" fill="#d8dde0" stroke="#596166" stroke-width="1">
+                    <path d="M70 50 l5 -8 4 10 z"/>
+                    <path d="M91 54 l8 -6 1 11 z"/>
+                    <path d="M109 67 l10 -3 -3 11 z"/>
+                    <path d="M119 87 l10 1 -7 9 z"/>
+                    <path d="M121 109 l9 5 -10 6 z"/>
+                    <path d="M113 130 l6 8 -11 2 z"/>
+                    <path d="M95 145 l2 10 -10 -4 z"/>
+                    <path d="M74 151 l-2 10 -8 -7 z"/>
+                    <path d="M51 147 l-6 8 -4 -10 z"/>
+                    <path d="M33 134 l-9 5 1 -11 z"/>
+                    <path d="M21 115 l-10 1 5 -10 z"/>
+                    <path d="M20 93 l-10 -3 8 -8 z"/>
+                    <path d="M29 71 l-8 -7 11 -3 z"/>
+                    <path d="M47 56 l-4 -9 11 1 z"/>
+                  </g>
+                  <circle cx="70" cy="103" r="12" fill="#4a5155" stroke="#b8c0c4" stroke-width="4"/>
+                  <circle cx="70" cy="103" r="4" fill="#1f2325"/>
+                </g>
+
+                <path class="saw-svg__guard" d="M28 101 A49 49 0 0 1 116 73 L111 87 A34 34 0 0 0 43 103 Z"
+                      fill="url(#sawMetal)" stroke="#5e666a" stroke-width="3"/>
+                <path d="M35 88 A41 41 0 0 1 106 69" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="3"/>
+
+                <path class="saw-svg__body"
+                      d="M93 48 C105 33 132 29 164 33 L194 47 C207 53 214 66 211 81 L205 105 C202 115 194 121 182 121 L112 120 C99 120 90 110 90 97 L88 66 C88 59 89 54 93 48 Z"
+                      fill="url(#sawBody)" stroke="#6f4a15" stroke-width="3"/>
+                <path d="M104 51 C125 39 160 40 190 54" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="4" stroke-linecap="round"/>
+
+                <g class="saw-svg__vents" stroke="#5c411d" stroke-width="3" stroke-linecap="round" opacity=".78">
+                  <path d="M139 91 l0 17"/>
+                  <path d="M147 89 l0 19"/>
+                  <path d="M155 88 l0 20"/>
+                  <path d="M163 89 l0 18"/>
+                </g>
+
+                <circle cx="188" cy="79" r="17" fill="#34393c" stroke="#7c8589" stroke-width="4"/>
+                <circle cx="188" cy="79" r="8" fill="#1d2022"/>
+
+                <path class="saw-svg__handle"
+                      d="M112 52 C116 22 133 10 161 12 C181 13 194 26 196 44 L178 48 C176 36 168 29 156 28 C142 27 134 35 132 53 Z"
+                      fill="url(#sawDark)" stroke="#17191a" stroke-width="3"/>
+                <path d="M142 31 C151 25 165 27 173 36" fill="none" stroke="#6f6758" stroke-width="4" stroke-linecap="round"/>
+                <rect x="166" y="41" width="17" height="8" rx="4" fill="#17191a"/>
+
+                <path class="saw-svg__front-grip"
+                      d="M86 59 C88 44 96 35 108 34 L119 37 L116 65 L101 73 Z"
+                      fill="url(#sawDark)" stroke="#1b1d1e" stroke-width="3"/>
+                <path d="M94 50 L111 47" stroke="#6e6658" stroke-width="3" stroke-linecap="round"/>
+
+                <path d="M111 117 L202 117" stroke="#4f3d23" stroke-width="2" opacity=".5"/>
+                <text x="181" y="111" font-family="ui-monospace, monospace" font-size="10" font-weight="900" fill="#5a3a11">7¼</text>
+              </g>
+            </svg>
           </div>
           <div class="sawdust-burst" data-saw-dust aria-hidden="true"></div>
           <span class="saw-cut-hint">hover here // yes, really</span>
@@ -235,68 +312,153 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         ctx.save();
         ctx.globalCompositeOperation = 'source-over';
 
-        const dustColors = ['#d7b27a', '#c99a5d', '#e2c08b', '#b9874f', '#efd2a1'];
-        const particles = finalPass ? 900 : 42;
+        const dustColors = [
+          '#d8b77f',
+          '#cda56d',
+          '#e3c58f',
+          '#b9854f',
+          '#efd9ad',
+          '#a96f3d'
+        ];
 
-        for (let i = 0; i < particles; i++) {
-          const centerBias = finalPass && Math.random() < 0.62;
-          const x = centerBias
-            ? rect.width * (0.25 + Math.random() * 0.5)
-            : Math.random() * rect.width;
-          const fallBias = 0.18 + (0.82 * Math.random());
-          const y = centerBias
-            ? rect.height * (0.26 + Math.random() * 0.5)
-            : rect.height * Math.pow(fallBias, 0.72);
-          const radius = finalPass
-            ? 1.1 + Math.random() * 4.3
-            : 0.8 + Math.random() * (2.2 + progress * 2.2);
-
+        const drawParticle = (x, y, size, alpha, color, angle = 0, aspect = 1) => {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle);
+          ctx.scale(aspect, 1);
           ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = dustColors[Math.floor(Math.random() * dustColors.length)];
-          ctx.globalAlpha = finalPass ? 0.62 + Math.random() * 0.34 : 0.26 + progress * 0.34;
+          ctx.ellipse(0, 0, size, Math.max(0.35, size * 0.42), 0, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.globalAlpha = alpha;
           ctx.fill();
+          ctx.restore();
+        };
+
+        const addRandomDust = (count, density = 1, centerBias = false) => {
+          for (let i = 0; i < count; i++) {
+            const biased = centerBias && Math.random() < 0.58;
+            const x = biased
+              ? rect.width * (0.16 + Math.random() * 0.68)
+              : Math.random() * rect.width;
+
+            // Fine dust settles everywhere, but there is a little more material
+            // toward the lower half and left edge where the saw is feeding it.
+            const settle = Math.pow(Math.random(), 0.82);
+            let y = rect.height * (0.08 + settle * 0.9);
+            if (Math.random() < 0.22) y = rect.height * (0.56 + Math.random() * 0.4);
+
+            const fine = Math.random() < 0.86;
+            const size = fine
+              ? 0.35 + Math.random() * (1.35 + density * 0.75)
+              : 1.8 + Math.random() * (3.6 + density * 1.3);
+
+            const alpha = fine
+              ? 0.24 + Math.random() * (0.34 + density * 0.12)
+              : 0.34 + Math.random() * (0.36 + density * 0.12);
+
+            const angle = Math.random() * Math.PI;
+            const aspect = fine ? 0.75 + Math.random() * 1.3 : 1.2 + Math.random() * 2.4;
+            const color = dustColors[Math.floor(Math.random() * dustColors.length)];
+
+            drawParticle(x, y, size, alpha, color, angle, aspect);
+
+            // Occasional paired flecks create little clumps instead of a perfect spray.
+            if (!fine && Math.random() < 0.38) {
+              drawParticle(
+                x + (-4 + Math.random() * 8),
+                y + (-3 + Math.random() * 6),
+                size * (0.35 + Math.random() * 0.45),
+                alpha * 0.72,
+                dustColors[Math.floor(Math.random() * dustColors.length)],
+                Math.random() * Math.PI,
+                0.8 + Math.random() * 1.8
+              );
+            }
+          }
+        };
+
+        const addBottomDrift = (count, strength) => {
+          for (let i = 0; i < count; i++) {
+            const x = Math.random() * rect.width;
+            const edgeNoise = Math.sin(x * 0.031) * 6 + Math.sin(x * 0.073) * 3;
+            const y = rect.height - (4 + Math.random() * (18 + strength * 34)) + edgeNoise;
+            const size = 0.8 + Math.random() * (2.5 + strength * 2.4);
+            const color = dustColors[Math.floor(Math.random() * dustColors.length)];
+
+            drawParticle(
+              x,
+              Math.min(rect.height - 2, Math.max(rect.height * 0.64, y)),
+              size,
+              0.34 + Math.random() * 0.48,
+              color,
+              Math.random() * Math.PI,
+              0.9 + Math.random() * 2.2
+            );
+          }
+        };
+
+        if (!finalPass) {
+          // Each animation tick adds a little more mess. No smooth gradient,
+          // just progressively denser particulate.
+          addRandomDust(58, 0.35 + progress * 0.8, progress > 0.45);
+          addBottomDrift(16, progress);
+        } else {
+          // Final pass: bury the message with dense, irregular fine dust.
+          addRandomDust(2600, 1.15, true);
+          addBottomDrift(900, 1.2);
+
+          // A broad band of fine dust across the message area. Still granular:
+          // many tiny specks, never a filled radial blob.
+          for (let i = 0; i < 1600; i++) {
+            const x = rect.width * (0.08 + Math.random() * 0.84);
+            const y = rect.height * (0.27 + Math.random() * 0.5);
+            const size = 0.35 + Math.random() * 1.8;
+            const color = dustColors[Math.floor(Math.random() * dustColors.length)];
+
+            drawParticle(
+              x,
+              y,
+              size,
+              0.38 + Math.random() * 0.42,
+              color,
+              Math.random() * Math.PI,
+              0.8 + Math.random() * 2
+            );
+          }
+
+          // A few irregular piles made of overlapping particles, not gradients.
+          const pileCenters = [
+            [0.24, 0.62],
+            [0.47, 0.54],
+            [0.68, 0.61],
+            [0.82, 0.72]
+          ];
+
+          pileCenters.forEach(([px, py], pileIndex) => {
+            const spreadX = rect.width * (0.09 + pileIndex * 0.005);
+            const spreadY = rect.height * (0.07 + pileIndex * 0.004);
+
+            for (let i = 0; i < 360; i++) {
+              const theta = Math.random() * Math.PI * 2;
+              const radius = Math.sqrt(Math.random());
+              const x = rect.width * px + Math.cos(theta) * spreadX * radius;
+              const y = rect.height * py + Math.sin(theta) * spreadY * radius;
+              const size = 0.55 + Math.random() * 2.7;
+
+              drawParticle(
+                x,
+                y,
+                size,
+                0.4 + Math.random() * 0.45,
+                dustColors[Math.floor(Math.random() * dustColors.length)],
+                Math.random() * Math.PI,
+                0.8 + Math.random() * 2.2
+              );
+            }
+          });
         }
 
-        // Build an actual mound across the message area as the cut progresses.
-        const moundAlpha = finalPass ? 0.88 : Math.min(0.54, 0.08 + progress * 0.48);
-        const moundHeight = rect.height * (finalPass ? 0.62 : 0.18 + progress * 0.34);
-        const moundY = rect.height * 0.5;
-
-        const mound = ctx.createRadialGradient(
-          rect.width * 0.5, moundY, 12,
-          rect.width * 0.5, moundY, Math.max(rect.width * 0.48, moundHeight)
-        );
-        mound.addColorStop(0, 'rgba(202,154,92,' + moundAlpha.toFixed(2) + ')');
-        mound.addColorStop(0.48, 'rgba(215,178,122,' + (moundAlpha * 0.9).toFixed(2) + ')');
-        mound.addColorStop(0.78, 'rgba(185,135,79,' + (moundAlpha * 0.58).toFixed(2) + ')');
-        mound.addColorStop(1, 'rgba(185,135,79,0)');
-
-        ctx.fillStyle = mound;
-        ctx.fillRect(0, 0, rect.width, rect.height);
-
-        // Sawdust tends to bank along the lower edge; make the pile feel dimensional.
-        const bank = ctx.createLinearGradient(0, rect.height * 0.56, 0, rect.height);
-        bank.addColorStop(0, 'rgba(226,192,142,0)');
-        bank.addColorStop(0.48, 'rgba(214,174,118,' + (finalPass ? 0.42 : progress * 0.24).toFixed(2) + ')');
-        bank.addColorStop(1, 'rgba(154,103,57,' + (finalPass ? 0.72 : progress * 0.38).toFixed(2) + ')');
-        ctx.fillStyle = bank;
-        ctx.fillRect(0, rect.height * 0.52, rect.width, rect.height * 0.48);
-
-        if (finalPass) {
-          // Deliberately bury the hidden message so the rag interaction matters.
-          const cover = ctx.createRadialGradient(
-            rect.width * 0.5, rect.height * 0.5, 18,
-            rect.width * 0.5, rect.height * 0.5, rect.width * 0.38
-          );
-          cover.addColorStop(0, 'rgba(207,164,105,0.98)');
-          cover.addColorStop(0.52, 'rgba(218,181,126,0.95)');
-          cover.addColorStop(0.82, 'rgba(190,140,83,0.78)');
-          cover.addColorStop(1, 'rgba(190,140,83,0)');
-          ctx.fillStyle = cover;
-          ctx.fillRect(0, 0, rect.width, rect.height);
-        }
-
+        ctx.globalAlpha = 1;
         ctx.restore();
 
         if (finalPass) {

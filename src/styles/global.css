@@ -5825,3 +5825,83 @@ nav a:focus-visible,
   color: rgba(255,245,230,0.92);
   text-shadow: 0 1px 2px rgba(72,43,22,0.55);
 }
+
+
+/* SVG circular saw: override the earlier CSS-constructed tool parts. */
+.circular-saw--svg {
+  left: -14rem;
+  width: 13.5rem;
+  height: 8.5rem;
+  transform: translateY(-66%);
+  filter: none;
+}
+
+.circular-saw--svg > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Old div-based saw rules must not style SVG geometry. */
+.circular-saw--svg .saw-svg__blade {
+  position: static;
+  width: auto;
+  height: auto;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.circular-saw--svg .saw-svg__blade-group {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg {
+  animation: saw-cross-real 3.15s cubic-bezier(.08,.03,.04,.99) forwards;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__blade-group {
+  animation: saw-spin-real 0.095s linear infinite;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__body {
+  animation: saw-body-vibration 0.11s steps(2,end) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes saw-cross-real {
+  0%   { left: -14rem; transform: translateY(-66%) rotate(-0.35deg); }
+  5%   { left: -10.5rem; transform: translateY(-66%) rotate(0.2deg); }
+  50%  { transform: translateY(-66%) rotate(-0.18deg); }
+  94%  { left: calc(100% - 2rem); transform: translateY(-66%) rotate(0.22deg); }
+  100% { left: calc(100% + 5rem); transform: translateY(-66%) rotate(0deg); }
+}
+
+@keyframes saw-spin-real {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes saw-body-vibration {
+  0%   { transform: translate(0,0); }
+  50%  { transform: translate(.55px,-.4px); }
+  100% { transform: translate(-.35px,.35px); }
+}
+
+@media (max-width: 720px) {
+  .circular-saw--svg {
+    width: 11rem;
+    height: 7rem;
+    transform: translateY(-64%) scale(0.78);
+    transform-origin: center left;
+  }
+
+  @keyframes saw-cross-real {
+    0%   { left: -12rem; transform: translateY(-64%) scale(0.78); }
+    100% { left: calc(100% + 3rem); transform: translateY(-64%) scale(0.78); }
+  }
+}
