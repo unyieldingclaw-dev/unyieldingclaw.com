@@ -9,18 +9,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <header class="page-header">
     <div class="shell">
       <p class="eyebrow">Contact</p>
-      <h1>Find me online.</h1>
-      <p class="lede">GitHub is the best place to inspect the work itself. A domain-based contact address will replace the current email after forwarding is configured.</p>
+      <h1>Start with the work.</h1>
+      <p class="lede">
+        GitHub is the best place to inspect the public implementations. Email works for everything that needs an actual conversation.
+      </p>
     </div>
   </header>
 
   <section class="section">
-    <div class="shell prose">
-      <h2>GitHub</h2>
-      <p><a href="https://github.com/unyieldingclaw-dev">github.com/unyieldingclaw-dev →</a></p>
+    <div class="shell split-feature">
+      <div class="prose">
+        <h2>GitHub</h2>
+        <p><a class="text-link" href="https://github.com/unyieldingclaw-dev">github.com/unyieldingclaw-dev →</a></p>
 
-      <h2>Email</h2>
-      <p><a href="mailto:unyieldingclaw@gmail.com">unyieldingclaw@gmail.com</a></p>
+        <h2>Email</h2>
+        <p><a class="text-link" href="mailto:unyieldingclaw@gmail.com">unyieldingclaw@gmail.com</a></p>
+      </div>
+
+      <aside class="feature-note">
+        <strong>What is intentionally not here</strong>
+        <p>This site does not publish employer-internal material, confidential implementations, credentials, customer data, or source code from private projects merely to make a portfolio look more complete.</p>
+      </aside>
     </div>
   </section>
 </BaseLayout>
