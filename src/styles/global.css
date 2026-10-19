@@ -7531,3 +7531,64 @@ nav a:focus-visible,
     }
   }
 }
+
+
+/* Trail reset — explicit two-click reset for demos / handoffs. */
+.trail-guide__reset-wrap {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.09);
+}
+
+.trail-guide__reset,
+.trail-complete__reset {
+  width: fit-content;
+  border: 1px solid rgba(177,198,217,0.24);
+  border-radius: 0.45rem;
+  background: rgba(255,255,255,0.045);
+  color: #b7c9d8;
+  font: 800 0.62rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.trail-guide__reset {
+  padding: 0.45rem 0.58rem;
+}
+
+.trail-guide__reset-wrap small {
+  color: #7890a3;
+  font-size: 0.67rem;
+  line-height: 1.35;
+}
+
+.trail-guide__reset:hover,
+.trail-guide__reset:focus-visible,
+.trail-complete__reset:hover,
+.trail-complete__reset:focus-visible {
+  border-color: rgba(126,169,255,0.48);
+  background: rgba(126,169,255,0.10);
+  color: #e6f0f8;
+}
+
+.trail-guide__reset:active,
+.trail-complete__reset:active {
+  transform: translateY(1px);
+}
+
+.trail-complete__reset {
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.65rem;
+  color: rgba(225,236,245,0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-guide__reset,
+  .trail-complete__reset {
+    transition: none;
+  }
+}
