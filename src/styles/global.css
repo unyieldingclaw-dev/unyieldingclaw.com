@@ -4798,3 +4798,313 @@ nav a:focus-visible,
     animation: none;
   }
 }
+
+
+/* ==========================================================================
+   Controlled imperfection by page
+   Work = pinned project wall
+   About = stacked personal history
+   Contact = loose conversation cards
+   Harness = precise at rest, physical on hover
+   ========================================================================== */
+
+/* WORK — preserve live 3D tilt, but start each project from a different
+   resting position. */
+.project-grid--work-misaligned > .project-card {
+  --work-x: 0px;
+  --work-y: 0px;
+  --work-r: 0deg;
+  transform:
+    perspective(1100px)
+    translate3d(var(--work-x), var(--work-y), 0)
+    rotateZ(var(--work-r))
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+  transform-origin: center;
+}
+
+.project-grid--work-misaligned > .project-card:hover,
+.project-grid--work-misaligned > .project-card.is-tilting,
+.project-grid--work-misaligned > .project-card:focus-visible {
+  transform:
+    perspective(1100px)
+    translate3d(var(--work-x), calc(var(--work-y) - 9px), 0)
+    rotateZ(var(--work-r))
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y))
+    scale(1.012);
+}
+
+.section--projects .project-grid--work-misaligned > .project-card:nth-child(1) {
+  --work-x: -9px;
+  --work-y: 5px;
+  --work-r: -0.95deg;
+}
+
+.section--projects .project-grid--work-misaligned > .project-card:nth-child(2) {
+  --work-x: 8px;
+  --work-y: -3px;
+  --work-r: 0.72deg;
+}
+
+.section--projects .project-grid--work-misaligned > .project-card:nth-child(3) {
+  --work-x: -4px;
+  --work-y: 11px;
+  --work-r: 1.08deg;
+}
+
+.section--projects .project-grid--work-misaligned > .project-card:nth-child(4) {
+  --work-x: 10px;
+  --work-y: 4px;
+  --work-r: -0.58deg;
+}
+
+.section--private-lab .project-grid--work-private > .project-card:nth-child(1) {
+  --work-x: -7px;
+  --work-y: 7px;
+  --work-r: 0.85deg;
+}
+
+.section--private-lab .project-grid--work-private > .project-card:nth-child(2) {
+  --work-x: 9px;
+  --work-y: -2px;
+  --work-r: -1.02deg;
+}
+
+/* Work console stays readable, but stops looking factory-aligned. */
+.subhero--work .work-console__metric {
+  transition:
+    transform 180ms cubic-bezier(.2,.8,.2,1),
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.subhero--work .work-console__metric:nth-child(2) {
+  transform: translateX(-5px) rotate(-0.35deg);
+}
+
+.subhero--work .work-console__metric:nth-child(3) {
+  transform: translateX(6px) rotate(0.45deg);
+}
+
+.subhero--work .work-console__metric:nth-child(4) {
+  transform: translateX(-2px) rotate(-0.2deg);
+}
+
+.subhero--work .work-console__metric:hover {
+  transform: translateX(4px) rotate(0.65deg) scale(1.015);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.16);
+}
+
+/* ABOUT — cards placed on a desk, not rows in a form. */
+.subhero--about .about-stack {
+  gap: 1rem;
+}
+
+.subhero--about .about-stack__card {
+  transition:
+    transform 220ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.subhero--about .about-stack__card:nth-child(1) {
+  transform: translate3d(10px, -2px, 0) rotate(1.35deg);
+}
+
+.subhero--about .about-stack__card:nth-child(2) {
+  transform: translate3d(-15px, 4px, 0) rotate(-0.9deg);
+}
+
+.subhero--about .about-stack__card:nth-child(3) {
+  transform: translate3d(6px, 9px, 0) rotate(0.62deg);
+}
+
+.subhero--about .about-stack__card:nth-child(1):hover {
+  transform: translate3d(17px, -9px, 0) rotate(-1.2deg) scale(1.025);
+  box-shadow: 12px 24px 52px rgba(0,0,0,0.25);
+}
+
+.subhero--about .about-stack__card:nth-child(2):hover {
+  transform: translate3d(-23px, -3px, 0) rotate(1.45deg) scale(1.022);
+  box-shadow: -12px 22px 50px rgba(0,0,0,0.24);
+}
+
+.subhero--about .about-stack__card:nth-child(3):hover {
+  animation: about-card-settle 520ms cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes about-card-settle {
+  0%   { transform: translate3d(6px, 9px, 0) rotate(0.62deg); }
+  30%  { transform: translate3d(14px, -2px, 0) rotate(-1.8deg) scale(1.025); }
+  60%  { transform: translate3d(2px, 5px, 0) rotate(1.15deg) scale(1.018); }
+  82%  { transform: translate3d(9px, 3px, 0) rotate(-0.35deg) scale(1.02); }
+  100% { transform: translate3d(6px, 9px, 0) rotate(0.62deg); }
+}
+
+/* CONTACT — two primary cards tossed onto the desk; topic cards get smaller
+   offsets so the page still scans quickly. */
+.subhero--contact .contact-panel {
+  gap: 1.2rem;
+}
+
+.subhero--contact .contact-action--github {
+  transform: translate3d(-10px, 3px, 0) rotate(-1.05deg);
+}
+
+.subhero--contact .contact-action--email {
+  transform: translate3d(12px, -2px, 0) rotate(0.82deg);
+}
+
+.subhero--contact .contact-action--github:hover,
+.subhero--contact .contact-action--github:focus-visible {
+  transform: translate3d(-18px, -8px, 0) rotate(1.25deg) scale(1.025);
+}
+
+.subhero--contact .contact-action--email:hover,
+.subhero--contact .contact-action--email:focus-visible {
+  transform: translate3d(19px, -9px, 0) rotate(-1.35deg) scale(1.025);
+}
+
+.contact-topic-grid article {
+  transition:
+    transform 190ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.contact-topic-grid article:nth-child(1) {
+  transform: translate3d(-5px, 3px, 0) rotate(-0.48deg);
+}
+.contact-topic-grid article:nth-child(2) {
+  transform: translate3d(6px, -4px, 0) rotate(0.55deg);
+}
+.contact-topic-grid article:nth-child(3) {
+  transform: translate3d(4px, 6px, 0) rotate(0.32deg);
+}
+.contact-topic-grid article:nth-child(4) {
+  transform: translate3d(-6px, -1px, 0) rotate(-0.62deg);
+}
+
+.contact-topic-grid article:nth-child(odd):hover {
+  transform: translate3d(-9px, -7px, 0) rotate(0.8deg) scale(1.018);
+  box-shadow: -8px 20px 44px rgba(11,31,51,0.12);
+}
+.contact-topic-grid article:nth-child(even):hover {
+  transform: translate3d(10px, -7px, 0) rotate(-0.75deg) scale(1.018);
+  box-shadow: 8px 20px 44px rgba(11,31,51,0.12);
+}
+
+/* HARNESS — exact geometry while idle; each node physically sags/slips when
+   touched. Individual translate/rotate properties preserve the node's absolute
+   placement transform, including the centered CONTEXT and side nodes. */
+.harness-map .harness-node {
+  translate: 0 0;
+  rotate: 0deg;
+  transform-origin: 50% 0%;
+  transition:
+    translate 210ms cubic-bezier(.18,.85,.25,1.22),
+    rotate 210ms cubic-bezier(.18,.85,.25,1.22),
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+  will-change: translate, rotate;
+}
+
+.harness-map .harness-node:hover {
+  border-color: rgba(126,169,255,0.46);
+  background: rgba(10,32,52,0.96);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.18);
+}
+
+.harness-map .node-context:hover {
+  translate: 0 10px;
+  rotate: -0.6deg;
+}
+
+.harness-map .node-memory:hover {
+  translate: -3px 9px;
+  rotate: -1.45deg;
+  transform-origin: 90% 0%;
+}
+
+.harness-map .node-tools:hover {
+  translate: 4px 12px;
+  rotate: 1.25deg;
+  transform-origin: 10% 0%;
+}
+
+.harness-map .node-orchestration:hover {
+  translate: 0 13px;
+  rotate: 0.85deg;
+}
+
+.harness-map .node-governance:hover {
+  translate: 0 8px;
+  rotate: -0.7deg;
+}
+
+.harness-map .node-evaluation:hover {
+  translate: -2px 11px;
+  rotate: 1.15deg;
+}
+
+.harness-map .node-runtime:hover {
+  translate: 3px 9px;
+  rotate: -1.05deg;
+}
+
+/* The model itself is the anchor: it sinks a little instead of wandering. */
+.harness-map .harness-core:hover,
+.harness-map .harness-core:focus-visible {
+  translate: 0 4px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.24);
+}
+
+/* Narrow screens keep the character, but reduce the geometry enough that cards
+   do not collide with the viewport. */
+@media (max-width: 900px) {
+  .project-grid--work-misaligned > .project-card {
+    --work-x: 0px !important;
+    --work-y: 0px !important;
+    --work-r: 0deg !important;
+  }
+
+  .subhero--about .about-stack__card:nth-child(1) {
+    transform: translate3d(4px, 0, 0) rotate(0.55deg);
+  }
+  .subhero--about .about-stack__card:nth-child(2) {
+    transform: translate3d(-5px, 2px, 0) rotate(-0.4deg);
+  }
+  .subhero--about .about-stack__card:nth-child(3) {
+    transform: translate3d(3px, 4px, 0) rotate(0.3deg);
+  }
+
+  .subhero--contact .contact-action--github {
+    transform: translate3d(-4px, 1px, 0) rotate(-0.45deg);
+  }
+  .subhero--contact .contact-action--email {
+    transform: translate3d(4px, -1px, 0) rotate(0.38deg);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .harness-map .harness-node:hover,
+  .harness-map .harness-core:hover {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subhero--about .about-stack__card:nth-child(3):hover {
+    animation: none;
+  }
+
+  .harness-map .harness-node,
+  .harness-map .harness-core {
+    transition: none;
+    translate: 0 0 !important;
+    rotate: 0deg !important;
+  }
+}
