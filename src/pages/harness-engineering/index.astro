@@ -17,22 +17,65 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </header>
 
   <section class="section">
-    <div class="shell prose">
-      <h2>Why it exists</h2>
-      <p>
-        AI systems accumulate prompts, rules, memories, tools, routing, evaluators, and automation quickly. The goal of this work is to reason about those surrounding systems as engineering—not as a collection of tricks.
-      </p>
+    <div class="shell split-feature">
+      <div class="prose">
+        <h2>The model is only part of the system.</h2>
+        <p>
+          AI products accumulate prompts, rules, memory, tools, routers, evaluators, retries, approval gates, and automation quickly. Those pieces determine what the model knows, what it may do, what happens when it is wrong, and whether anyone can explain the result.
+        </p>
+        <p>
+          Harness Engineering is my attempt to treat that surrounding layer as engineering rather than as a bag of prompting tricks.
+        </p>
+      </div>
+      <aside class="feature-note">
+        <strong>Working framework, not doctrine.</strong>
+        <p>This is evolving personal research grounded in observed problems, public reference implementations, and explicit tradeoffs. I am not claiming the term is a universally established discipline.</p>
+      </aside>
+    </div>
+  </section>
 
-      <h2>Current themes</h2>
+  <section class="section section--dark">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Current themes</p>
+          <h2>What sits around the model matters.</h2>
+        </div>
+        <p class="section-intro">The research keeps circling a few recurring engineering problems.</p>
+      </div>
+
+      <div class="principle-grid">
+        <article class="principle">
+          <span>01</span>
+          <h3>Context authority</h3>
+          <p>Which source wins when instructions, memory, project state, and runtime evidence disagree?</p>
+        </article>
+        <article class="principle">
+          <span>02</span>
+          <h3>Bounded execution</h3>
+          <p>What may the system do on its own, what requires approval, and what should remain deterministic?</p>
+        </article>
+        <article class="principle">
+          <span>03</span>
+          <h3>Independent verification</h3>
+          <p>How do we test outputs and behavior without asking the same reasoning path to grade itself?</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell prose">
+      <h2>Other recurring questions</h2>
       <p>
-        The public research covers topics such as bounded execution, explicit approval gates, artifact-based workflow transitions, behavioral evaluation, independent verification, context authority, observability boundaries, model/runtime fitness, and avoiding duplicate sources of truth.
+        Artifact-gated workflow transitions, behavioral evaluation, approval receipts, model/runtime fitness, observability boundaries, adaptive autonomy, handoffs, and avoiding duplicate sources of truth all show up repeatedly.
       </p>
 
       <div class="callout">
-        <strong>Scope matters.</strong> This is an evolving personal research and engineering framework, not a claim that “Harness Engineering” is a universally established discipline.
+        <strong>One rule I keep coming back to:</strong> do not add telemetry, agents, or infrastructure because the architecture diagram feels incomplete. Use existing deterministic evidence first, measure the actual gap, and add machinery only when the observed failure mode earns it.
       </div>
 
-      <p><a href="https://github.com/unyieldingclaw-dev/harness-engineering">Browse the public research repository →</a></p>
+      <p><a class="text-link" href="https://github.com/unyieldingclaw-dev/harness-engineering">Browse the public research repository →</a></p>
     </div>
   </section>
 </BaseLayout>
