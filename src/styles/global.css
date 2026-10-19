@@ -7638,3 +7638,654 @@ nav a:focus-visible,
     transition: none;
   }
 }
+
+
+/* ==========================================================================
+   Mobile accessibility pass
+   Desktop/tablet layouts above 720px are intentionally unchanged.
+   ========================================================================== */
+@media (max-width: 720px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .shell {
+    width: min(calc(100% - 1.2rem), var(--max));
+  }
+
+  /* Header: show every destination without clipped horizontal navigation. */
+  .site-header {
+    position: relative;
+  }
+
+  .header-inner {
+    min-height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding-block: 0.7rem 0.8rem;
+  }
+
+  .brand {
+    width: fit-content;
+    min-width: 0;
+  }
+
+  .brand-copy strong {
+    font-size: 1rem;
+  }
+
+  .brand-copy small {
+    font-size: 0.64rem;
+    letter-spacing: 0.11em;
+  }
+
+  nav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    overflow: visible;
+    padding: 0;
+  }
+
+  nav a {
+    min-width: 0;
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.62rem 0.55rem;
+    border: 1px solid rgba(47,111,237,0.10);
+    background: rgba(255,255,255,0.32);
+    text-align: center;
+    white-space: normal;
+    line-height: 1.18;
+  }
+
+  nav a[aria-current="page"] {
+    border-color: rgba(47,111,237,0.18);
+  }
+
+  /* Global type and spacing: readable without giant desktop scale. */
+  h1,
+  .page-header h1,
+  .case-hero h1,
+  .subhero h1 {
+    max-width: none;
+    font-size: clamp(2.35rem, 11vw, 3.65rem);
+    line-height: 0.98;
+    overflow-wrap: anywhere;
+  }
+
+  h2,
+  .section-heading h2,
+  .thesis-grid h2 {
+    max-width: none;
+    font-size: clamp(2rem, 8.5vw, 2.9rem);
+    line-height: 1.02;
+  }
+
+  h3 {
+    overflow-wrap: anywhere;
+  }
+
+  .lede,
+  .section-intro,
+  .thesis-copy,
+  .case-content p,
+  .case-content li {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .hero,
+  .subhero,
+  .page-header,
+  .case-hero {
+    padding-top: 2.75rem;
+    padding-bottom: 3rem;
+  }
+
+  .section {
+    padding-block: 3.25rem;
+  }
+
+  .hero-grid,
+  .subhero-grid,
+  .case-hero__grid,
+  .thesis-grid,
+  .career-grid,
+  .scouting-grid,
+  .range-grid,
+  .process-grid,
+  .split-feature,
+  .contact-hero-grid,
+  .manifesto-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.5rem;
+  }
+
+  .subhero-badges,
+  .hero-tech-line,
+  .tag-row {
+    gap: 0.45rem;
+  }
+
+  .subhero-badges span,
+  .hero-tech-line span,
+  .tag {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .hero-actions .button,
+  .button {
+    min-height: 3rem;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  /* Keep decorative desktop offsets from pushing cards beyond the viewport. */
+  .project-grid,
+  .principle-grid,
+  .workshop-grid,
+  .harness-question-grid,
+  .contact-topic-grid,
+  .personal-mosaic,
+  .range-cards {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .project-card,
+  .section--projects .project-card,
+  .section--private-lab .project-card,
+  .subhero--about .about-stack__card,
+  .subhero--contact .contact-action,
+  .contact-topic-grid article,
+  .work-console__metric,
+  .workshop-card,
+  .personal-tile {
+    min-width: 0;
+    max-width: 100%;
+    transform: none !important;
+  }
+
+  .project-card {
+    min-height: 0;
+  }
+
+  .project-card__body {
+    padding: 1.2rem;
+  }
+
+  .project-card h2,
+  .project-card h3 {
+    overflow-wrap: anywhere;
+  }
+
+  /* Harness map: mobile is a readable system stack, not a shrunken desktop diagram. */
+  .harness-map {
+    min-height: 0 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.65rem;
+    padding: 0.85rem;
+  }
+
+  .harness-map::before,
+  .harness-map::after {
+    display: none !important;
+  }
+
+  .harness-map > .harness-core,
+  .harness-map > button.harness-core {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 3.2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.65rem;
+    transform: none !important;
+    order: -1;
+  }
+
+  .harness-map .harness-node {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0.8rem 0.85rem;
+    transform: none !important;
+    translate: none !important;
+    rotate: 0deg !important;
+    scale: 1 !important;
+  }
+
+  .harness-map .harness-node span {
+    font-size: 0.76rem;
+  }
+
+  .harness-map .harness-node small {
+    font-size: 0.83rem;
+  }
+
+  .harness-question {
+    min-height: 0;
+    padding: 1.1rem;
+  }
+
+  .harness-question h3 {
+    margin-top: 0.85rem;
+    font-size: 1.3rem;
+  }
+
+  /* Case studies: preserve reading order and keep the rail useful. */
+  .case-layout,
+  .case-body,
+  .case-content,
+  .case-flow,
+  .case-next {
+    min-width: 0;
+  }
+
+  .case-rail {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.45rem;
+  }
+
+  .case-rail__item {
+    min-width: 0;
+  }
+
+  .case-content pre,
+  .case-content code,
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* About/contact/workshop cards should not keep desktop toss/rotation offsets. */
+  .about-stack,
+  .contact-panel {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .scouting-callout,
+  .identity-card,
+  .rule-card,
+  .work-console,
+  .workshop-bench,
+  .sawdust-bench,
+  .saw-cut-stage {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .rule-card {
+    padding: 1.25rem;
+  }
+
+  .rule-card blockquote {
+    max-width: none;
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  /* Workshop interactions: stay usable without overflowing a phone. */
+  .sawdust-bench__wipe-cue {
+    right: 0.55rem;
+    bottom: 0.55rem;
+    max-width: calc(100% - 1.1rem);
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .sawdust-bench__wipe-cue svg {
+    width: 2rem;
+  }
+
+  .sawdust-bench__wipe-cue i {
+    width: min(5.5rem, 28vw);
+  }
+
+  .circular-saw--svg {
+    --saw-scale: .68;
+  }
+
+  /* Trail UI: keep it above phone browser chrome/safe areas. */
+  .trail-guide {
+    right: max(0.65rem, env(safe-area-inset-right));
+    bottom: max(0.65rem, env(safe-area-inset-bottom));
+  }
+
+  .trail-guide__toggle {
+    min-width: 7rem;
+    min-height: 2.9rem;
+  }
+
+  .trail-guide__panel {
+    right: 0;
+    width: min(20rem, calc(100vw - 1.3rem));
+    max-height: min(72vh, 34rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .trail-complete__card,
+  .matrix-overlay__message {
+    width: calc(100% - 1.2rem);
+    max-width: 32rem;
+  }
+
+  /* Footer/content resilience. */
+  .footer-grid,
+  .footer-bottom {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+  }
+
+  .footer-bottom span,
+  .footer-grid p,
+  .footer-grid a {
+    overflow-wrap: anywhere;
+  }
+
+  img,
+  svg,
+  canvas,
+  video {
+    max-width: 100%;
+  }
+}
+
+
+/* ==========================================================================
+   WCAG 2.2 AA hardening
+   Focus, contrast, reflow, target size, text spacing, forced colors, and
+   non-drag alternatives. These rules are intentionally low-impact visually.
+   ========================================================================== */
+
+:root {
+  /* Previous #667684 fell below 4.5:1 on the warm paper background. */
+  --muted: #5f6d78;
+}
+
+html {
+  scroll-padding-top: 6.5rem;
+  scroll-padding-bottom: 5.5rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+:where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+) {
+  scroll-margin-block: 6.5rem 5.5rem;
+}
+
+:where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 3px solid #5b8cff;
+  outline-offset: 3px;
+}
+
+.section--dark :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible,
+.hero :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible,
+.subhero :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline-color: #b8d2ff;
+}
+
+.harness-map:focus-visible {
+  outline: 3px solid #b8d2ff;
+  outline-offset: 5px;
+}
+
+.egg-inline[tabindex],
+.scouting-mark[tabindex],
+.micro-joke[tabindex],
+.proof-board-punch[tabindex] {
+  border-radius: 0.3rem;
+}
+
+.egg-mark::after,
+.egg-inline::after,
+.egg-signature::after {
+  pointer-events: auto;
+}
+
+.egg-tooltip-dismissed::after {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Keep the hidden Trail controls subtle, but not below non-text contrast. */
+.trail-marker {
+  opacity: 0.72;
+  color: rgba(184, 210, 255, 0.94);
+  border-color: rgba(126, 169, 255, 0.52);
+}
+
+.trail-guide li b {
+  color: #7890a3;
+}
+
+/* WCAG 2.2 target-size minimum for the intentionally tiny keyboard clue. */
+.footer-key-clue {
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Preserve the exact desktop Harness geometry while allowing text-spacing
+   overrides and zoom to increase a node's height instead of clipping it. */
+@media (min-width: 721px) {
+  .harness-map .harness-node {
+    height: auto;
+    min-height: var(--harness-node-height, 3.75rem);
+  }
+}
+
+/* 2.5.7 Dragging Movements: wiping remains fun, but never required. */
+.sawdust-bench__clear {
+  position: absolute;
+  left: 50%;
+  bottom: 0.8rem;
+  z-index: 12;
+  min-height: 2.75rem;
+  max-width: calc(100% - 1.2rem);
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255, 244, 227, 0.46);
+  border-radius: 999px;
+  background: rgba(66, 38, 20, 0.88);
+  color: #fff5e6;
+  font: 800 0.72rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-align: center;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 24px rgba(57,34,18,0.22);
+}
+
+.sawdust-bench__clear[hidden] {
+  display: none !important;
+}
+
+.sawdust-bench__clear:hover,
+.sawdust-bench__clear:focus-visible {
+  background: rgba(82, 47, 24, 0.96);
+}
+
+/* Respect system high-contrast modes instead of preserving decorative paint. */
+@media (forced-colors: active) {
+  :where(a, button, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  .project-card,
+  .harness-map,
+  .harness-node,
+  .harness-core,
+  .harness-question,
+  .rule-card,
+  .workshop-card,
+  .contact-action,
+  .about-stack__card,
+  .trail-guide__panel,
+  .trail-complete__card,
+  .matrix-overlay__message {
+    border: 1px solid CanvasText;
+    forced-color-adjust: auto;
+  }
+
+  .trail-marker,
+  .footer-key-clue {
+    opacity: 1;
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+  .sawdust-bench__clear {
+    bottom: 0.55rem;
+    width: min(18rem, calc(100% - 1.1rem));
+  }
+}
+
+
+/* WCAG 2.2 2.2.2 — user can pause automatic, non-essential looping motion. */
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.75rem;
+  margin-left: 0.5rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid rgba(83, 107, 122, 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: 800 0.58rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.motion-toggle:hover,
+.motion-toggle:focus-visible {
+  background: rgba(47, 111, 237, 0.08);
+}
+
+.motion-toggle:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+html.motion-paused .proof-track,
+html.motion-paused .proof-board-live i,
+html.motion-paused .trail-guide__toggle,
+html.motion-paused .trail-marker {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 720px) {
+  .motion-toggle {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+
+/* Contrast and reflow corrections found during the WCAG pass. */
+.saw-cut-slab span {
+  color: rgba(62, 31, 16, 0.82);
+}
+
+.saw-cut-slab small {
+  color: rgba(64, 33, 18, 0.84);
+}
+
+.footer-key-clue {
+  color: rgba(255, 214, 0, 0.48);
+  border-color: rgba(255, 214, 0, 0.30);
+}
+
+.egg-mark::after,
+.egg-inline::after,
+.egg-signature::after {
+  max-width: min(22rem, calc(100vw - 2rem));
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

@@ -25,15 +25,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <div class="harness-map" id="system-map" aria-label="Harness Engineering system map">
-        <button class="harness-core egg-mark egg-mark--dark matrix-trigger" type="button" data-matrix-trigger data-egg="PROMPTING ≠ ARCHITECTURE" aria-label="Model node. There may be more here than meets the eye.">MODEL</button>
-        <div data-trail-hover="harness-sag" class="harness-node node-context"><span>CONTEXT</span><small>authority · freshness</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-memory"><span>MEMORY</span><small>state · provenance</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-tools"><span>TOOLS</span><small>contracts · permissions</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-orchestration"><span>ORCHESTRATION</span><small>routing · handoffs</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-governance"><span>GOVERNANCE</span><small>scope · approval</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-evaluation"><span>EVALUATION</span><small>evidence · behavior</small></div>
-        <div data-trail-hover="harness-sag" class="harness-node node-runtime"><span>RUNTIME</span><small>retries · recovery</small></div>
+      <div
+        class="harness-map"
+        id="system-map"
+        tabindex="0"
+        data-trail-hover="harness-sag"
+        aria-label="Harness Engineering system map. Context, memory, tools, orchestration, governance, evaluation, and runtime surround the model."
+      >
+        <button class="harness-core egg-mark egg-mark--dark matrix-trigger" type="button" data-matrix-trigger data-egg="PROMPTING ≠ ARCHITECTURE" aria-label="Model node. Open the Matrix easter egg." aria-describedby="model-egg-clue">MODEL</button>
+        <span class="sr-only" id="model-egg-clue">Hidden note: prompting is not architecture.</span>
+        <div class="harness-node node-context"><span>CONTEXT</span><small>authority · freshness</small></div>
+        <div class="harness-node node-memory"><span>MEMORY</span><small>state · provenance</small></div>
+        <div class="harness-node node-tools"><span>TOOLS</span><small>contracts · permissions</small></div>
+        <div class="harness-node node-orchestration"><span>ORCHESTRATION</span><small>routing · handoffs</small></div>
+        <div class="harness-node node-governance"><span>GOVERNANCE</span><small>scope · approval</small></div>
+        <div class="harness-node node-evaluation"><span>EVALUATION</span><small>evidence · behavior</small></div>
+        <div class="harness-node node-runtime"><span>RUNTIME</span><small>retries · recovery</small></div>
       </div>
     </div>
   </header>
@@ -103,14 +110,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <div class="matrix-overlay" data-matrix-overlay aria-hidden="true">
-    <canvas class="matrix-canvas" data-matrix-canvas></canvas>
+  <div
+    class="matrix-overlay"
+    data-matrix-overlay
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="matrix-title"
+    aria-describedby="matrix-description"
+    aria-hidden="true"
+    inert
+  >
+    <canvas class="matrix-canvas" data-matrix-canvas aria-hidden="true"></canvas>
     <div class="matrix-overlay__message">
       <span>HARNESS ENGINEERING // RUNTIME CHECK</span>
-      <strong>THE MODEL IS NOT THE PRODUCT.</strong>
-      <small>There is no spoon. There is, however, a tool contract.</small>
+      <strong id="matrix-title">THE MODEL IS NOT THE PRODUCT.</strong>
+      <small id="matrix-description">There is no spoon. There is, however, a tool contract.</small>
     </div>
-    <button type="button" class="matrix-overlay__close" data-matrix-close aria-label="Close Matrix easter egg">ESC</button>
+    <button type="button" class="matrix-overlay__close" data-matrix-close aria-label="ESC — close Matrix easter egg">ESC</button>
   </div>
 
   <script is:inline>
@@ -127,6 +143,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       let stopTimer;
       let running = false;
       let neoBuffer = '';
+      let previousFocus = null;
 
       const sizeCanvas = () => {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -137,20 +154,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
 
-      const stopMatrix = () => {
+      const stopMatrix = ({ restoreFocus = true } = {}) => {
         running = false;
         cancelAnimationFrame(animationFrame);
         clearTimeout(stopTimer);
         overlay.classList.remove('is-active');
         overlay.setAttribute('aria-hidden', 'true');
+        overlay.inert = true;
+
+        if (restoreFocus && previousFocus instanceof HTMLElement) {
+          previousFocus.focus({ preventScroll: true });
+        }
       };
 
       const startMatrix = () => {
         if (running) return;
         window.unyieldingTrailDiscover?.('harness-matrix', 'MATRIX FOUND');
+        previousFocus = document.activeElement;
         running = true;
+        overlay.inert = false;
         overlay.classList.add('is-active');
         overlay.setAttribute('aria-hidden', 'false');
+        close?.focus({ preventScroll: true });
 
         if (reduceMotion) {
           stopTimer = setTimeout(stopMatrix, 2600);
@@ -192,6 +217,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       });
 
       document.addEventListener('keydown', (event) => {
+        if (running && event.key === 'Tab') {
+          event.preventDefault();
+          close?.focus();
+          return;
+        }
+
         if (event.key === 'Escape' && running) {
           stopMatrix();
           return;

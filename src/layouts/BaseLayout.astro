@@ -80,16 +80,16 @@ const personSchema = {
     <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="cursor-spotlight" aria-hidden="true"></div>
     <div class="egg-toast" role="status" aria-live="polite"></div>
-    <div class="miz-takeover" data-miz-takeover aria-hidden="true">
+    <div class="miz-takeover" data-miz-takeover role="status" aria-live="assertive" aria-atomic="true" aria-hidden="true">
       <strong>ZOU!</strong>
     </div>
 
     <aside class="trail-guide" data-trail-guide hidden aria-label="Hidden trail guide">
-      <button class="trail-guide__toggle" type="button" aria-expanded="false">
+      <button class="trail-guide__toggle" type="button" aria-expanded="false" aria-controls="trail-guide-panel">
         <span aria-hidden="true">⌖</span>
         <strong>TRAIL <b data-trail-count>0/?</b></strong>
       </button>
-      <div class="trail-guide__panel">
+      <div class="trail-guide__panel" id="trail-guide-panel" aria-hidden="true" inert>
         <p class="trail-guide__kicker">UNYIELDING CLAW // FIELD GUIDE</p>
         <strong class="trail-guide__title">Trail progress</strong>
         <p class="trail-guide__copy" data-trail-summary>Explore the site. Hidden markers and interactive details both count.</p>
@@ -110,7 +110,16 @@ const personSchema = {
       </div>
     </aside>
 
-    <div class="trail-complete" data-trail-complete aria-hidden="true">
+    <div
+      class="trail-complete"
+      data-trail-complete
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="trail-complete-title"
+      aria-describedby="trail-complete-description"
+      aria-hidden="true"
+      inert
+    >
       <div class="trail-complete__mission" aria-hidden="true">
         <span>CONGRATULATIONS!</span>
         <strong>YOU COMPLETED YOUR MISSION.</strong>
@@ -123,9 +132,10 @@ const personSchema = {
           <b>EXPLORER</b>
         </div>
         <p>TRAIL GUIDE // RANK EARNED</p>
-        <strong>Unyielding Explorer</strong>
-        <small>You found everything nobody asked you to find.</small>
+        <strong id="trail-complete-title">Unyielding Explorer</strong>
+        <small id="trail-complete-description">You found everything nobody asked you to find.</small>
         <button type="button" data-trail-pin>PIN THE BADGE</button>
+        <button type="button" class="trail-complete__continue" data-trail-continue>CONTINUE EXPLORING</button>
         <button type="button" class="trail-complete__reset" data-trail-reset data-reset-label="RESET FOR NEXT EXPLORER">RESET FOR NEXT EXPLORER</button>
       </div>
     </div>
@@ -134,8 +144,9 @@ const personSchema = {
 
     <header class="site-header">
       <div class="shell header-inner">
-        <a class="brand" href="/" aria-label="Eric Nolan home">
+        <a class="brand" href="/" aria-label="Eric Nolan home" aria-describedby="brand-egg-clue">
           <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW" aria-hidden="true">UC</span>
+          <span class="sr-only" id="brand-egg-clue">Hidden note: Sachem, Unyielding Claw.</span>
           <span class="brand-copy">
             <strong>Eric Nolan</strong>
             <small>Unyielding Claw</small>
@@ -152,14 +163,15 @@ const personSchema = {
       </div>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div>
-          <a class="footer-brand egg-signature" data-egg="Tigers, Jayhawks, and Cyclones... oh my." href="/">Eric Nolan · Unyielding Claw</a>
+          <a class="footer-brand egg-signature" data-egg="Tigers, Jayhawks, and Cyclones... oh my." href="/" aria-describedby="footer-school-clue">Eric Nolan · Unyielding Claw</a>
+          <span class="sr-only" id="footer-school-clue">Hidden clue: Tigers, Jayhawks, and Cyclones... oh my.</span>
           <p>Technical product leadership, AI engineering systems, practical software, and things built by hand.</p>
         </div>
         <div>
@@ -175,12 +187,15 @@ const personSchema = {
         <span>© {new Date().getFullYear()} Eric Nolan.</span>
         <span>
           Site code MIT · authored content all rights reserved unless stated otherwise.
-          <b
+          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false">PAUSE AUTO MOTION</button>
+          <span
             class="egg-inline footer-key-clue"
             data-egg="Here's a shout out to ol MIZZOU. (type your 3 letters)."
             tabindex="0"
-            aria-label="A small keyboard clue"
-          >⌨</b>
+            role="note"
+            aria-describedby="miz-key-clue"
+          >⌨</span>
+          <span class="sr-only" id="miz-key-clue">Easter egg clue: Here's a shout out to ol MIZZOU. Type your three letters.</span>
         </span>
       </div>
     </footer>
@@ -189,6 +204,36 @@ const personSchema = {
       (() => {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const motionToggle = document.querySelector('[data-motion-toggle]');
+        const motionKey = 'unyielding-claw-motion-paused-v1';
+
+        let motionPaused = reduceMotion;
+        if (!reduceMotion) {
+          try { motionPaused = localStorage.getItem(motionKey) === 'true'; } catch {}
+        }
+
+        const renderMotionPreference = () => {
+          document.documentElement.classList.toggle('motion-paused', motionPaused);
+
+          if (!motionToggle) return;
+          motionToggle.setAttribute('aria-pressed', String(motionPaused));
+
+          if (reduceMotion) {
+            motionToggle.textContent = 'MOTION REDUCED BY SYSTEM';
+            motionToggle.disabled = true;
+          } else {
+            motionToggle.textContent = motionPaused ? 'RESUME AUTO MOTION' : 'PAUSE AUTO MOTION';
+          }
+        };
+
+        motionToggle?.addEventListener('click', () => {
+          if (reduceMotion) return;
+          motionPaused = !motionPaused;
+          try { localStorage.setItem(motionKey, String(motionPaused)); } catch {}
+          renderMotionPreference();
+        });
+
+        renderMotionPreference();
 
         const eggToast = document.querySelector('.egg-toast');
         const mizTakeover = document.querySelector('[data-miz-takeover]');
@@ -236,6 +281,7 @@ const personSchema = {
 
         const trailGuide = document.querySelector('[data-trail-guide]');
         const trailToggle = trailGuide?.querySelector('.trail-guide__toggle');
+        const trailPanel = trailGuide?.querySelector('.trail-guide__panel');
         const trailCount = trailGuide?.querySelector('[data-trail-count]');
         const trailMessage = trailGuide?.querySelector('[data-trail-message]');
         const trailSummary = trailGuide?.querySelector('[data-trail-summary]');
@@ -346,9 +392,35 @@ const personSchema = {
 
         const trailComplete = document.querySelector('[data-trail-complete]');
         const trailPin = document.querySelector('[data-trail-pin]');
+        const trailContinue = document.querySelector('[data-trail-continue]');
         const trailResetButtons = document.querySelectorAll('[data-trail-reset]');
+        const trailPageRegions = [
+          document.querySelector('.site-header'),
+          document.querySelector('main'),
+          document.querySelector('.site-footer'),
+          trailGuide,
+        ].filter(Boolean);
+        let trailDialogPreviousFocus = null;
         let trailResetArmed = false;
         let trailResetTimer;
+
+        const setTrailPageInert = (isInert) => {
+          trailPageRegions.forEach((region) => {
+            region.inert = isInert;
+          });
+        };
+
+        const closeTrailComplete = ({ restoreFocus = true } = {}) => {
+          if (!trailComplete) return;
+          trailComplete.classList.remove('is-active', 'is-pinned');
+          trailComplete.setAttribute('aria-hidden', 'true');
+          trailComplete.inert = true;
+          setTrailPageInert(false);
+
+          if (restoreFocus && trailDialogPreviousFocus instanceof HTMLElement) {
+            trailDialogPreviousFocus.focus({ preventScroll: true });
+          }
+        };
 
         const maybeCelebrateTrail = () => {
           const unique = [...new Set(foundMarkers)];
@@ -359,20 +431,28 @@ const personSchema = {
           try { alreadyRewarded = localStorage.getItem(rewardKey) === 'earned'; } catch {}
           if (alreadyRewarded) return;
 
+          trailDialogPreviousFocus = document.activeElement;
+          trailComplete.inert = false;
           trailComplete.classList.add('is-active');
           trailComplete.setAttribute('aria-hidden', 'false');
+          setTrailPageInert(true);
+
+          setTimeout(() => {
+            trailContinue?.focus();
+          }, reduceMotion ? 0 : 1100);
         };
 
         trailPin?.addEventListener('click', () => {
           try { localStorage.setItem(rewardKey, 'earned'); } catch {}
           trailComplete?.classList.add('is-pinned');
           setTimeout(() => {
-            trailComplete?.classList.remove('is-active', 'is-pinned');
-            trailComplete?.setAttribute('aria-hidden', 'true');
+            closeTrailComplete({ restoreFocus: true });
           }, 850);
           trailGuide?.classList.add('has-earned-badge');
           showToast('BADGE PINNED // UNYIELDING EXPLORER', 2400);
         });
+
+        trailContinue?.addEventListener('click', () => closeTrailComplete({ restoreFocus: true }));
 
         const restoreResetLabels = () => {
           trailResetButtons.forEach((button) => {
@@ -393,8 +473,11 @@ const personSchema = {
 
           trailGuide?.classList.remove('has-earned-badge', 'is-open');
           trailToggle?.setAttribute('aria-expanded', 'false');
-          trailComplete?.classList.remove('is-active', 'is-pinned');
-          trailComplete?.setAttribute('aria-hidden', 'true');
+          if (trailPanel) {
+            trailPanel.inert = true;
+            trailPanel.setAttribute('aria-hidden', 'true');
+          }
+          closeTrailComplete({ restoreFocus: false });
           document.querySelectorAll('[data-trail-marker].is-found').forEach((marker) => marker.classList.remove('is-found'));
           restoreResetLabels();
           renderTrail();
@@ -481,6 +564,64 @@ const personSchema = {
         trailToggle?.addEventListener('click', () => {
           const open = trailGuide.classList.toggle('is-open');
           trailToggle.setAttribute('aria-expanded', String(open));
+          if (trailPanel) {
+            trailPanel.inert = !open;
+            trailPanel.setAttribute('aria-hidden', String(!open));
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            if (trailComplete?.classList.contains('is-active')) {
+              event.preventDefault();
+              closeTrailComplete({ restoreFocus: true });
+              return;
+            }
+
+            if (trailGuide?.classList.contains('is-open')) {
+              trailGuide.classList.remove('is-open');
+              trailToggle?.setAttribute('aria-expanded', 'false');
+              if (trailPanel) {
+                trailPanel.inert = true;
+                trailPanel.setAttribute('aria-hidden', 'true');
+              }
+              trailToggle?.focus();
+              return;
+            }
+
+            const hoveredEgg = document.querySelector('[data-egg]:hover');
+            const focusedEgg = document.activeElement instanceof Element
+              ? document.activeElement.closest('[data-egg]')
+              : null;
+            const egg = focusedEgg || hoveredEgg;
+            if (egg) {
+              event.preventDefault();
+              egg.classList.add('egg-tooltip-dismissed');
+              return;
+            }
+          }
+
+          if (event.key === 'Tab' && trailComplete?.classList.contains('is-active')) {
+            const focusable = [...trailComplete.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')]
+              .filter((element) => element instanceof HTMLElement && !element.hidden);
+            if (!focusable.length) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          }
+        });
+
+        document.querySelectorAll('[data-egg]').forEach((egg) => {
+          egg.addEventListener('pointerleave', () => egg.classList.remove('egg-tooltip-dismissed'));
+          egg.addEventListener('focusin', () => egg.classList.remove('egg-tooltip-dismissed'));
         });
 
         renderTrail();
