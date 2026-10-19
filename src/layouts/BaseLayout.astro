@@ -273,17 +273,12 @@ const personSchema = {
           });
 
           if (trailMessage) {
+            const remaining = Math.max(0, mainTrailTotal - mainCount);
             trailMessage.textContent = mainCount >= mainTrailTotal
               ? bonusCount > 0
-                ? 'TRAIL COMPLETE + OFF-TRAIL PATCH // Apparently curiosity is a core competency.'
-                : 'TRAIL COMPLETE // Rank earned. There may still be something off trail.'
-              : mainCount >= 12
-                ? 'At this point you are either thorough or avoiding work.'
-                : mainCount >= 6
-                  ? 'The map got bigger. You knew it would.'
-                  : mainCount >= 3
-                    ? 'You are here. Probably. Context matters.'
-                    : 'There are more. Definitely.';
+                ? 'All 16 found + the off-trail bonus. Mission complete.'
+                : 'All 16 found. Mission complete. One bonus may still be off trail.'
+              : remaining + (remaining === 1 ? ' discovery remains.' : ' discoveries remain.');
           }
         };
 
