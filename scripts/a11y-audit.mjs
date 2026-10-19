@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import { chromium, webkit } from 'playwright';
 import AxeBuilder from '@axe-core/playwright';
 
 const baseURL = process.env.A11Y_BASE_URL || 'http://127.0.0.1:4321';
@@ -261,6 +261,80 @@ try {
   }
 } finally {
   await browser.close();
+}
+
+// Mobile Safari regression checks. Chromium catches accessibility structure;
+// WebKit catches the touch/keyboard behavior that actually runs on iPhone.
+{
+  const safari = await webkit.launch({ headless: true });
+
+  try {
+    const context = await safari.newContext({
+      viewport: { width: 390, height: 844 },
+      isMobile: true,
+      hasTouch: true,
+      reducedMotion: 'no-preference',
+    });
+
+    // Workshop saw: both the visible control and the coarse-pointer board path
+    // must start a real moving animation in WebKit.
+    {
+      const page = await context.newPage();
+      await page.goto(new URL('/woodworking/', baseURL).toString(), { waitUntil: 'networkidle' });
+
+      const stage = page.locator('[data-saw-cut]');
+      const saw = page.locator('[data-circular-saw]');
+      const trigger = page.locator('[data-saw-trigger]');
+
+      const start = await saw.boundingBox();
+      await trigger.tap();
+      await page.waitForTimeout(350);
+      const moving = await saw.boundingBox();
+
+      if (!start || !moving || Math.abs(moving.x - start.x) < 20) {
+        fail('Mobile Safari: Workshop saw did not visibly move after tapping the trigger');
+      }
+
+      if (!(await stage.evaluate((el) => el.classList.contains('is-cutting') || el.classList.contains('is-cut')))) {
+        fail('Mobile Safari: Workshop saw did not enter the cut state');
+      }
+
+      await page.close();
+    }
+
+    // MIZ: iPhone has no hardware keyboard, so the footer keyboard clue must
+    // expose an input, focus it from the tap, and trigger ZOU without Enter.
+    {
+      const page = await context.newPage();
+      await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'networkidle' });
+
+      const keyboardClue = page.locator('[data-miz-keyboard]');
+      await keyboardClue.scrollIntoViewIfNeeded();
+      await keyboardClue.tap();
+
+      const input = page.locator('[data-miz-input]');
+      if (!(await input.isVisible())) {
+        fail('Mobile Safari: MIZ keyboard clue did not reveal the input');
+      }
+
+      const focused = await page.evaluate(() => document.activeElement?.hasAttribute('data-miz-input'));
+      if (!focused) {
+        fail('Mobile Safari: MIZ input did not receive focus from the tap');
+      }
+
+      await input.fill('MIZ');
+
+      if (await page.locator('[data-miz-takeover]').getAttribute('aria-hidden') !== 'false') {
+        fail('Mobile Safari: typing MIZ did not trigger ZOU');
+      }
+
+      await page.close();
+    }
+
+    await context.close();
+  } finally {
+    await safari.close();
+  }
 }
 
 if (failures) {
