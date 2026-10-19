@@ -22,6 +22,7 @@ const routes = [
 
 const normalize = (value) =>
   value
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
@@ -67,7 +68,7 @@ test('NVDA can discover the primary navigation links', async ({ page, nvda }) =>
 
   const joined = visited.join(' | ');
   for (const expected of ['work', 'harness engineering', "nolan's workshop", 'about', 'contact']) {
-    expect(joined, 'NVDA navigation links should include ' + expected).toContain(expected);
+    expect(joined, 'NVDA navigation links should include ' + expected).toContain(normalize(expected));
   }
 });
 
@@ -88,10 +89,21 @@ test('NVDA can activate the Workshop saw and hear the result', async ({ page, nv
 
   expect(foundSaw, 'NVDA should discover the native saw button').toBe(true);
 
-  await nvda.clearSpokenPhraseLog();
   await nvda.act();
-  await page.waitForTimeout(800);
+  await expect(page.locator('[data-saw-cut]'), 'NVDA Enter should activate the saw').toHaveClass(/is-cut/);
 
-  const spoken = normalize((await nvda.spokenPhraseLog()).join(' '));
-  expect(spoken, 'Workshop result should be announced by the live region').toContain('offcut removed');
+  // Test the polite live region using Guidepup's capture pattern so the
+  // announcement produced after activation is captured in full.
+  await page.goto('/woodworking/', { waitUntil: 'networkidle' });
+  await nvda.navigateToWebContent();
+
+  const { spokenPhrase } = await nvda.capture(
+    () => page.locator('[data-saw-trigger]').click(),
+    { capture: true },
+  );
+
+  expect(
+    normalize(spokenPhrase),
+    'Workshop result should be announced by the live region',
+  ).toContain('offcut removed');
 });
