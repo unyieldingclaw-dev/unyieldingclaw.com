@@ -8,6 +8,7 @@ interface Props {
   tags?: string[];
   tone?: 'blue' | 'emerald' | 'copper' | 'slate' | 'gold';
   linkLabel?: string;
+  visual?: 'pmb' | 'acr' | 'sidequest' | 'pitlogic' | 'tipsy' | 'bowling';
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   tags = [],
   tone = 'blue',
   linkLabel = 'Read case study',
+  visual,
 } = Astro.props;
 
 const mark = title
@@ -29,7 +31,13 @@ const mark = title
   .join('');
 ---
 
-<a class={`project-card project-card--${tone}`} href={href} aria-label={`${title}: ${linkLabel}`}>
+<a
+  class={`project-card project-card--${tone}${visual ? ` project-card--visual project-card--${visual}` : ''}`}
+  href={href}
+  aria-label={`${title}: ${linkLabel}`}
+>
+  {visual && <div class={`project-card__art project-card__art--${visual}`} aria-hidden="true"></div>}
+  <div class="project-card__veil" aria-hidden="true"></div>
   <div class="project-card__mark" aria-hidden="true">{mark}</div>
   <div class="project-card__top">
     <p class="project-kicker">{eyebrow}</p>
