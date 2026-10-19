@@ -8040,6 +8040,7 @@ nav a:focus-visible,
 
 html {
   scroll-padding-top: 6.5rem;
+  scroll-padding-bottom: 5.5rem;
 }
 
 main:focus {
@@ -8056,6 +8057,16 @@ main:focus {
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+:where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+) {
+  scroll-margin-block: 6.5rem 5.5rem;
 }
 
 :where(
