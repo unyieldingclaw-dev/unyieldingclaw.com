@@ -485,6 +485,37 @@ const personSchema = {
           panel.addEventListener('pointerleave', resetPanel);
         });
 
+        document.querySelectorAll('.case-flow > section').forEach((panel, index) => {
+          let frame;
+          panel.style.setProperty('--case-index', String(index));
+
+          const resetCasePanel = () => {
+            cancelAnimationFrame(frame);
+            panel.style.setProperty('--case-move-x', '0px');
+            panel.style.setProperty('--case-move-y', '0px');
+            panel.style.setProperty('--case-rx', '0deg');
+            panel.style.setProperty('--case-ry', '0deg');
+            panel.classList.remove('is-case-moving');
+          };
+
+          panel.addEventListener('pointerenter', () => panel.classList.add('is-case-moving'));
+          panel.addEventListener('pointermove', (event) => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => {
+              const rect = panel.getBoundingClientRect();
+              const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+              const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+              const direction = index % 2 === 0 ? 1 : -1;
+
+              panel.style.setProperty('--case-move-x', (((px - 0.5) * 14) + direction * 2).toFixed(1) + 'px');
+              panel.style.setProperty('--case-move-y', (((py - 0.5) * 10) - 5).toFixed(1) + 'px');
+              panel.style.setProperty('--case-rx', ((0.5 - py) * 5.5).toFixed(2) + 'deg');
+              panel.style.setProperty('--case-ry', (((px - 0.5) * 7.5) + direction * 0.35).toFixed(2) + 'deg');
+            });
+          });
+          panel.addEventListener('pointerleave', resetCasePanel);
+        });
+
         const hero = document.querySelector('.hero');
         const heroPanel = document.querySelector('.ai-proof-board, .hero-panel');
 
