@@ -188,7 +188,6 @@ const personSchema = {
 
           if (eggBuffer.endsWith('miz')) {
             showToast('ZOU!');
-            window.unyieldingTrailDiscover?.('home-miz', 'MIZ // ZOU');
             eggBuffer = '';
           }
         });
@@ -226,6 +225,19 @@ const personSchema = {
           }
         } catch {
           foundMarkers = [];
+        }
+
+        // MIZ → ZOU remains an Easter egg, but is no longer required for
+        // Trail completion. Preserve progress for anyone who found the old
+        // keyboard-only discovery by migrating it to the new visible Home marker.
+        if (foundMarkers.includes('home-miz')) {
+          foundMarkers = foundMarkers
+            .map((id) => id === 'home-miz' ? 'home-range' : id)
+            .filter((id, index, all) => all.indexOf(id) === index);
+
+          try {
+            localStorage.setItem(trailKey, JSON.stringify(foundMarkers));
+          } catch {}
         }
 
         const saveTrail = () => {
