@@ -4677,3 +4677,124 @@ nav a:focus-visible,
     animation: none;
   }
 }
+
+
+/* Correction: keep Harness header badges restrained; the deliberately odd trio is
+   the AI DEVELOPMENT // EVIDENCE stack on the homepage. */
+.subhero--harness .subhero-badges {
+  min-height: auto;
+}
+
+.subhero--harness .subhero-badges span,
+.subhero--harness .subhero-badges span:nth-child(1),
+.subhero--harness .subhero-badges span:nth-child(2),
+.subhero--harness .subhero-badges span:nth-child(3) {
+  --badge-r: 0deg;
+  --badge-x: 0px;
+  --badge-y: 0px;
+  transform: none;
+  animation: none;
+}
+
+.subhero--harness .subhero-badges span:nth-child(1):hover,
+.subhero--harness .subhero-badges span:nth-child(2):hover,
+.subhero--harness .subhero-badges span:nth-child(3):hover {
+  transform: translateY(-2px);
+  animation: none;
+}
+
+/* Homepage evidence stack: each card is intentionally "placed" differently. */
+.ai-proof-board .proof-module:nth-of-type(1) {
+  --proof-rotate: -1.35deg;
+  --proof-x: -8px;
+  --proof-y: 1px;
+}
+
+.ai-proof-board .proof-module:nth-of-type(2) {
+  --proof-rotate: 0.85deg;
+  --proof-x: 7px;
+  --proof-y: 2px;
+}
+
+.ai-proof-board .proof-module:nth-of-type(3) {
+  --proof-rotate: -0.45deg;
+  --proof-x: -2px;
+  --proof-y: 5px;
+}
+
+/* Different hover behavior for each card — same family, different personality. */
+.ai-proof-board .proof-module:nth-of-type(1):hover,
+.ai-proof-board .proof-module:nth-of-type(1):focus-visible {
+  transform:
+    translate3d(-15px, -5px, 0)
+    rotate(1.1deg)
+    scale(1.018);
+}
+
+.ai-proof-board .proof-module:nth-of-type(2):hover,
+.ai-proof-board .proof-module:nth-of-type(2):focus-visible {
+  transform:
+    translate3d(14px, -7px, 0)
+    rotate(-1.5deg)
+    scale(1.022);
+}
+
+.ai-proof-board .proof-module:nth-of-type(3):hover,
+.ai-proof-board .proof-module:nth-of-type(3):focus-visible {
+  animation: proof-card-wobble 520ms cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes proof-card-wobble {
+  0% {
+    transform: translate3d(-2px, 5px, 0) rotate(-0.45deg);
+  }
+  28% {
+    transform: translate3d(6px, -5px, 0) rotate(2deg) scale(1.02);
+  }
+  55% {
+    transform: translate3d(-6px, 1px, 0) rotate(-1.6deg) scale(1.015);
+  }
+  78% {
+    transform: translate3d(3px, -2px, 0) rotate(0.9deg) scale(1.018);
+  }
+  100% {
+    transform: translate3d(-2px, 5px, 0) rotate(-0.45deg);
+  }
+}
+
+.ai-proof-board .proof-board-punch {
+  transform: translate3d(7px, -1px, 0) rotate(0.65deg);
+}
+
+@media (max-width: 720px) {
+  .ai-proof-board .proof-module:nth-of-type(1) {
+    --proof-rotate: -0.65deg;
+    --proof-x: -2px;
+    --proof-y: 1px;
+  }
+
+  .ai-proof-board .proof-module:nth-of-type(2) {
+    --proof-rotate: 0.5deg;
+    --proof-x: 2px;
+    --proof-y: 1px;
+  }
+
+  .ai-proof-board .proof-module:nth-of-type(3) {
+    --proof-rotate: -0.25deg;
+    --proof-x: -1px;
+    --proof-y: 2px;
+  }
+
+  .ai-proof-board .proof-module:nth-of-type(1):hover,
+  .ai-proof-board .proof-module:nth-of-type(2):hover,
+  .ai-proof-board .proof-module:nth-of-type(3):hover {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-proof-board .proof-module:nth-of-type(3):hover,
+  .ai-proof-board .proof-module:nth-of-type(3):focus-visible {
+    animation: none;
+  }
+}
