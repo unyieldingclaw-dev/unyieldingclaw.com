@@ -7,25 +7,58 @@ import ProjectCard from '../../components/ProjectCard.astro';
   title="Work"
   description="Case studies and selected projects by Eric Nolan across AI engineering, developer tooling, practical software, and product design."
 >
-  <header class="page-header">
-    <div class="shell">
-      <p class="eyebrow">Work</p>
-      <h1>Products, systems, and the decisions behind them.</h1>
-      <p class="lede">
-        Public repositories where openness makes sense. Public-safe case studies where the product or data should remain private. The evidence matters more than repository visibility.
-      </p>
+  <header class="subhero subhero--work">
+    <div class="shell subhero-grid">
+      <div class="subhero-copy">
+        <div class="subhero-badges">
+          <span>AI ENGINEERING</span>
+          <span>PRODUCT SYSTEMS</span>
+          <span>PUBLIC EVIDENCE</span>
+        </div>
+        <p class="subhero-kicker">WORK // BUILD LOG</p>
+        <h1>Proof beats positioning.</h1>
+        <p class="lede">
+          The portfolio is deliberately mixed: AI infrastructure, developer tooling, private workflow products, live telemetry, and research. I want the systems to show how I think—not just the titles on my résumé.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-pop" href="#featured">Jump to the evidence ↓</a>
+          <a class="button secondary case-secondary" href="https://github.com/unyieldingclaw-dev">Open GitHub</a>
+        </div>
+      </div>
+
+      <aside class="work-console" aria-label="Portfolio snapshot">
+        <div class="work-console__top">
+          <span>PORTFOLIO STATUS</span>
+          <i></i>
+        </div>
+        <div class="work-console__metric">
+          <strong>AI</strong>
+          <span>Context · agents · governance · verification</span>
+        </div>
+        <div class="work-console__metric">
+          <strong>PRODUCT</strong>
+          <span>Travel · whiskey · bowling · BBQ telemetry</span>
+        </div>
+        <div class="work-console__metric">
+          <strong>MODE</strong>
+          <span>Build it · use it · harden it · document it</span>
+        </div>
+        <div class="work-console__footer">
+          <span>OPEN SOURCE + PUBLIC-SAFE PRIVATE CASE STUDIES</span>
+        </div>
+      </aside>
     </div>
   </header>
 
-  <section class="section">
+  <section class="section section--projects" id="featured">
     <div class="shell">
-      <div class="section-heading">
+      <div class="section-heading section-heading--punch">
         <div>
           <p class="eyebrow">Featured case studies</p>
-          <h2>Different problems. Consistent judgment.</h2>
+          <h2>Different problems. Same operating style.</h2>
         </div>
         <p class="section-intro">
-          The set intentionally mixes AI infrastructure with end-user products. I do not want the portfolio to imply that every useful problem needs an agent.
+          Understand the workflow. Model the real constraints. Automate only what earns automation. Make failure visible. Ship something people can actually use.
         </p>
       </div>
 
@@ -33,19 +66,20 @@ import ProjectCard from '../../components/ProjectCard.astro';
         <ProjectCard
           title="Personal Memory Bank"
           href="/work/personal-memory-bank/"
-          eyebrow="AI engineering"
-          description="Persistent project memory governed by authority, freshness, provenance, hooks, diagnostics, review workflows, and CI."
+          eyebrow="AI engineering · Context systems"
+          description="Persistent project memory governed by authority, freshness, provenance, hooks, diagnostics, semantic drift detection, review workflows, and CI."
           status="Open source"
           tags={['Context', 'Governance', 'CLI', 'Developer productivity']}
+          tone="blue"
         />
         <ProjectCard
           title="AI Code Review Agent"
           href="/work/ai-code-review-agent/"
-          eyebrow="Developer tooling"
-          description="Local multi-agent review with specialist isolation, confidence-aware findings, privacy-conscious inference, and multiple developer interfaces."
+          eyebrow="Developer tooling · Local AI"
+          description="Local multi-agent review with specialist isolation, sanitized diffs, confidence-aware findings, privacy-conscious inference, and multiple developer interfaces."
           status="Open source"
-          tags={['Ollama', 'Review', 'Security', 'Verification']}
-          tone="slate"
+          tags={['Ollama', 'Agents', 'Security', 'Verification']}
+          tone="emerald"
         />
         <ProjectCard
           title="Side Quest Atlas"
@@ -69,15 +103,15 @@ import ProjectCard from '../../components/ProjectCard.astro';
     </div>
   </section>
 
-  <section class="section section--warm">
+  <section class="section section--private-lab">
     <div class="shell">
       <div class="section-heading">
         <div>
           <p class="eyebrow">Private, not hidden</p>
-          <h2>Some products are better documented than published.</h2>
+          <h2>Privacy can be a product decision too.</h2>
         </div>
         <p class="section-intro">
-          Privacy, family data, club history, and user-specific records are legitimate reasons to keep a repository closed. The case studies expose the product decisions without exposing the people or data.
+          A private repository is not a weak portfolio artifact when the product contains family history, club data, or personal performance records. The case study exposes the judgment without exposing the people.
         </p>
       </div>
 
@@ -104,20 +138,20 @@ import ProjectCard from '../../components/ProjectCard.astro';
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="shell split-feature">
+  <section class="section section--dark work-bridge">
+    <div class="shell bridge-grid">
       <div>
-        <p class="eyebrow">Research</p>
+        <p class="eyebrow">The research underneath it</p>
         <h2>Harness Engineering</h2>
         <p class="section-intro">
-          The projects above repeatedly exposed the same deeper problem: AI quality depends on much more than the model. Harness Engineering is where I work through those surrounding systems explicitly.
+          Building PMB and ACR kept exposing the same truth: model quality is only one variable. Context, tools, state, authority, evaluation, and execution boundaries decide whether the whole system is trustworthy.
         </p>
-        <p><a class="text-link" style="color:#fff;" href="/harness-engineering/">Read the research overview →</a></p>
       </div>
-      <aside class="feature-note" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14);">
-        <strong style="color:#fff;">A framework, not a claim of doctrine.</strong>
-        <p>It is evolving public research grounded in observed engineering problems, reference implementations, and explicit tradeoffs.</p>
-      </aside>
+      <a class="bridge-card" href="/harness-engineering/">
+        <span>ENTER THE FRAMEWORK</span>
+        <strong>Context → Tools → Orchestration → Governance → Verification</strong>
+        <small>Explore the systems around the model →</small>
+      </a>
     </div>
   </section>
 </BaseLayout>
