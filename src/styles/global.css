@@ -3416,3 +3416,115 @@ h2 {
     grid-template-columns: repeat(2,1fr);
   }
 }
+
+
+/* Personal mosaic */
+.about-personal {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(180,106,60,0.10), transparent 22rem),
+    radial-gradient(circle at 8% 88%, rgba(47,111,237,0.10), transparent 24rem),
+    linear-gradient(135deg, #e6edf6, #eee6dc 58%, #e0eaf2) !important;
+}
+
+.personal-mosaic {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0,1fr));
+  gap: 0.9rem;
+}
+
+.personal-tile {
+  position: relative;
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(53,88,120,0.16);
+  border-radius: 0.8rem;
+  box-shadow: 0 16px 38px rgba(11,31,51,0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.personal-tile:hover {
+  transform: translateY(-6px) rotate(-0.4deg);
+  box-shadow: 0 26px 54px rgba(11,31,51,0.14);
+}
+
+.personal-tile > span {
+  margin-bottom: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.61rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.78;
+}
+
+.personal-tile > strong {
+  display: block;
+  margin-top: 1.4rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.personal-tile > small {
+  display: block;
+  margin-top: 0.3rem;
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
+.personal-tile--photo {
+  grid-column: span 2;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(47,111,237,0.18), transparent 11rem),
+    linear-gradient(145deg, #b8cef1, #d9e4f2);
+  color: #15324e;
+}
+
+.personal-tile--wood {
+  grid-column: span 2;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(180,106,60,0.18), transparent 11rem),
+    linear-gradient(145deg, #d7b596, #ead6c4);
+  color: #5a321d;
+}
+
+.personal-tile--bbq {
+  grid-column: span 2;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(140,77,44,0.20), transparent 11rem),
+    linear-gradient(145deg, #cda17d, #e5c8b2);
+  color: #4d2a18;
+}
+
+.personal-tile--bowling {
+  grid-column: span 3;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(83,107,122,0.18), transparent 12rem),
+    linear-gradient(145deg, #cbdbe5, #e4ebef);
+  color: #243f50;
+}
+
+.personal-tile--crochet {
+  grid-column: span 3;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(22,133,107,0.16), transparent 12rem),
+    linear-gradient(145deg, #cce5dd, #e2ece8);
+  color: #21493f;
+}
+
+@media (max-width: 820px) {
+  .personal-mosaic {
+    grid-template-columns: 1fr;
+  }
+
+  .personal-tile,
+  .personal-tile--photo,
+  .personal-tile--wood,
+  .personal-tile--bbq,
+  .personal-tile--bowling,
+  .personal-tile--crochet {
+    grid-column: auto;
+  }
+}
