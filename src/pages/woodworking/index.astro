@@ -95,6 +95,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </p>
       </div>
 
+      <p class="sr-only" data-shop-live role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="workshop-play-grid">
         <div class="saw-cut-stage" data-saw-cut tabindex="0" role="button" aria-label="Hover here, yes really — run the circular saw easter egg">
           <div class="saw-cut-reveal">
@@ -394,6 +395,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       const cutStage = document.querySelector('[data-saw-cut]');
+      const shopLive = document.querySelector('[data-shop-live]');
       const dustBurst = document.querySelector('[data-saw-dust]');
       const bench = document.querySelector('[data-sawdust-bench]');
       const canvas = document.querySelector('[data-sawdust-canvas]');
@@ -650,6 +652,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           bench?.classList.remove('is-cut-active');
           cutComplete = true;
           cutting = false;
+          if (shopLive) shopLive.textContent = 'Offcut removed. Measure twice. Cut once. Stare at it for 20 minutes anyway.';
           return;
         }
 
@@ -689,6 +692,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           cutStage.classList.remove('is-cutting', 'is-cut-engaged', 'is-cut-clearing');
           cutComplete = true;
           cutting = false;
+          if (shopLive) shopLive.textContent = 'Offcut removed. Measure twice. Cut once. Stare at it for 20 minutes anyway.';
         }, duration);
       };
 
@@ -757,6 +761,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         bench.classList.add('is-cleared');
         if (benchClear) benchClear.hidden = true;
         window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
+        if (shopLive) shopLive.textContent = 'Bench cleared. Congratulations. You have now cleaned more of my shop than I have today.';
 
         requestAnimationFrame(() => {
           bench.classList.add('is-revealing');
