@@ -116,5 +116,104 @@ const personSchema = {
         <span>Site code MIT · authored content all rights reserved unless stated otherwise.</span>
       </div>
     </footer>
+
+    <script is:inline>
+      (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        if (reduceMotion) return;
+
+        document.documentElement.classList.add('motion-enabled');
+
+        const revealTargets = document.querySelectorAll(
+          '.section-heading, .project-card, .principle, .feature-note, .identity-card, .workshop-card, .case-content > section'
+        );
+
+        revealTargets.forEach((el) => el.classList.add('reveal-ready'));
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+          revealTargets.forEach((el) => observer.observe(el));
+        } else {
+          revealTargets.forEach((el) => el.classList.add('is-revealed'));
+        }
+
+        if (!finePointer) return;
+
+        const tiltCards = document.querySelectorAll('.project-card');
+
+        tiltCards.forEach((card) => {
+          let frame;
+
+          const reset = () => {
+            cancelAnimationFrame(frame);
+            card.style.setProperty('--tilt-x', '0deg');
+            card.style.setProperty('--tilt-y', '0deg');
+            card.style.setProperty('--glow-x', '50%');
+            card.style.setProperty('--glow-y', '50%');
+            card.classList.remove('is-tilting');
+          };
+
+          card.addEventListener('pointerenter', () => card.classList.add('is-tilting'));
+
+          card.addEventListener('pointermove', (event) => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => {
+              const rect = card.getBoundingClientRect();
+              const x = event.clientX - rect.left;
+              const y = event.clientY - rect.top;
+              const px = x / rect.width;
+              const py = y / rect.height;
+              const rotateY = (px - 0.5) * 9;
+              const rotateX = (0.5 - py) * 7;
+
+              card.style.setProperty('--tilt-x', rotateX.toFixed(2) + 'deg');
+              card.style.setProperty('--tilt-y', rotateY.toFixed(2) + 'deg');
+              card.style.setProperty('--glow-x', (px * 100).toFixed(1) + '%');
+              card.style.setProperty('--glow-y', (py * 100).toFixed(1) + '%');
+            });
+          });
+
+          card.addEventListener('pointerleave', reset);
+          card.addEventListener('blur', reset, true);
+        });
+
+        const hero = document.querySelector('.hero');
+        const heroPanel = document.querySelector('.hero-panel');
+
+        if (hero && heroPanel) {
+          let heroFrame;
+
+          hero.addEventListener('pointermove', (event) => {
+            cancelAnimationFrame(heroFrame);
+            heroFrame = requestAnimationFrame(() => {
+              const rect = hero.getBoundingClientRect();
+              const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+              const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+              hero.style.setProperty('--hero-x', (px * 100).toFixed(1) + '%');
+              hero.style.setProperty('--hero-y', (py * 100).toFixed(1) + '%');
+              heroPanel.style.setProperty('--panel-x', ((px - 0.5) * 7).toFixed(2) + 'px');
+              heroPanel.style.setProperty('--panel-y', ((py - 0.5) * 7).toFixed(2) + 'px');
+            });
+          });
+
+          hero.addEventListener('pointerleave', () => {
+            hero.style.setProperty('--hero-x', '78%');
+            hero.style.setProperty('--hero-y', '18%');
+            heroPanel.style.setProperty('--panel-x', '0px');
+            heroPanel.style.setProperty('--panel-y', '0px');
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
