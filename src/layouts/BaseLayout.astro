@@ -187,7 +187,7 @@ const personSchema = {
         <span>© {new Date().getFullYear()} Eric Nolan.</span>
         <span>
           Site code MIT · authored content all rights reserved unless stated otherwise.
-          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false">PAUSE MOTION</button>
+          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false">PAUSE AUTO MOTION</button>
           <span
             class="egg-inline footer-key-clue"
             data-egg="Here's a shout out to ol MIZZOU. (type your 3 letters)."
@@ -222,7 +222,7 @@ const personSchema = {
             motionToggle.textContent = 'MOTION REDUCED BY SYSTEM';
             motionToggle.disabled = true;
           } else {
-            motionToggle.textContent = motionPaused ? 'RESUME MOTION' : 'PAUSE MOTION';
+            motionToggle.textContent = motionPaused ? 'RESUME AUTO MOTION' : 'PAUSE AUTO MOTION';
           }
         };
 
