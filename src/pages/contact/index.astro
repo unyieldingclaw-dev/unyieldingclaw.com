@@ -4,32 +4,73 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Contact"
-  description="Contact Eric Nolan and find his public engineering work."
+  description="Contact Eric Nolan and find his public AI engineering and product work."
 >
-  <header class="page-header">
-    <div class="shell">
-      <p class="eyebrow">Contact</p>
-      <h1>Start with the work.</h1>
-      <p class="lede">
-        GitHub is the best place to inspect the public implementations. Email works for everything that needs an actual conversation.
-      </p>
+  <header class="subhero subhero--contact">
+    <div class="shell contact-hero-grid">
+      <div class="subhero-copy">
+        <div class="subhero-badges">
+          <span>AI DEVELOPMENT</span>
+          <span>TECHNICAL PRODUCT</span>
+          <span>OPEN TO CONVERSATION</span>
+        </div>
+        <p class="subhero-kicker">CONTACT // LET'S TALK ABOUT THE HARD PART</p>
+        <h1>Bring me the problem that doesn't fit neatly in a box.</h1>
+        <p class="lede">
+          AI systems, developer workflows, product architecture, operational friction, governance, or a messy process nobody wants to own—those are usually the interesting conversations.
+        </p>
+      </div>
+
+      <div class="contact-panel">
+        <a class="contact-action contact-action--github" href="https://github.com/unyieldingclaw-dev">
+          <span>INSPECT THE WORK</span>
+          <strong>GitHub</strong>
+          <small>Public repos, implementation evidence, research →</small>
+        </a>
+        <a class="contact-action contact-action--email" href="mailto:unyieldingclaw@gmail.com">
+          <span>START THE CONVERSATION</span>
+          <strong>Email</strong>
+          <small>unyieldingclaw@gmail.com →</small>
+        </a>
+      </div>
     </div>
   </header>
 
-  <section class="section">
-    <div class="shell split-feature">
-      <div class="prose">
-        <h2>GitHub</h2>
-        <p><a class="text-link" href="https://github.com/unyieldingclaw-dev">github.com/unyieldingclaw-dev →</a></p>
-
-        <h2>Email</h2>
-        <p><a class="text-link" href="mailto:unyieldingclaw@gmail.com">unyieldingclaw@gmail.com</a></p>
+  <section class="section contact-fit">
+    <div class="shell">
+      <div class="section-heading section-heading--punch">
+        <div>
+          <p class="eyebrow">Good conversation starters</p>
+          <h2>What I like working through.</h2>
+        </div>
+        <p class="section-intro">
+          I am especially interested in the point where product intent, AI behavior, engineering constraints, and operating reality collide.
+        </p>
       </div>
 
-      <aside class="feature-note">
-        <strong>What is intentionally not here</strong>
-        <p>This site does not publish employer-internal material, confidential implementations, credentials, customer data, or source code from private projects merely to make a portfolio look more complete.</p>
-      </aside>
+      <div class="contact-topic-grid">
+        <article><span>01</span><strong>AI product architecture</strong><p>How the model, context, tools, state, APIs, governance, and user workflow fit together.</p></article>
+        <article><span>02</span><strong>Developer productivity</strong><p>Tools and workflows that help engineers without quietly creating another source of friction.</p></article>
+        <article><span>03</span><strong>Bounded automation</strong><p>Where AI should act, where it should ask, and where deterministic controls should take over.</p></article>
+        <article><span>04</span><strong>Messy operational systems</strong><p>Release, intake, handoffs, visibility, recovery, and the recurring manual work everyone has learned to tolerate.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark contact-boundary">
+    <div class="shell bridge-grid">
+      <div>
+        <p class="eyebrow">Public-safe on purpose</p>
+        <h2>Evidence without oversharing.</h2>
+        <p class="section-intro">
+          This site does not publish employer-internal code, confidential implementations, credentials, customer data, or private-project user data just to make the portfolio look more complete.
+        </p>
+      </div>
+      <div class="bridge-card">
+        <span>THE RULE</span>
+        <strong>Show enough to demonstrate judgment. Keep private what should remain private.</strong>
+        <small>That boundary is part of engineering maturity too.</small>
+      </div>
     </div>
   </section>
 </BaseLayout>

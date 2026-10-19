@@ -6,72 +6,114 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   title="Nolan's Workshop"
   description="Nolan's Workshop: woodworking projects, shop systems, jigs, work surfaces, finishing, tools, and build lessons."
 >
-  <header class="page-header">
-    <div class="shell">
-      <p class="eyebrow">Nolan's Workshop</p>
-      <h1>Build it to be used.</h1>
-      <p class="lede">
-        The physical-build side of the site: woodworking, shop systems, jigs, work surfaces, finishing, and the practical decisions that turn a sketch into something that earns space in the shop.
-      </p>
+  <header class="subhero subhero--workshop">
+    <div class="shell subhero-grid">
+      <div class="subhero-copy">
+        <div class="subhero-badges">
+          <span>WOOD</span>
+          <span>TOOLS</span>
+          <span>JIGS</span>
+          <span>BUILD LOG</span>
+        </div>
+        <p class="subhero-kicker">NOLAN'S WORKSHOP // BUILT TO BE USED</p>
+        <h1>Sawdust is just another kind of debugging.</h1>
+        <p class="lede">
+          Shop systems, jigs, work surfaces, furniture, finishing, and practical builds where the useful part is often the decision that changed halfway through.
+        </p>
+        <div class="hero-actions">
+          <a class="button workshop-button" href="#workshop-zones">Enter the shop ↓</a>
+          <a class="button secondary workshop-secondary" href="/about/">Meet the builder</a>
+        </div>
+      </div>
+
+      <aside class="workshop-bench" aria-label="Workshop build philosophy">
+        <div class="bench-rule bench-rule--top"></div>
+        <div class="bench-stamp">NOLAN'S<br/>WORKSHOP</div>
+        <div class="bench-note">
+          <span>01</span>
+          <strong>Fit the workflow</strong>
+          <small>Not the fantasy shop.</small>
+        </div>
+        <div class="bench-note">
+          <span>02</span>
+          <strong>Use what I own</strong>
+          <small>Buy only when the gap is real.</small>
+        </div>
+        <div class="bench-note">
+          <span>03</span>
+          <strong>Prototype, test, revise</strong>
+          <small>The first cut is not sacred.</small>
+        </div>
+        <div class="bench-rule bench-rule--bottom"></div>
+      </aside>
     </div>
   </header>
 
-  <section class="section section--warm">
+  <section class="section section--warm workshop-zones" id="workshop-zones">
     <div class="shell">
-      <div class="section-heading">
+      <div class="section-heading section-heading--punch">
         <div>
-          <p class="eyebrow">Workshop identity</p>
-          <h2>One umbrella. A distinct maker brand.</h2>
+          <p class="eyebrow">What lives here</p>
+          <h2>Systems for the shop. Projects for the fun of it.</h2>
         </div>
         <p class="section-intro">
-          Nolan's Workshop is the name used for the woodworking side of my work, including a physical wood brand. It lives inside Unyielding Claw for now rather than creating a second site that has to be maintained separately.
+          Nolan's Workshop is the physical-build side of the same builder brain: solve the actual problem, respect the constraints, and don't turn the tool into a bigger project than the work.
         </p>
       </div>
 
-      <div class="workshop-grid">
-        <article class="workshop-card">
+      <div class="workshop-grid workshop-grid--wow">
+        <article class="workshop-card workshop-card--jigs">
+          <span class="workshop-card__number">01</span>
           <h3>Shop systems & jigs</h3>
-          <p>Purpose-built fixtures, sleds, stands, storage, workholding, and shop improvements that make the next project easier or safer.</p>
+          <p>Purpose-built sleds, stands, storage, workholding, and fixtures that make repeated work faster, safer, or more accurate.</p>
         </article>
-        <article class="workshop-card">
+        <article class="workshop-card workshop-card--furniture">
+          <span class="workshop-card__number">02</span>
           <h3>Work surfaces & furniture</h3>
-          <p>Benches, tables, tops, and utility builds where structure, mobility, finish, and actual use matter more than showroom perfection.</p>
+          <p>Benches, tables, tops, and utility builds where structure, mobility, finish, and real use beat showroom perfection.</p>
         </article>
-        <article class="workshop-card">
+        <article class="workshop-card workshop-card--experiments">
+          <span class="workshop-card__number">03</span>
           <h3>Small builds & experiments</h3>
-          <p>Projects that are worth documenting because of the process: routing, joinery, finishing, material choices, mistakes, and revisions.</p>
+          <p>Routing, joinery, finishing, material choices, mistakes, revisions, and the occasional “that should probably work” prototype.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell split-feature">
+  <section class="section workshop-process">
+    <div class="shell process-grid">
       <div>
-        <p class="eyebrow">How I document builds</p>
-        <h2>The useful part is usually the decision.</h2>
+        <p class="eyebrow">Build process</p>
+        <h2>Measure. Cut. Learn. Change the plan.</h2>
         <p class="section-intro">
-          Future project pages will focus on what the build had to do, what constraints shaped it, what I owned already, what I changed after testing, and what I would do differently—not just a gallery of finished photos.
+          Project pages will document the problem, constraints, tools already on hand, build decisions, what failed, what changed, and what I would do differently next time.
         </p>
       </div>
-      <aside class="feature-note">
-        <strong>Plans are not automatically open source.</strong>
-        <p>Photos, drawings, measurements, plans, written instructions, and the Nolan's Workshop identity remain all rights reserved unless a specific project says otherwise. Individual plans can be licensed deliberately when there is a reason.</p>
-      </aside>
+      <div class="process-strip" aria-label="Workshop process">
+        <div><span>01</span><strong>Need</strong></div>
+        <div><span>02</span><strong>Sketch</strong></div>
+        <div><span>03</span><strong>Build</strong></div>
+        <div><span>04</span><strong>Use</strong></div>
+        <div><span>05</span><strong>Revise</strong></div>
+      </div>
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">The crossover</p>
-          <h2>Same habits. Different material.</h2>
-        </div>
+  <section class="section section--dark workshop-crossover">
+    <div class="shell bridge-grid">
+      <div>
+        <p class="eyebrow">The crossover</p>
+        <h2>Good jigs and good software share a personality.</h2>
         <p class="section-intro">
-          A good jig and a good software tool share more than they first appear to: narrow purpose, predictable behavior, respect for constraints, and enough simplicity that the tool does not become the project.
+          Narrow purpose. Predictable behavior. Respect for constraints. Enough simplicity that the tool does not become the project.
         </p>
       </div>
+      <aside class="bridge-card bridge-card--copper">
+        <span>CONTENT RIGHTS</span>
+        <strong>Plans are deliberate, not automatically open source.</strong>
+        <small>Photos, drawings, measurements, plans, and authored build content remain all rights reserved unless a specific project says otherwise.</small>
+      </aside>
     </div>
   </section>
 </BaseLayout>
