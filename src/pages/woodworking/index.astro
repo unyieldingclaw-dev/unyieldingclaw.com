@@ -276,8 +276,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         ctx.globalAlpha = 1;
       };
 
+      let brushing = false;
+
       const clearDust = (event) => {
-        if (!finePointer) return;
+        if (!finePointer && !brushing) return;
         clearTimeout(resetTimer);
         const rect = bench.getBoundingClientRect();
         const x = event.clientX - rect.left;
@@ -296,10 +298,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       };
 
       drawDust();
-      bench.addEventListener('pointermove', clearDust);
-      bench.addEventListener('pointerleave', () => {
-        resetTimer = setTimeout(drawDust, 3200);
+
+      bench.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+          brushing = true;
+          clearDust(event);
+        }
       });
+
+      bench.addEventListener('pointermove', clearDust);
+
+      const stopBrushing = () => {
+        brushing = false;
+        resetTimer = setTimeout(drawDust, 3200);
+      };
+
+      bench.addEventListener('pointerup', stopBrushing);
+      bench.addEventListener('pointercancel', stopBrushing);
+      bench.addEventListener('pointerleave', () => {
+        if (finePointer) resetTimer = setTimeout(drawDust, 3200);
+      });
+
       window.addEventListener('resize', drawDust, { passive: true });
     })();
   </script>
