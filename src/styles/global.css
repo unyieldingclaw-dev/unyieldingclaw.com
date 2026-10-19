@@ -4554,3 +4554,126 @@ nav a:focus-visible,
     transform: translateY(25%);
   }
 }
+
+
+/* Harness page: the three identity badges should look deliberately hand-placed. */
+.subhero--harness .subhero-badges {
+  align-items: flex-start;
+  min-height: 3.4rem;
+}
+
+.subhero--harness .subhero-badges span {
+  --badge-r: 0deg;
+  --badge-x: 0px;
+  --badge-y: 0px;
+  position: relative;
+  transform:
+    translate3d(var(--badge-x), var(--badge-y), 0)
+    rotate(var(--badge-r));
+  transform-origin: center;
+  transition:
+    transform 210ms cubic-bezier(.2,.8,.2,1),
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.subhero--harness .subhero-badges span:nth-child(1) {
+  --badge-r: -2.4deg;
+  --badge-x: -2px;
+  --badge-y: 6px;
+}
+
+.subhero--harness .subhero-badges span:nth-child(2) {
+  --badge-r: 1.6deg;
+  --badge-x: 4px;
+  --badge-y: -3px;
+}
+
+.subhero--harness .subhero-badges span:nth-child(3) {
+  --badge-r: -0.8deg;
+  --badge-x: 7px;
+  --badge-y: 9px;
+}
+
+/* Each badge misbehaves differently on hover. */
+.subhero--harness .subhero-badges span:nth-child(1):hover {
+  transform:
+    translate3d(calc(var(--badge-x) - 4px), calc(var(--badge-y) - 8px), 0)
+    rotate(3.2deg)
+    scale(1.06);
+  box-shadow: -8px 10px 24px rgba(47,111,237,0.16);
+}
+
+.subhero--harness .subhero-badges span:nth-child(2):hover {
+  transform:
+    translate3d(calc(var(--badge-x) + 3px), calc(var(--badge-y) + 5px), 0)
+    rotate(-3.8deg)
+    scale(1.07);
+  box-shadow: 9px 7px 24px rgba(91,140,255,0.16);
+}
+
+.subhero--harness .subhero-badges span:nth-child(3):hover {
+  animation: harness-badge-wobble 520ms cubic-bezier(.25,.75,.3,1);
+  border-color: rgba(75,210,170,0.62);
+  box-shadow: 0 8px 26px rgba(22,133,107,0.17);
+}
+
+@keyframes harness-badge-wobble {
+  0% {
+    transform:
+      translate3d(var(--badge-x), var(--badge-y), 0)
+      rotate(var(--badge-r));
+  }
+  28% {
+    transform:
+      translate3d(calc(var(--badge-x) + 5px), calc(var(--badge-y) - 6px), 0)
+      rotate(4.5deg)
+      scale(1.05);
+  }
+  56% {
+    transform:
+      translate3d(calc(var(--badge-x) - 3px), calc(var(--badge-y) + 2px), 0)
+      rotate(-3deg)
+      scale(1.035);
+  }
+  78% {
+    transform:
+      translate3d(calc(var(--badge-x) + 2px), calc(var(--badge-y) - 2px), 0)
+      rotate(1.8deg)
+      scale(1.045);
+  }
+  100% {
+    transform:
+      translate3d(var(--badge-x), var(--badge-y), 0)
+      rotate(var(--badge-r));
+  }
+}
+
+@media (max-width: 720px) {
+  .subhero--harness .subhero-badges {
+    min-height: auto;
+    row-gap: 0.55rem;
+  }
+
+  .subhero--harness .subhero-badges span:nth-child(1) {
+    --badge-r: -1.2deg;
+    --badge-y: 2px;
+  }
+
+  .subhero--harness .subhero-badges span:nth-child(2) {
+    --badge-r: 1deg;
+    --badge-y: -1px;
+  }
+
+  .subhero--harness .subhero-badges span:nth-child(3) {
+    --badge-r: -0.6deg;
+    --badge-y: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subhero--harness .subhero-badges span:nth-child(3):hover {
+    animation: none;
+  }
+}
