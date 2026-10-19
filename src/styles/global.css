@@ -6818,3 +6818,23 @@ nav a:focus-visible,
     transition: none !important;
   }
 }
+
+
+/* Third Home Trail discovery: visible enough to find while exploring. */
+.range-lead {
+  position: relative;
+}
+
+.trail-marker--range {
+  position: absolute;
+  top: -0.6rem;
+  right: 0.35rem;
+  z-index: 4;
+}
+
+@media (max-width: 980px) {
+  .trail-marker--range {
+    top: -0.35rem;
+    right: 0;
+  }
+}
