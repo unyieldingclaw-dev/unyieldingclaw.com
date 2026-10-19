@@ -83,7 +83,7 @@ const mark = title
     </div>
   </header>
 
-  <article class="case-body case-body--wow">
+  <article class={`case-body case-body--wow${visual ? ` case-body--visual case-body--${visual}` : ''}`}>
     <div class="shell case-content case-content--wow">
       <aside class="case-rail" aria-label="How to read this case study">
         <p class="case-rail__label">READ THE SYSTEM</p>
