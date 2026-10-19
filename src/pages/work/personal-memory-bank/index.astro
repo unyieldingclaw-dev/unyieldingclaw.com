@@ -6,17 +6,18 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   title="Personal Memory Bank"
   description="Case study: persistent, governed project context for AI-assisted software development."
   eyebrow="AI engineering · Developer workflow"
-  lede="Persistent project context is easy to describe and surprisingly hard to govern. PMB treats memory as an operational system with authority, freshness, provenance, diagnostics, and deterministic enforcement."
+  lede="AI coding assistants can remember a lot and still forget the one decision that made yesterday's code make sense. PMB is my attempt to make project memory useful without letting stale notes become accidental law."
   status="Active"
   access="Open source · MIT"
   tags={['Context engineering', 'Governance', 'CLI', 'CI']}
+  sections={['The problem', 'The product decision', 'A small failure that shaped the design', 'Why I keep working on it']}
   visual="pmb"
   repoUrl="https://github.com/unyieldingclaw-dev/personal-memory-bank"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      AI coding sessions repeatedly start without the project history that made yesterday's decisions make sense. Simply saving more text does not solve that. Old context becomes misleading, instructions conflict, task state drifts, and a helpful memory layer can quietly become another source of truth.
+      AI coding sessions have a funny failure mode: the model can understand a complicated file and still miss why the team made a decision yesterday. Dumping more notes into the prompt does not fix that. Old context ages, instructions collide, task state drifts, and eventually the “memory” starts confidently remembering the wrong thing.
     </p>
   </section>
 
@@ -42,9 +43,9 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   </section>
 
   <section>
-    <h2>Why it matters</h2>
+    <h2>Why I keep working on it</h2>
     <p>
-      The project is less about “giving AI memory” than about making persistent context trustworthy enough to use. The interesting engineering lives in conflict resolution, ownership, drift detection, handoffs, and deciding which rules belong in deterministic machinery versus model judgment.
+      I am not trying to give an assistant a giant scrapbook. I want the small amount it remembers to be worth trusting. Most of the interesting work ends up in ownership, stale-state detection, handoffs, conflict resolution, and deciding when a boring deterministic check should win over a model's opinion.
     </p>
   </section>
 </CaseStudyLayout>
