@@ -188,14 +188,32 @@ const personSchema = {
         <span>
           Site code MIT · authored content all rights reserved unless stated otherwise.
           <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false">PAUSE AUTO MOTION</button>
-          <span
+          <button
+            type="button"
             class="egg-inline footer-key-clue"
             data-egg="Here's a shout out to ol MIZZOU. (type your 3 letters)."
-            tabindex="0"
-            role="note"
+            data-miz-keyboard
+            aria-expanded="false"
+            aria-controls="miz-mobile-entry"
             aria-describedby="miz-key-clue"
-          >⌨</span>
+          >⌨</button>
           <span class="sr-only" id="miz-key-clue">Easter egg clue: Here's a shout out to ol MIZZOU. Type your three letters.</span>
+          <span class="miz-mobile-entry" id="miz-mobile-entry" data-miz-entry hidden>
+            <label class="sr-only" for="miz-mobile-input">Type your three-letter Mizzou call</label>
+            <input
+              id="miz-mobile-input"
+              data-miz-input
+              type="text"
+              maxlength="3"
+              inputmode="text"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              enterkeyhint="done"
+              placeholder="___"
+              aria-label="Type your three-letter Mizzou call"
+            />
+          </span>
         </span>
       </div>
     </footer>
@@ -237,6 +255,9 @@ const personSchema = {
 
         const eggToast = document.querySelector('.egg-toast');
         const mizTakeover = document.querySelector('[data-miz-takeover]');
+        const mizKeyboard = document.querySelector('[data-miz-keyboard]');
+        const mizEntry = document.querySelector('[data-miz-entry]');
+        const mizInput = document.querySelector('[data-miz-input]');
         let eggBuffer = '';
         let eggTimer;
         let mizTimer;
@@ -249,33 +270,69 @@ const personSchema = {
           eggTimer = setTimeout(() => eggToast.classList.remove('is-visible'), duration);
         };
 
+        const closeMizEntry = () => {
+          if (!mizEntry || !mizKeyboard) return;
+          mizEntry.hidden = true;
+          mizKeyboard.setAttribute('aria-expanded', 'false');
+        };
+
+        const triggerMizTakeover = () => {
+          eggBuffer = '';
+          mizInput?.blur();
+          closeMizEntry();
+
+          if (!mizTakeover) {
+            showToast('ZOU!');
+            return;
+          }
+
+          clearTimeout(mizTimer);
+          mizTakeover.classList.remove('is-active');
+          mizTakeover.setAttribute('aria-hidden', 'false');
+
+          // Restart the animation cleanly if somebody enthusiastically types MIZ again.
+          void mizTakeover.offsetWidth;
+          mizTakeover.classList.add('is-active');
+
+          mizTimer = setTimeout(() => {
+            mizTakeover.classList.remove('is-active');
+            mizTakeover.setAttribute('aria-hidden', 'true');
+          }, reduceMotion ? 1200 : 2100);
+        };
+
         document.addEventListener('keydown', (event) => {
           const target = event.target;
           if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable) return;
           if (event.key.length !== 1) return;
 
           eggBuffer = (eggBuffer + event.key.toLowerCase()).slice(-12);
+          if (eggBuffer.endsWith('miz')) triggerMizTakeover();
+        });
 
-          if (eggBuffer.endsWith('miz')) {
-            eggBuffer = '';
+        mizKeyboard?.addEventListener('click', () => {
+          if (!mizEntry || !mizInput) return;
 
-            if (!mizTakeover) {
-              showToast('ZOU!');
-              return;
-            }
+          const opening = mizEntry.hidden;
+          mizEntry.hidden = !opening;
+          mizKeyboard.setAttribute('aria-expanded', String(opening));
 
-            clearTimeout(mizTimer);
-            mizTakeover.classList.remove('is-active');
-            mizTakeover.setAttribute('aria-hidden', 'false');
+          if (opening) {
+            mizInput.value = '';
+            // Keep focus inside the user gesture. Mobile Safari only opens the
+            // software keyboard when focus happens directly from a tap.
+            mizInput.focus({ preventScroll: true });
+          }
+        });
 
-            // Restart the animation cleanly if somebody enthusiastically types MIZ again.
-            void mizTakeover.offsetWidth;
-            mizTakeover.classList.add('is-active');
+        mizInput?.addEventListener('input', () => {
+          const letters = mizInput.value.replace(/[^a-z]/gi, '').slice(0, 3).toUpperCase();
+          mizInput.value = letters;
 
-            mizTimer = setTimeout(() => {
-              mizTakeover.classList.remove('is-active');
-              mizTakeover.setAttribute('aria-hidden', 'true');
-            }, reduceMotion ? 1200 : 2100);
+          if (letters.toLowerCase() === 'miz') {
+            triggerMizTakeover();
+          } else if (letters.length === 3) {
+            showToast('NOT THE CALL', 1200);
+            mizInput.select();
           }
         });
 
