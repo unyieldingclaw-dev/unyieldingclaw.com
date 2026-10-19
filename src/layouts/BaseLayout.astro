@@ -233,6 +233,11 @@ const personSchema = {
           } catch {}
         };
 
+        const formatTrailProgress = (mainCount) =>
+          mainCount < 6
+            ? mainCount + '/?'
+            : mainCount + '/' + mainTrailTotal;
+
         const renderTrail = () => {
           if (!trailGuide) return;
           const unique = [...new Set(foundMarkers)];
@@ -242,9 +247,7 @@ const personSchema = {
           const bonusCount = unique.filter((id) => id.startsWith('offtrail-')).length;
 
           if (trailCount) {
-            trailCount.textContent = mainCount < 6
-              ? mainCount + '/?'
-              : mainCount + '/' + mainTrailTotal;
+            trailCount.textContent = formatTrailProgress(mainCount);
           }
 
           trailGuide.querySelectorAll('[data-trail-chapter]').forEach((item) => {
@@ -316,7 +319,7 @@ const personSchema = {
           showToast(
             id.startsWith('offtrail-')
               ? 'BONUS PATCH FOUND // LOST BUT FUNCTIONAL'
-              : toast + ' // ' + mainCount + '/?',
+              : toast + ' // ' + formatTrailProgress(mainCount),
             2200
           );
           maybeCelebrateTrail();
