@@ -3610,12 +3610,7 @@ body {
 a,
 button,
 summary,
-[role="button"],
-.project-card,
-.proof-module,
-.range-card,
-.contact-action,
-.bridge-card {
+[role="button"] {
   cursor: pointer;
 }
 
