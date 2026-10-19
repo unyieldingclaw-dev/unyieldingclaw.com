@@ -208,13 +208,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </div>
 
         <div class="sawdust-bench" data-sawdust-bench>
-          <div class="sawdust-bench__engraving">
+          <div class="sawdust-bench__engraving" data-bench-message>
             <span>BENCH TEST</span>
             <strong>Congratulations.</strong>
             <small>You have now cleaned more of my shop than I have today.</small>
           </div>
           <canvas data-sawdust-canvas aria-hidden="true"></canvas>
-          <span class="sawdust-bench__hint">brush the sawdust away</span>
+
+          <div class="sawdust-bench__wipe-cue" data-wipe-cue aria-hidden="true">
+            <svg viewBox="0 0 58 42" focusable="false">
+              <path d="M5 12 20 4l29 7 4 23-20 5L8 34Z" fill="#d9c7ad" stroke="#6f5a43" stroke-width="2"/>
+              <path d="m20 4 4 13 29-6M8 34l19-12 6 17M24 17l3 5m0 0 13-5" fill="none" stroke="#9d876c" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 12 27 22" fill="none" stroke="#f3eadf" stroke-width="1.6" opacity=".8"/>
+            </svg>
+            <span>Wipe the bench</span>
+            <i aria-hidden="true"></i>
+          </div>
+
+          <div class="sawdust-bench__impact" data-bench-impact aria-hidden="true"></div>
         </div>
       </div>
     </div>
@@ -265,14 +276,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const dustBurst = document.querySelector('[data-saw-dust]');
       const bench = document.querySelector('[data-sawdust-bench]');
       const canvas = document.querySelector('[data-sawdust-canvas]');
-      const benchHint = bench?.querySelector('.sawdust-bench__hint');
+      const wipeCue = bench?.querySelector('[data-wipe-cue]');
+      const benchImpact = bench?.querySelector('[data-bench-impact]');
 
       let cutting = false;
       let cutComplete = false;
-      let resetTimer;
       let brushing = false;
       let benchDustStarted = false;
       let benchDustFinished = false;
+      let benchRevealComplete = false;
+
+      const cleanGrid = {
+        columns: 18,
+        rows: 12,
+        threshold: 0.82,
+        cells: new Set(),
+      };
 
       const ctx = canvas?.getContext('2d');
 
@@ -292,10 +311,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         if (!bench || !canvas || !ctx) return;
         const rect = bench.getBoundingClientRect();
         ctx.clearRect(0, 0, rect.width, rect.height);
-        bench.classList.remove('is-dusty', 'is-buried', 'is-cleaning');
+        bench.classList.remove('is-dusty', 'is-buried', 'is-cleaning', 'is-cleared', 'is-revealing', 'is-revealed');
         benchDustStarted = false;
         benchDustFinished = false;
-        if (benchHint) benchHint.textContent = 'waiting for the mess...';
+        benchRevealComplete = false;
+        cleanGrid.cells.clear();
       };
 
       const depositBenchDust = (progress, finalPass = false) => {
@@ -306,7 +326,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         if (!benchDustStarted) {
           benchDustStarted = true;
           bench.classList.add('is-dusty');
-          if (benchHint) benchHint.textContent = 'the saw is making a mess...';
         }
 
         ctx.save();
@@ -464,9 +483,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         if (finalPass) {
           benchDustFinished = true;
           bench.classList.add('is-buried');
-          if (benchHint) benchHint.textContent = finePointer
-            ? 'use the rag // there is something under there'
-            : 'wipe the sawdust away';
         }
       };
 
@@ -550,13 +566,81 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         }
       });
 
+      const markCleanCoverage = (x, y, radius, rect) => {
+        const cellWidth = rect.width / cleanGrid.columns;
+        const cellHeight = rect.height / cleanGrid.rows;
+        const effectiveRadius = radius * 0.92;
+
+        for (let row = 0; row < cleanGrid.rows; row++) {
+          for (let column = 0; column < cleanGrid.columns; column++) {
+            const cellX = (column + 0.5) * cellWidth;
+            const cellY = (row + 0.5) * cellHeight;
+            const distance = Math.hypot(cellX - x, cellY - y);
+
+            if (distance <= effectiveRadius) {
+              cleanGrid.cells.add(row * cleanGrid.columns + column);
+            }
+          }
+        }
+
+        return cleanGrid.cells.size / (cleanGrid.columns * cleanGrid.rows);
+      };
+
+      const kickUpImpactDust = () => {
+        if (!benchImpact || reduceMotion) return;
+        benchImpact.replaceChildren();
+
+        for (let i = 0; i < 34; i++) {
+          const particle = document.createElement('i');
+          const angle = (-165 + Math.random() * 150) * Math.PI / 180;
+          const distance = 24 + Math.random() * 68;
+          particle.style.setProperty('--impact-x', (Math.cos(angle) * distance).toFixed(1) + 'px');
+          particle.style.setProperty('--impact-y', (Math.sin(angle) * distance - 8).toFixed(1) + 'px');
+          particle.style.setProperty('--impact-r', (-160 + Math.random() * 320).toFixed(0) + 'deg');
+          particle.style.setProperty('--impact-size', (1.5 + Math.random() * 4.5).toFixed(1) + 'px');
+          particle.style.setProperty('--impact-delay', (Math.random() * 90).toFixed(0) + 'ms');
+          benchImpact.appendChild(particle);
+        }
+
+        benchImpact.classList.remove('is-puffing');
+        void benchImpact.offsetWidth;
+        benchImpact.classList.add('is-puffing');
+        setTimeout(() => benchImpact.replaceChildren(), 1050);
+      };
+
+      const revealCleanBench = () => {
+        if (!bench || !canvas || !ctx || benchRevealComplete) return;
+        benchRevealComplete = true;
+        benchDustFinished = false;
+
+        const rect = bench.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+
+        bench.classList.remove('is-buried', 'is-cleaning');
+        bench.classList.add('is-cleared');
+        window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
+
+        requestAnimationFrame(() => {
+          bench.classList.add('is-revealing');
+
+          if (reduceMotion) {
+            bench.classList.add('is-revealed');
+            return;
+          }
+
+          setTimeout(kickUpImpactDust, 680);
+          setTimeout(() => {
+            bench.classList.remove('is-revealing');
+            bench.classList.add('is-revealed');
+          }, 1220);
+        });
+      };
+
       const clearDust = (event) => {
-        if (!bench || !canvas || !ctx || !benchDustStarted) return;
+        if (!bench || !canvas || !ctx || !benchDustFinished || benchRevealComplete) return;
         if (!finePointer && !brushing) return;
 
-        clearTimeout(resetTimer);
         bench.classList.add('is-cleaning');
-        window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
 
         const rect = bench.getBoundingClientRect();
         const x = event.clientX - rect.left;
@@ -564,10 +648,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         ctx.save();
         ctx.globalCompositeOperation = 'destination-out';
-        const radius = finePointer ? 62 : 54;
+        const radius = finePointer ? 66 : 56;
         const gradient = ctx.createRadialGradient(x, y, 5, x, y, radius);
         gradient.addColorStop(0, 'rgba(0,0,0,1)');
-        gradient.addColorStop(0.58, 'rgba(0,0,0,0.9)');
+        gradient.addColorStop(0.62, 'rgba(0,0,0,0.94)');
         gradient.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -575,9 +659,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         ctx.fill();
         ctx.restore();
 
-        if (benchHint && benchDustFinished) {
-          benchHint.textContent = 'keep wiping...';
-        }
+        const cleaned = markCleanCoverage(x, y, radius, rect);
+        if (cleaned >= cleanGrid.threshold) revealCleanBench();
       };
 
       if (bench && canvas && ctx) {
@@ -601,9 +684,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         bench.addEventListener('pointercancel', stopBrushing);
 
         window.addEventListener('resize', () => {
-          const wasDusty = benchDustFinished;
+          const wasDusty = benchDustFinished && !benchRevealComplete;
+          const wasRevealed = benchRevealComplete;
           sizeBenchCanvas();
-          if (wasDusty) depositBenchDust(1, true);
+
+          if (wasDusty) {
+            cleanGrid.cells.clear();
+            depositBenchDust(1, true);
+          }
+
+          if (wasRevealed) {
+            const rect = bench.getBoundingClientRect();
+            ctx.clearRect(0, 0, rect.width, rect.height);
+          }
         }, { passive: true });
       }
     })();
