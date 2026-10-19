@@ -8,12 +8,12 @@ interface Props {
 
 const {
   title = 'Eric Nolan | Unyielding Claw',
-  description = 'Technical product leadership, trustworthy AI engineering, practical software, and physical builds by Eric Nolan.',
+  description = 'Technical product leadership, AI engineering and governance, developer systems, practical software, and physical builds by Eric Nolan.',
 } = Astro.props;
 
 const fullTitle = title === 'Eric Nolan | Unyielding Claw' ? title : `${title} | Eric Nolan`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
-const socialImageURL = new URL('/social-card.png', Astro.site ?? Astro.url.origin);
+const socialImageURL = new URL('/social-card-v2.jpg', Astro.site ?? Astro.url.origin);
 const pathname = Astro.url.pathname;
 
 const navItems = [
@@ -33,7 +33,7 @@ const personSchema = {
   name: 'Eric Nolan',
   alternateName: 'Unyielding Claw',
   url: 'https://unyieldingclaw.com',
-  sameAs: ['https://github.com/unyieldingclaw-dev'],
+  sameAs: ['https://github.com/unyieldingclaw-dev', 'https://www.linkedin.com/in/ericnolan1/'],
   jobTitle: 'Technical Product Manager',
   knowsAbout: [
     'Technical Product Management',
@@ -65,9 +65,10 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Eric Nolan — Unyielding Claw" />
+    <meta property="og:image:alt" content="A dark engineering workbench with modular systems, human review stations, information flows, and analytics graphs" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -176,7 +177,7 @@ const personSchema = {
         </div>
         <div>
           <p class="footer-label">Elsewhere</p>
-          <p><a href="https://github.com/unyieldingclaw-dev">GitHub</a> · <a href="/contact/">Contact</a></p>
+          <p><a href="https://www.linkedin.com/in/ericnolan1/">LinkedIn</a> · <a href="https://github.com/unyieldingclaw-dev">GitHub</a> · <a href="/contact/">Contact</a></p>
         </div>
         <div>
           <p class="footer-label">Boundaries</p>
