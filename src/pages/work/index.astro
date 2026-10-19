@@ -18,10 +18,10 @@ import ProjectCard from '../../components/ProjectCard.astro';
         <p class="subhero-kicker">WORK // BUILD LOG</p>
         <h1>Proof beats positioning.</h1>
         <p class="lede">
-          The portfolio is deliberately mixed: AI infrastructure, developer tooling, private workflow products, live telemetry, and research. I want the systems to show how I think—not just the titles on my résumé.
+          This page is a mixed bag on purpose: AI infrastructure, developer tools, travel, whiskey, bowling, BBQ telemetry, and research. The common thread is not a tech stack. It is that I had a real reason to build each one.
         </p>
         <div class="hero-actions">
-          <a class="button button-pop" href="#featured">Jump to the evidence ↓</a>
+          <a class="button button-pop" href="#featured">Jump to the work ↓</a>
           <a class="button secondary case-secondary" href="https://github.com/unyieldingclaw-dev">Open GitHub</a>
         </div>
       </div>
@@ -56,10 +56,10 @@ import ProjectCard from '../../components/ProjectCard.astro';
       <div class="section-heading section-heading--punch">
         <div>
           <p class="eyebrow">Featured case studies</p>
-          <h2>Different problems. Same operating style.</h2>
+          <h2>Different problems. Different kinds of mess.</h2>
         </div>
         <p class="section-intro">
-          Understand the workflow. Model the real constraints. Automate only what earns automation. Make failure visible. Ship something people can actually use.
+          I usually start with the annoying part, not the architecture diagram. Who is doing what? What keeps breaking? What can stay simple? Then I build enough to make the problem better and try very hard not to invent three new problems on the way.
         </p>
       </div>
 
@@ -68,7 +68,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="Personal Memory Bank"
           href="/work/personal-memory-bank/"
           eyebrow="AI engineering · Context systems"
-          description="Persistent project memory governed by authority, freshness, provenance, hooks, diagnostics, semantic drift detection, review workflows, and CI."
+          description="Project memory for AI-assisted development, with explicit authority, freshness checks, diagnostics, hooks, drift detection, review workflows, and CI."
           status="Open source"
           tags={['Context', 'Governance', 'CLI', 'Developer productivity']}
           tone="blue"
@@ -78,7 +78,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="AI Code Review Agent"
           href="/work/ai-code-review-agent/"
           eyebrow="Developer tooling · Local AI"
-          description="Local multi-agent review with specialist isolation, sanitized diffs, confidence-aware findings, privacy-conscious inference, and multiple developer interfaces."
+          description="Local code review with isolated specialist lenses, sanitized diffs, confidence-aware findings, and CLI/editor interfaces that fit the way I already work."
           status="Open source"
           tags={['Ollama', 'Agents', 'Security', 'Verification']}
           tone="emerald"
@@ -88,7 +88,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="Side Quest Atlas"
           href="/work/side-quest-atlas/"
           eyebrow="Travel memory product"
-          description="Private small-group travel memory capture designed around 'capture now, enrich later,' group ownership, and clear access boundaries."
+          description="A private travel-memory app built around one rule: capture the moment now; do the bookkeeping later."
           status="Private case study"
           tags={['Flutter', 'Supabase', 'RLS', 'Product modeling']}
           tone="gold"
@@ -98,7 +98,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="PitLogic"
           href="/work/pitlogic/"
           eyebrow="Telemetry product"
-          description="Client-side BBQ telemetry and analytics with live device integration, alerts, stall detection, forecasting, history, and data portability."
+          description="BBQ telemetry that answers the useful questions: what is happening, whether dinner is in trouble, and what happened last time."
           status="Open source"
           tags={['React', 'PWA', 'Telemetry', 'Analytics']}
           tone="copper"
@@ -113,10 +113,10 @@ import ProjectCard from '../../components/ProjectCard.astro';
       <div class="section-heading">
         <div>
           <p class="eyebrow">Private, not hidden</p>
-          <h2>Privacy can be a product decision too.</h2>
+          <h2>Some of the good stuff should stay private.</h2>
         </div>
         <p class="section-intro">
-          A private repository is not a weak portfolio artifact when the product contains family history, club data, or personal performance records. The case study exposes the judgment without exposing the people.
+          Family trips, whiskey-club history, and bowling performance are useful product problems. They are also somebody's private life. I can show the decisions without putting the people—or their data—on display.
         </p>
       </div>
 
@@ -125,7 +125,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="Tipsy Bunghole"
           href="/work/tipsy-bunghole/"
           eyebrow="Live event workflow"
-          description="A private whiskey-club product that coordinates blind tasting events across participant, steward, and host roles while preserving institutional memory."
+          description="Runs a blind whiskey night from setup to reveal without making the host, steward, or drinkers fight the app."
           status="Private case study"
           tags={['React', 'Supabase', 'Roles', 'Event state']}
           tone="copper"
@@ -135,7 +135,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
           title="Bowling Tracker"
           href="/work/bowling-tracker/"
           eyebrow="Sports tracking"
-          description="A focused bowling product for sessions, scoring, equipment, patterns, leagues, drills, and analytics—designed around the bowler's actual workflow."
+          description="Tracks the stuff a score sheet forgets: equipment, patterns, practice, leagues, adjustments, and what was actually happening that night."
           status="Private case study"
           tags={['Flutter', 'Offline sync', 'Analytics', 'Domain rules']}
           tone="slate"
@@ -151,7 +151,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
         <p class="eyebrow">The research underneath it</p>
         <h2>Harness Engineering</h2>
         <p class="section-intro">
-          Building PMB and ACR kept exposing the same truth: model quality is only one variable. Context, tools, state, authority, evaluation, and execution boundaries decide whether the whole system is trustworthy.
+          PMB and ACR kept teaching me the same lesson: a better model does not rescue sloppy context, vague permissions, bad tool contracts, or a system nobody can debug. Harness Engineering is where I keep pulling on that thread.
         </p>
       </div>
       <a class="bridge-card" href="/harness-engineering/">
