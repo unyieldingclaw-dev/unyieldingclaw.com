@@ -26,7 +26,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
 
       <div class="harness-map" id="system-map" aria-label="Harness Engineering system map">
-        <div class="harness-core egg-mark egg-mark--dark" data-egg="PROMPTING ≠ ARCHITECTURE">MODEL</div>
+        <button class="harness-core egg-mark egg-mark--dark matrix-trigger" type="button" data-matrix-trigger data-egg="PROMPTING ≠ ARCHITECTURE" aria-label="Model node. There may be more here than meets the eye.">MODEL</button>
         <div class="harness-node node-context"><span>CONTEXT</span><small>authority · freshness</small></div>
         <div class="harness-node node-memory"><span>MEMORY</span><small>state · provenance</small></div>
         <div class="harness-node node-tools"><span>TOOLS</span><small>contracts · permissions</small></div>
@@ -93,6 +93,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <section class="section harness-rule">
     <div class="shell">
       <div class="rule-card">
+        <button class="trail-marker trail-marker--harness" type="button" data-trail-marker="harness" aria-label="Hidden trail marker: Systems Trail">◇</button>
         <span class="rule-card__index">RULE 001</span>
         <blockquote>No new machinery without an observed need.</blockquote>
         <p>
@@ -101,4 +102,112 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
     </div>
   </section>
+
+  <div class="matrix-overlay" data-matrix-overlay aria-hidden="true">
+    <canvas class="matrix-canvas" data-matrix-canvas></canvas>
+    <div class="matrix-overlay__message">
+      <span>HARNESS ENGINEERING // RUNTIME CHECK</span>
+      <strong>THE MODEL IS NOT THE PRODUCT.</strong>
+      <small>There is no spoon. There is, however, a tool contract.</small>
+    </div>
+    <button type="button" class="matrix-overlay__close" data-matrix-close aria-label="Close Matrix easter egg">ESC</button>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const trigger = document.querySelector('[data-matrix-trigger]');
+      const overlay = document.querySelector('[data-matrix-overlay]');
+      const canvas = document.querySelector('[data-matrix-canvas]');
+      const close = document.querySelector('[data-matrix-close]');
+      if (!trigger || !overlay || !canvas) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const ctx = canvas.getContext('2d');
+      let animationFrame;
+      let stopTimer;
+      let running = false;
+      let neoBuffer = '';
+
+      const sizeCanvas = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      const stopMatrix = () => {
+        running = false;
+        cancelAnimationFrame(animationFrame);
+        clearTimeout(stopTimer);
+        overlay.classList.remove('is-active');
+        overlay.setAttribute('aria-hidden', 'true');
+      };
+
+      const startMatrix = () => {
+        if (running) return;
+        running = true;
+        overlay.classList.add('is-active');
+        overlay.setAttribute('aria-hidden', 'false');
+
+        if (reduceMotion) {
+          stopTimer = setTimeout(stopMatrix, 2600);
+          return;
+        }
+
+        sizeCanvas();
+        const fontSize = 17;
+        let columns = Math.ceil(window.innerWidth / fontSize);
+        let drops = Array(columns).fill(0).map(() => Math.random() * -40);
+
+        const draw = () => {
+          if (!running) return;
+          ctx.fillStyle = 'rgba(0, 8, 4, 0.11)';
+          ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+          ctx.fillStyle = '#53ff8a';
+          ctx.font = fontSize + 'px ui-monospace, monospace';
+
+          for (let i = 0; i < drops.length; i++) {
+            const text = Math.random() > 0.5 ? '1' : '0';
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > window.innerHeight && Math.random() > 0.975) drops[i] = 0;
+            drops[i] += 0.75 + Math.random() * 0.35;
+          }
+
+          animationFrame = requestAnimationFrame(draw);
+        };
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        draw();
+        stopTimer = setTimeout(stopMatrix, 5200);
+      };
+
+      trigger.addEventListener('click', startMatrix);
+      close?.addEventListener('click', stopMatrix);
+      overlay.addEventListener('click', (event) => {
+        if (event.target === overlay || event.target === canvas) stopMatrix();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && running) {
+          stopMatrix();
+          return;
+        }
+        const target = event.target;
+        if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable) return;
+        if (event.key.length !== 1) return;
+        neoBuffer = (neoBuffer + event.key.toLowerCase()).slice(-3);
+        if (neoBuffer === 'neo') {
+          startMatrix();
+          neoBuffer = '';
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (running && !reduceMotion) sizeCanvas();
+      }, { passive: true });
+    })();
+  </script>
 </BaseLayout>
