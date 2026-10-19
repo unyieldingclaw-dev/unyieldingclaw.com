@@ -6935,3 +6935,173 @@ nav a:focus-visible,
     8%, 82% { opacity: 1; }
   }
 }
+
+
+/* ==========================================================================
+   Unified project-card design system
+   Same project = same visual identity on every page and breakpoint.
+   ========================================================================== */
+
+.project-card--visual {
+  --project-card-base: #0a1a2a;
+  min-height: 24rem;
+  border: 1px solid rgba(151,184,219,0.18) !important;
+  background:
+    linear-gradient(145deg, rgba(12,31,49,0.98), rgba(8,23,37,0.98)) !important;
+  color: #f6f9fc !important;
+  box-shadow:
+    0 24px 54px rgba(8,22,35,0.16),
+    0 5px 14px rgba(8,22,35,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.045);
+}
+
+.project-card--visual .project-card__art {
+  opacity: 0.94;
+  filter: none;
+}
+
+.project-card--visual .project-card__veil,
+.project-card--sidequest .project-card__veil,
+.project-card--pitlogic .project-card__veil,
+.project-card--tipsy .project-card__veil {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,16,28,0.90) 0%,
+      rgba(5,16,28,0.82) 38%,
+      rgba(5,16,28,0.60) 63%,
+      rgba(5,16,28,0.26) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4,13,22,0.12),
+      rgba(4,13,22,0.38)
+    );
+}
+
+.project-card--visual .project-kicker {
+  color: rgba(197,217,234,0.84) !important;
+}
+
+.project-card--visual h3 {
+  color: #ffffff !important;
+}
+
+.project-card--visual > p {
+  color: rgba(224,235,244,0.86) !important;
+}
+
+.project-card--visual .status-chip {
+  border: 1px solid rgba(214,230,244,0.22) !important;
+  background: rgba(7,22,35,0.60) !important;
+  color: #f1f7fb !important;
+  backdrop-filter: blur(10px);
+}
+
+.project-card--visual .tag-list li {
+  border: 1px solid rgba(216,231,243,0.12) !important;
+  background: rgba(6,20,32,0.58) !important;
+  color: rgba(240,247,252,0.90) !important;
+  backdrop-filter: blur(8px);
+}
+
+.project-card--visual .project-link {
+  color: #fff !important;
+}
+
+.project-card--harness { --project-accent: #79a7ff; }
+
+.project-card__art--harness {
+  background-image: url('/work-art/harness-engineering.svg');
+  background-position: 62% 50%;
+  background-size: cover;
+}
+
+.project-card__art--sidequest,
+.case-hero__art--sidequest {
+  background-image: url('/work-art/side-quest-atlas.svg') !important;
+  background-position: center 48%;
+  filter: saturate(1.02) contrast(1.03) brightness(0.96);
+}
+
+.project-card__art--tipsy,
+.case-hero__art--tipsy {
+  background-image: url('/work-art/tipsy-bunghole.svg') !important;
+  background-position: center 48%;
+  filter: saturate(1.03) contrast(1.03) brightness(0.94);
+}
+
+.project-card__art--bowling,
+.case-hero__art--bowling {
+  background-image: url('/work-art/bowling-tracker-v2.svg') !important;
+  background-position: center 50%;
+  filter: saturate(1.02) contrast(1.03) brightness(0.96);
+}
+
+.project-card__art--pitlogic {
+  filter: saturate(1.12) contrast(1.06) brightness(0.86);
+}
+
+.project-card--visual:hover,
+.project-card--visual.is-tilting,
+.project-card--visual:focus-visible {
+  border-color: color-mix(in srgb, var(--project-accent) 68%, white 12%) !important;
+  box-shadow:
+    0 34px 72px rgba(8,22,35,0.24),
+    0 12px 26px rgba(8,22,35,0.12),
+    0 0 0 1px color-mix(in srgb, var(--project-accent) 22%, transparent);
+}
+
+/* Individual case-study heroes use the exact same project art sources. */
+.case-hero__art--sidequest {
+  filter: saturate(1.02) contrast(1.04) brightness(0.88);
+}
+
+.case-hero__art--tipsy {
+  filter: saturate(1.04) contrast(1.05) brightness(0.86);
+}
+
+.case-hero__art--bowling {
+  filter: saturate(1.02) contrast(1.04) brightness(0.90);
+}
+
+@media (max-width: 720px) {
+  .project-card--visual {
+    min-height: 22.5rem;
+    border-radius: 0.9rem;
+    background:
+      linear-gradient(145deg, rgba(12,31,49,0.99), rgba(8,23,37,0.99)) !important;
+  }
+
+  .project-card--visual .project-card__art {
+    inset: 0;
+    opacity: 0.88;
+    background-position: 62% 50%;
+    background-size: cover;
+  }
+
+  .project-card--visual .project-card__veil,
+  .project-card--sidequest .project-card__veil,
+  .project-card--pitlogic .project-card__veil,
+  .project-card--tipsy .project-card__veil {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5,16,28,0.94) 0%,
+        rgba(5,16,28,0.84) 46%,
+        rgba(5,16,28,0.58) 72%,
+        rgba(5,16,28,0.34) 100%
+      ),
+      linear-gradient(180deg, rgba(4,13,22,0.12), rgba(4,13,22,0.36));
+  }
+
+  .project-card--visual h3 {
+    font-size: clamp(1.85rem, 8vw, 2.45rem);
+    line-height: 1.02;
+  }
+
+  .project-card--visual > p {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+}

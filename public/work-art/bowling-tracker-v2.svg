@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#071421"/><stop offset=".48" stop-color="#0c2742"/><stop offset="1" stop-color="#1f4f78"/>
+    </linearGradient>
+    <linearGradient id="lane" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#e7c692"/><stop offset=".55" stop-color="#b77b47"/><stop offset="1" stop-color="#51311f"/>
+    </linearGradient>
+    <radialGradient id="ball" cx="38%" cy="32%" r="70%">
+      <stop stop-color="#3e86d6"/><stop offset=".3" stop-color="#163d69"/><stop offset=".72" stop-color="#08192a"/><stop offset="1" stop-color="#03090f"/>
+    </radialGradient>
+    <filter id="pinGlow"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <path d="M500 70h200l250 730H250Z" fill="url(#lane)" stroke="#f0d6ac" stroke-opacity=".35" stroke-width="4"/>
+  <g opacity=".13" stroke="#fff" stroke-width="2">
+    <path d="M375 800 548 70M825 800 652 70"/>
+    <path d="M320 630h560M345 560h510M370 490h460M395 420h410"/>
+  </g>
+  <g fill="none" stroke="#6da1ff" stroke-opacity=".23" stroke-width="4">
+    <path d="M410 610c75-48 305-48 380 0"/>
+    <path d="M435 555c68-39 265-39 330 0"/>
+    <path d="M465 500c58-31 213-31 270 0"/>
+    <path d="M495 448c47-24 163-24 210 0"/>
+  </g>
+  <g transform="translate(505 70)">
+    <ellipse cx="95" cy="165" rx="160" ry="105" fill="#fff" opacity=".08" filter="url(#pinGlow)"/>
+    <g fill="#f7f8fa" stroke="#d9e0e5" stroke-width="3">
+      <path d="M88 0c-11 18-15 34-11 50 2 10 8 20 14 29-16 25-25 51-25 80 0 52 35 82 82 82s82-30 82-82c0-29-9-55-25-80 6-9 12-19 14-29 4-16 0-32-11-50Z"/>
+      <path d="M-8 70c-8 12-11 23-9 35 1 7 5 15 10 22-11 17-17 35-17 55 0 36 25 57 57 57 10 0 19-2 27-5-12-21-18-45-18-71 0-34 11-65 30-90-8-7-14-14-19-20Z"/>
+      <path d="M304 70c8 12 11 23 9 35-1 7-5 15-10 22 11 17 17 35 17 55 0 36-25 57-57 57-10 0-19-2-27-5 12-21 18-45 18-71 0-34-11-65-30-90 8-7 14-14 19-20Z"/>
+    </g>
+    <g fill="#b92f3d">
+      <rect x="79" y="75" width="138" height="15" rx="4"/>
+      <rect x="-15" y="125" width="58" height="11" rx="3"/>
+      <rect x="253" y="125" width="58" height="11" rx="3"/>
+    </g>
+  </g>
+  <g transform="translate(725 525)">
+    <ellipse cx="118" cy="205" rx="128" ry="28" fill="#000" opacity=".32"/>
+    <circle cx="118" cy="118" r="112" fill="url(#ball)" stroke="#5a8fc5" stroke-width="5"/>
+    <path d="M52 72c55-31 112-28 157 2" fill="none" stroke="#6ea6d8" stroke-opacity=".25" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="87" cy="91" r="10" fill="#02070b"/><circle cx="119" cy="78" r="10" fill="#02070b"/><circle cx="142" cy="108" r="10" fill="#02070b"/>
+  </g>
+</svg>

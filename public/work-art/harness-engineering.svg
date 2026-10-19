@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#071522"/>
+      <stop offset=".55" stop-color="#0b2744"/>
+      <stop offset="1" stop-color="#0f3b63"/>
+    </linearGradient>
+    <radialGradient id="core" cx="45%" cy="38%" r="65%">
+      <stop stop-color="#4f8cff"/>
+      <stop offset=".5" stop-color="#2458a8"/>
+      <stop offset="1" stop-color="#143566"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+
+  <g opacity=".13" stroke="#74a6ff" stroke-width="2">
+    <path d="M0 110h1200M0 220h1200M0 330h1200M0 440h1200M0 550h1200M0 660h1200"/>
+    <path d="M140 0v800M280 0v800M420 0v800M560 0v800M700 0v800M840 0v800M980 0v800M1120 0v800"/>
+  </g>
+
+  <g transform="translate(650 120)">
+    <circle cx="230" cy="260" r="205" fill="none" stroke="#6d9cff" stroke-opacity=".18" stroke-width="3" stroke-dasharray="7 10"/>
+    <circle cx="230" cy="260" r="120" fill="none" stroke="#6d9cff" stroke-opacity=".26" stroke-width="3" stroke-dasharray="5 8"/>
+
+    <circle cx="230" cy="260" r="72" fill="#2b67c7" opacity=".28" filter="url(#glow)"/>
+    <circle cx="230" cy="260" r="66" fill="url(#core)" stroke="#6ea4ff" stroke-opacity=".7" stroke-width="3"/>
+
+    <g fill="#0a2036" stroke="#5e8ccf" stroke-opacity=".55" stroke-width="2">
+      <rect x="155" y="3" width="150" height="72" rx="12"/>
+      <rect x="-10" y="93" width="155" height="72" rx="12"/>
+      <rect x="315" y="93" width="155" height="72" rx="12"/>
+      <rect x="-25" y="242" width="165" height="72" rx="12"/>
+      <rect x="320" y="242" width="165" height="72" rx="12"/>
+      <rect x="20" y="410" width="160" height="72" rx="12"/>
+      <rect x="285" y="410" width="160" height="72" rx="12"/>
+    </g>
+
+    <g fill="#9ebcf2" font-family="ui-monospace,monospace" font-size="18" font-weight="800" letter-spacing="2">
+      <text x="194" y="35">CONTEXT</text>
+      <text x="28" y="125">MEMORY</text>
+      <text x="355" y="125">TOOLS</text>
+      <text x="2" y="274">ORCHESTRATION</text>
+      <text x="355" y="274">GOVERNANCE</text>
+      <text x="60" y="442">EVALUATION</text>
+      <text x="329" y="442">RUNTIME</text>
+    </g>
+
+    <g fill="#83a0b8" font-family="system-ui,sans-serif" font-size="15">
+      <text x="175" y="59">authority · freshness</text>
+      <text x="24" y="149">state · provenance</text>
+      <text x="344" y="149">contracts · permissions</text>
+      <text x="11" y="298">routing · handoffs</text>
+      <text x="346" y="298">scope · approval</text>
+      <text x="52" y="466">evidence · behavior</text>
+      <text x="317" y="466">retries · recovery</text>
+    </g>
+
+    <text x="187" y="268" fill="#fff" font-family="ui-monospace,monospace" font-size="22" font-weight="900" letter-spacing="2">MODEL</text>
+  </g>
+
+  <path d="M90 620c150-140 330-205 525-210" fill="none" stroke="#2e6fed" stroke-opacity=".16" stroke-width="4"/>
+  <path d="M60 680c175-140 360-198 555-195" fill="none" stroke="#2e6fed" stroke-opacity=".1" stroke-width="3"/>
+</svg>

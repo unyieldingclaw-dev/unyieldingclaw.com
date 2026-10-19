@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0b1b22"/><stop offset=".52" stop-color="#17313a"/><stop offset="1" stop-color="#6b4f31"/>
+    </linearGradient>
+    <radialGradient id="paper" cx="70%" cy="38%" r="75%">
+      <stop stop-color="#d6bd8a" stop-opacity=".34"/><stop offset="1" stop-color="#9b7b4a" stop-opacity=".02"/>
+    </radialGradient>
+    <radialGradient id="compass" cx="42%" cy="35%" r="70%">
+      <stop stop-color="#e8d2a6"/><stop offset=".45" stop-color="#9b7b45"/><stop offset="1" stop-color="#3d2a18"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#paper)"/>
+  <g opacity=".2" fill="none" stroke="#e5d1aa" stroke-width="2">
+    <path d="M35 110c150 35 210-30 330 8s190 5 300-28 250 20 430-8"/>
+    <path d="M20 190c135 25 230-15 345 20s185 3 310-25 265 17 480-3"/>
+    <path d="M15 270c160 40 240-22 365 15s190 0 318-31 258 18 470-5"/>
+    <path d="M30 355c145 28 225-20 350 17s205 7 335-24 265 19 455-1"/>
+    <path d="M15 445c170 32 250-18 365 18s200 5 335-25 255 15 455-6"/>
+    <path d="M20 535c150 35 240-12 360 17s205 8 335-25 250 18 450-5"/>
+    <path d="M35 625c135 28 225-10 340 14s195 5 330-20 260 12 465-6"/>
+  </g>
+  <g fill="none" stroke="#4ec3b3" stroke-width="5" stroke-dasharray="14 16" opacity=".9">
+    <path d="M110 610C220 505 280 510 390 420S560 300 690 345s195-90 315-175"/>
+  </g>
+  <g fill="#ef6d4c" stroke="#fff1de" stroke-width="4">
+    <path d="M116 580c-20 0-36 16-36 36 0 29 36 70 36 70s36-41 36-70c0-20-16-36-36-36Zm0 50a14 14 0 1 1 0-28 14 14 0 0 1 0 28Z"/>
+    <path d="M690 315c-18 0-32 14-32 32 0 25 32 61 32 61s32-36 32-61c0-18-14-32-32-32Zm0 45a12 12 0 1 1 0-24 12 12 0 0 1 0 24Z"/>
+    <path d="M1004 137c-18 0-32 14-32 32 0 25 32 61 32 61s32-36 32-61c0-18-14-32-32-32Zm0 45a12 12 0 1 1 0-24 12 12 0 0 1 0 24Z"/>
+  </g>
+  <g transform="translate(820 410)">
+    <circle cx="150" cy="150" r="128" fill="#0b151a" stroke="#d0af73" stroke-width="7"/>
+    <circle cx="150" cy="150" r="108" fill="url(#compass)" stroke="#70502a" stroke-width="3"/>
+    <circle cx="150" cy="150" r="88" fill="#14252a" stroke="#d6b778" stroke-width="3"/>
+    <path d="M150 55 179 139 150 245 121 139Z" fill="#f0d197" stroke="#5c3c20" stroke-width="3"/>
+    <path d="M55 150 139 121 245 150 139 179Z" fill="#8e6d3f" stroke="#5c3c20" stroke-width="3"/>
+    <circle cx="150" cy="150" r="18" fill="#d9b777" stroke="#4b311c" stroke-width="4"/>
+    <g fill="#e9d7b5" font-family="serif" font-size="20" font-weight="700">
+      <text x="143" y="37">N</text><text x="143" y="280">S</text><text x="19" y="157">W</text><text x="273" y="157">E</text>
+    </g>
+  </g>
+</svg>
