@@ -130,7 +130,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <span class="saw-cut-hint">hover here // yes, really</span>
         </div>
 
-        <div class="sawdust-bench" data-sawdust-bench data-trail-discovery="workshop-dust">
+        <div class="sawdust-bench" data-sawdust-bench>
           <div class="sawdust-bench__engraving">
             <span>BENCH TEST</span>
             <strong>Congratulations.</strong>
@@ -186,8 +186,113 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       const cutStage = document.querySelector('[data-saw-cut]');
       const dustBurst = document.querySelector('[data-saw-dust]');
+      const bench = document.querySelector('[data-sawdust-bench]');
+      const canvas = document.querySelector('[data-sawdust-canvas]');
+      const benchHint = bench?.querySelector('.sawdust-bench__hint');
+
       let cutting = false;
       let cutResetTimer;
+      let resetTimer;
+      let brushing = false;
+      let benchDustStarted = false;
+      let benchDustFinished = false;
+
+      const ctx = canvas?.getContext('2d');
+
+      const sizeBenchCanvas = () => {
+        if (!bench || !canvas || !ctx) return;
+        const rect = bench.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+      };
+
+      const clearBenchCompletely = () => {
+        if (!bench || !canvas || !ctx) return;
+        const rect = bench.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        bench.classList.remove('is-dusty', 'is-buried', 'is-cleaning');
+        benchDustStarted = false;
+        benchDustFinished = false;
+        if (benchHint) benchHint.textContent = 'waiting for the mess...';
+      };
+
+      const depositBenchDust = (progress, finalPass = false) => {
+        if (!bench || !canvas || !ctx) return;
+        const rect = bench.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        if (!benchDustStarted) {
+          benchDustStarted = true;
+          bench.classList.add('is-dusty');
+          if (benchHint) benchHint.textContent = 'the saw is making a mess...';
+        }
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'source-over';
+
+        const dustColors = ['#d7b27a', '#c99a5d', '#e2c08b', '#b9874f', '#efd2a1'];
+        const particles = finalPass ? 900 : 42;
+
+        for (let i = 0; i < particles; i++) {
+          const centerBias = finalPass && Math.random() < 0.62;
+          const x = centerBias
+            ? rect.width * (0.25 + Math.random() * 0.5)
+            : Math.random() * rect.width;
+          const fallBias = 0.18 + (0.82 * Math.random());
+          const y = centerBias
+            ? rect.height * (0.26 + Math.random() * 0.5)
+            : rect.height * Math.pow(fallBias, 0.72);
+          const radius = finalPass
+            ? 1.1 + Math.random() * 4.3
+            : 0.8 + Math.random() * (2.2 + progress * 2.2);
+
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = dustColors[Math.floor(Math.random() * dustColors.length)];
+          ctx.globalAlpha = finalPass ? 0.62 + Math.random() * 0.34 : 0.26 + progress * 0.34;
+          ctx.fill();
+        }
+
+        // Build an actual mound across the message area as the cut progresses.
+        const moundAlpha = finalPass ? 0.88 : Math.min(0.54, 0.08 + progress * 0.48);
+        const moundHeight = rect.height * (finalPass ? 0.62 : 0.18 + progress * 0.34);
+        const moundY = rect.height * 0.5;
+
+        const mound = ctx.createRadialGradient(
+          rect.width * 0.5, moundY, 12,
+          rect.width * 0.5, moundY, Math.max(rect.width * 0.48, moundHeight)
+        );
+        mound.addColorStop(0, 'rgba(202,154,92,' + moundAlpha.toFixed(2) + ')');
+        mound.addColorStop(0.48, 'rgba(215,178,122,' + (moundAlpha * 0.9).toFixed(2) + ')');
+        mound.addColorStop(0.78, 'rgba(185,135,79,' + (moundAlpha * 0.58).toFixed(2) + ')');
+        mound.addColorStop(1, 'rgba(185,135,79,0)');
+
+        ctx.fillStyle = mound;
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        // Sawdust tends to bank along the lower edge; make the pile feel dimensional.
+        const bank = ctx.createLinearGradient(0, rect.height * 0.56, 0, rect.height);
+        bank.addColorStop(0, 'rgba(226,192,142,0)');
+        bank.addColorStop(0.48, 'rgba(214,174,118,' + (finalPass ? 0.42 : progress * 0.24).toFixed(2) + ')');
+        bank.addColorStop(1, 'rgba(154,103,57,' + (finalPass ? 0.72 : progress * 0.38).toFixed(2) + ')');
+        ctx.fillStyle = bank;
+        ctx.fillRect(0, rect.height * 0.52, rect.width, rect.height * 0.48);
+
+        ctx.restore();
+
+        if (finalPass) {
+          benchDustFinished = true;
+          bench.classList.add('is-buried');
+          if (benchHint) benchHint.textContent = finePointer
+            ? 'use the rag // there is something under there'
+            : 'wipe the sawdust away';
+        }
+      };
 
       const spawnDust = (progress) => {
         if (!dustBurst) return;
@@ -209,8 +314,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         cutting = true;
         clearTimeout(cutResetTimer);
 
+        if (bench && canvas && ctx) {
+          clearBenchCompletely();
+          bench.classList.add('is-cut-active');
+        }
+
         if (reduceMotion) {
           cutStage.classList.add('is-cut');
+          depositBenchDust(1, true);
+          bench?.classList.remove('is-cut-active');
           cutResetTimer = setTimeout(() => {
             cutStage.classList.remove('is-cut');
             cutting = false;
@@ -222,6 +334,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const started = performance.now();
         const duration = 3000;
         let lastDustAt = 0;
+        let lastBenchDustAt = 0;
 
         const emit = (now) => {
           const progress = Math.min(1, (now - started) / duration);
@@ -231,7 +344,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             lastDustAt = now;
           }
 
-          if (progress < 1 && cutting) requestAnimationFrame(emit);
+          if (now - lastBenchDustAt > 72) {
+            depositBenchDust(progress, false);
+            lastBenchDustAt = now;
+          }
+
+          if (progress < 1 && cutting) {
+            requestAnimationFrame(emit);
+          } else {
+            depositBenchDust(1, true);
+            bench?.classList.remove('is-cut-active');
+          }
         };
         requestAnimationFrame(emit);
 
@@ -257,85 +380,62 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         }
       });
 
-      const bench = document.querySelector('[data-sawdust-bench]');
-      const canvas = document.querySelector('[data-sawdust-canvas]');
-      if (!bench || !canvas || reduceMotion) return;
-
-      const ctx = canvas.getContext('2d');
-      let resetTimer;
-
-      const drawDust = () => {
-        const rect = bench.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.floor(rect.width * dpr);
-        canvas.height = Math.floor(rect.height * dpr);
-        canvas.style.width = rect.width + 'px';
-        canvas.style.height = rect.height + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, rect.width, rect.height);
-        ctx.globalCompositeOperation = 'source-over';
-
-        const count = Math.floor((rect.width * rect.height) / 190);
-        const dustColors = ['#d7b27a', '#c99a5d', '#e2c08b', '#b9874f'];
-
-        for (let i = 0; i < count; i++) {
-          const x = Math.random() * rect.width;
-          const y = Math.random() * rect.height;
-          const radius = 0.6 + Math.random() * 2.1;
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = dustColors[Math.floor(Math.random() * dustColors.length)];
-          ctx.globalAlpha = 0.35 + Math.random() * 0.55;
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-      };
-
-      let brushing = false;
-
       const clearDust = (event) => {
+        if (!bench || !canvas || !ctx || !benchDustStarted) return;
         if (!finePointer && !brushing) return;
-        window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
+
         clearTimeout(resetTimer);
+        bench.classList.add('is-cleaning');
+        window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
+
         const rect = bench.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
+
         ctx.save();
         ctx.globalCompositeOperation = 'destination-out';
-        const gradient = ctx.createRadialGradient(x, y, 4, x, y, 54);
-        gradient.addColorStop(0, 'rgba(0,0,0,0.95)');
-        gradient.addColorStop(0.55, 'rgba(0,0,0,0.65)');
+        const radius = finePointer ? 62 : 54;
+        const gradient = ctx.createRadialGradient(x, y, 5, x, y, radius);
+        gradient.addColorStop(0, 'rgba(0,0,0,1)');
+        gradient.addColorStop(0.58, 'rgba(0,0,0,0.9)');
         gradient.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(x, y, 54, 0, Math.PI * 2);
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
-      };
 
-      drawDust();
-
-      bench.addEventListener('pointerdown', (event) => {
-        if (event.pointerType === 'touch' || event.pointerType === 'pen') {
-          brushing = true;
-          clearDust(event);
+        if (benchHint && benchDustFinished) {
+          benchHint.textContent = 'keep wiping...';
         }
-      });
-
-      bench.addEventListener('pointermove', clearDust);
-
-      const stopBrushing = () => {
-        brushing = false;
-        resetTimer = setTimeout(drawDust, 3200);
       };
 
-      bench.addEventListener('pointerup', stopBrushing);
-      bench.addEventListener('pointercancel', stopBrushing);
-      bench.addEventListener('pointerleave', () => {
-        if (finePointer) resetTimer = setTimeout(drawDust, 3200);
-      });
+      if (bench && canvas && ctx) {
+        sizeBenchCanvas();
+        clearBenchCompletely();
 
-      window.addEventListener('resize', drawDust, { passive: true });
+        bench.addEventListener('pointerdown', (event) => {
+          if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+            brushing = true;
+            clearDust(event);
+          }
+        });
+
+        bench.addEventListener('pointermove', clearDust);
+
+        const stopBrushing = () => {
+          brushing = false;
+        };
+
+        bench.addEventListener('pointerup', stopBrushing);
+        bench.addEventListener('pointercancel', stopBrushing);
+
+        window.addEventListener('resize', () => {
+          const wasDusty = benchDustFinished;
+          sizeBenchCanvas();
+          if (wasDusty) depositBenchDust(1, true);
+        }, { passive: true });
+      }
     })();
   </script>
 </BaseLayout>
