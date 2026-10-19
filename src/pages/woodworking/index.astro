@@ -4,27 +4,74 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Nolan's Workshop"
-  description="Nolan's Workshop: woodworking projects, shop builds, jigs, tools, and lessons learned."
+  description="Nolan's Workshop: woodworking projects, shop systems, jigs, work surfaces, finishing, tools, and build lessons."
 >
   <header class="page-header">
     <div class="shell">
-      <p class="eyebrow">Woodworking</p>
-      <h1>Nolan's Workshop</h1>
+      <p class="eyebrow">Nolan's Workshop</p>
+      <h1>Build it to be used.</h1>
       <p class="lede">
-        The woodworking side of the site: practical shop projects, jigs, furniture and builds, with the mistakes and tradeoffs left in.
+        The physical-build side of the site: woodworking, shop systems, jigs, work surfaces, finishing, and the practical decisions that turn a sketch into something that earns space in the shop.
       </p>
     </div>
   </header>
 
+  <section class="section section--warm">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Workshop identity</p>
+          <h2>One umbrella. A distinct maker brand.</h2>
+        </div>
+        <p class="section-intro">
+          Nolan's Workshop is the name used for the woodworking side of my work, including a physical wood brand. It lives inside Unyielding Claw for now rather than creating a second site that has to be maintained separately.
+        </p>
+      </div>
+
+      <div class="workshop-grid">
+        <article class="workshop-card">
+          <h3>Shop systems & jigs</h3>
+          <p>Purpose-built fixtures, sleds, stands, storage, workholding, and shop improvements that make the next project easier or safer.</p>
+        </article>
+        <article class="workshop-card">
+          <h3>Work surfaces & furniture</h3>
+          <p>Benches, tables, tops, and utility builds where structure, mobility, finish, and actual use matter more than showroom perfection.</p>
+        </article>
+        <article class="workshop-card">
+          <h3>Small builds & experiments</h3>
+          <p>Projects that are worth documenting because of the process: routing, joinery, finishing, material choices, mistakes, and revisions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
-    <div class="shell prose">
-      <h2>One site, a distinct workshop identity</h2>
-      <p>
-        Nolan's Workshop has its own name and physical wood brand. It lives here as a distinct section rather than forcing woodworking into an engineering portfolio or maintaining a second full website.
-      </p>
-      <p>
-        Project writeups will be added selectively as useful build records are ready for public release.
-      </p>
+    <div class="shell split-feature">
+      <div>
+        <p class="eyebrow">How I document builds</p>
+        <h2>The useful part is usually the decision.</h2>
+        <p class="section-intro">
+          Future project pages will focus on what the build had to do, what constraints shaped it, what I owned already, what I changed after testing, and what I would do differently—not just a gallery of finished photos.
+        </p>
+      </div>
+      <aside class="feature-note">
+        <strong>Plans are not automatically open source.</strong>
+        <p>Photos, drawings, measurements, plans, written instructions, and the Nolan's Workshop identity remain all rights reserved unless a specific project says otherwise. Individual plans can be licensed deliberately when there is a reason.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">The crossover</p>
+          <h2>Same habits. Different material.</h2>
+        </div>
+        <p class="section-intro">
+          A good jig and a good software tool share more than they first appear to: narrow purpose, predictable behavior, respect for constraints, and enough simplicity that the tool does not become the project.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,46 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Bowling Tracker"
+  description="Case study: a private bowling product for sessions, equipment, oil patterns, drills, leagues, and analytics."
+  eyebrow="Sports product · Personal analytics"
+  lede="Bowling performance is more than a final score. The product tracks the context around the game—equipment, oil condition, location, session type, deliveries, practice, and trends—without turning every trip to the lanes into bookkeeping."
+  status="Active development"
+  access="Private repository · Public-safe case study"
+  tags={['Flutter', 'Offline sync', 'Analytics', 'Domain rules']}
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      A score tells you what happened, but not necessarily why. Useful bowling history needs to preserve enough context to compare performance across balls, alleys, patterns, leagues, tournaments, practice sessions, and time—while still allowing fast entry during play.
+    </p>
+  </section>
+
+  <section>
+    <h2>Domain decisions that matter</h2>
+    <ul>
+      <li>Derived statistics are computed from source events rather than stored beside them and allowed to drift.</li>
+      <li>Completed competitive/practice games feed analytics; social sessions can remain in history without contaminating performance metrics.</li>
+      <li>Ball attribution lives at the delivery level so equipment analysis has evidence behind it.</li>
+      <li>Retired equipment is preserved rather than deleted, because historical sessions still need to explain themselves.</li>
+      <li>“House pattern” is treated as a grouping, not invented as a fake oil-pattern entity.</li>
+      <li>An offline local store and later synchronization support the real environment: bowling centers do not always have reliable connectivity.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>A focused product can still become deep</h2>
+    <p>
+      Narrow scope does not mean shallow behavior. Once the core session model is sound, drills, leave conversion, ball maintenance, trend analysis, league detail, and equipment recommendations can grow from the same evidence without turning the app into a generic sports platform.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why it stays private</h2>
+    <p>
+      The repository is not needed to demonstrate the product judgment. A public-safe case study can show the domain model, rules, offline strategy, and analytics philosophy while personal performance records and user-specific data remain private.
+    </p>
+  </section>
+</CaseStudyLayout>

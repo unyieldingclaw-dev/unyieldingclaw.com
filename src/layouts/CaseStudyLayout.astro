@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  lede: string;
+  status: string;
+  access: string;
+  tags?: string[];
+  repoUrl?: string;
+  liveUrl?: string;
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  lede,
+  status,
+  access,
+  tags = [],
+  repoUrl,
+  liveUrl,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="case-hero">
+    <div class="shell">
+      <a class="back-link" href="/work/">← All work</a>
+      <div class="case-hero__grid">
+        <div>
+          <p class="eyebrow">{eyebrow}</p>
+          <h1>{title}</h1>
+          <p class="lede">{lede}</p>
+          {(repoUrl || liveUrl) && (
+            <div class="hero-actions">
+              {repoUrl && <a class="button" href={repoUrl}>View repository</a>}
+              {liveUrl && <a class="button secondary" href={liveUrl}>Open live project</a>}
+            </div>
+          )}
+        </div>
+        <aside class="case-facts" aria-label="Project facts">
+          <div>
+            <span>Status</span>
+            <strong>{status}</strong>
+          </div>
+          <div>
+            <span>Access</span>
+            <strong>{access}</strong>
+          </div>
+          {tags.length > 0 && (
+            <div>
+              <span>Focus</span>
+              <ul class="tag-list">
+                {tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <article class="case-body">
+    <div class="shell case-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

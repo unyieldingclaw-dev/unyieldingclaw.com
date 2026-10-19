@@ -7,17 +7,30 @@ interface Props {
 }
 
 const {
-  title = 'Eric Nolan | UnyieldingClaw',
-  description = 'Technical product leadership, trustworthy AI engineering, developer tooling, and practical projects by Eric Nolan.',
+  title = 'Eric Nolan | Unyielding Claw',
+  description = 'Technical product leadership, trustworthy AI engineering, practical software, and physical builds by Eric Nolan.',
 } = Astro.props;
 
-const fullTitle = title === 'Eric Nolan | UnyieldingClaw' ? title : `${title} | Eric Nolan`;
+const fullTitle = title === 'Eric Nolan | Unyielding Claw' ? title : `${title} | Eric Nolan`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { href: '/work/', label: 'Work' },
+  { href: '/harness-engineering/', label: 'Harness Engineering' },
+  { href: '/woodworking/', label: "Nolan's Workshop" },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href);
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Eric Nolan',
+  alternateName: 'Unyielding Claw',
   url: 'https://unyieldingclaw.com',
   sameAs: ['https://github.com/unyieldingclaw-dev'],
   jobTitle: 'Technical Product Manager',
@@ -37,8 +50,9 @@ const personSchema = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#17362f" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -56,30 +70,50 @@ const personSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-label="Eric Nolan home">
-          <span>Eric Nolan</span>
-          <small>UnyieldingClaw</small>
+          <span class="brand-mark" aria-hidden="true">UC</span>
+          <span class="brand-copy">
+            <strong>Eric Nolan</strong>
+            <small>Unyielding Claw</small>
+          </span>
         </a>
+
         <nav aria-label="Primary navigation">
-          <a href="/work/">Work</a>
-          <a href="/harness-engineering/">Harness Engineering</a>
-          <a href="/woodworking/">Woodworking</a>
-          <a href="/about/">About</a>
-          <a href="/contact/">Contact</a>
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <slot />
     </main>
 
     <footer class="site-footer">
-      <div class="shell footer-inner">
-        <p>© {new Date().getFullYear()} Eric Nolan.</p>
-        <p>Public-safe personal work only. Employer code, data, credentials, and confidential implementation details are excluded.</p>
+      <div class="shell footer-grid">
+        <div>
+          <a class="footer-brand" href="/">Eric Nolan · Unyielding Claw</a>
+          <p>Technical product leadership, AI engineering systems, practical software, and things built by hand.</p>
+        </div>
+        <div>
+          <p class="footer-label">Elsewhere</p>
+          <p><a href="https://github.com/unyieldingclaw-dev">GitHub</a> · <a href="/contact/">Contact</a></p>
+        </div>
+        <div>
+          <p class="footer-label">Boundaries</p>
+          <p>Public-safe personal work only. Employer code, data, credentials, and confidential implementation details are excluded.</p>
+        </div>
+      </div>
+      <div class="shell footer-bottom">
+        <span>© {new Date().getFullYear()} Eric Nolan.</span>
+        <span>Site code MIT · authored content all rights reserved unless stated otherwise.</span>
       </div>
     </footer>
   </body>

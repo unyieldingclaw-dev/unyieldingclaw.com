@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  eyebrow: string;
+  description: string;
+  status?: string;
+  tags?: string[];
+  tone?: 'forest' | 'copper' | 'slate' | 'gold';
+  linkLabel?: string;
+}
+
+const {
+  title,
+  href,
+  eyebrow,
+  description,
+  status,
+  tags = [],
+  tone = 'forest',
+  linkLabel = 'Read case study',
+} = Astro.props;
+---
+
+<article class={`project-card project-card--${tone}`}>
+  <div class="project-card__top">
+    <p class="project-kicker">{eyebrow}</p>
+    {status && <span class="status-chip">{status}</span>}
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {tags.length > 0 && (
+    <ul class="tag-list" aria-label="Project themes">
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  )}
+  <a class="project-link" href={href}>{linkLabel} <span aria-hidden="true">→</span></a>
+</article>

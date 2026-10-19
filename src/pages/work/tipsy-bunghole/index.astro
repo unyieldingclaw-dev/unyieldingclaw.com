@@ -1,0 +1,51 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Tipsy Bunghole"
+  description="Case study: a private whiskey-club application for blind tasting events, shared history, roles, and institutional memory."
+  eyebrow="Live event workflow · Club memory"
+  lede="A long-running whiskey club had accumulated years of results, bottle history, lore, and event knowledge—much of it living in one person's memory or scattered posts. The product turns that institutional knowledge into a shared system without getting in the way of the event."
+  status="Active development"
+  access="Private repository · Club-only data"
+  tags={['React', 'Supabase', 'Role workflows', 'Event state']}
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      The club needed to answer basic historical questions—what had been tasted, who won, what people thought, which bottle was most wanted—without relying on one person to remember fifteen years of history.
+    </p>
+    <p>
+      It also needed to run a live blind-tasting event from setup through serving, voting, guessing, reveal, comments, and results without making everyone stare at a complicated app instead of enjoying the night.
+    </p>
+  </section>
+
+  <section>
+    <h2>Architecture follows the club</h2>
+    <p>
+      One of the governing rules is simple: <strong>the app models the club; the club does not change to fit the app.</strong>
+    </p>
+    <ul>
+      <li>Participant, Steward, and Host roles receive different responsibilities and interfaces.</li>
+      <li>Blind sample codes protect the reveal workflow.</li>
+      <li>Results are generated from recorded votes rather than manually “voted into” existence afterward.</li>
+      <li>Memories and curated Lore are separate so casual recollections do not silently become permanent club history.</li>
+      <li>The Steward path stays deliberately minimal because the person serving whiskey should not need to become the event's system administrator.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>The hardest requirement is social, not technical</h2>
+    <p>
+      A live event has a very low tolerance for friction. Every extra field, navigation step, or ambiguous state competes with the actual reason people gathered. That makes workflow design, role clarity, and recovery from partial participation more important than adding more features.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why it stays private</h2>
+    <p>
+      The repository and production data contain club-specific logic, member history, private collections, event details, and social context. The public value is in the product reasoning and workflow design—not in exposing the people or their data.
+    </p>
+  </section>
+</CaseStudyLayout>
