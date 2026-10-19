@@ -70,6 +70,7 @@ const personSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
+    <div class="cursor-spotlight" aria-hidden="true"></div>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
@@ -147,6 +148,24 @@ const personSchema = {
         }
 
         if (!finePointer) return;
+
+        const spotlight = document.querySelector('.cursor-spotlight');
+        let spotlightFrame;
+
+        if (spotlight) {
+          const moveSpotlight = (event) => {
+            cancelAnimationFrame(spotlightFrame);
+            spotlightFrame = requestAnimationFrame(() => {
+              spotlight.style.setProperty('--cursor-x', event.clientX + 'px');
+              spotlight.style.setProperty('--cursor-y', event.clientY + 'px');
+              spotlight.classList.add('is-active');
+            });
+          };
+
+          document.addEventListener('pointermove', moveSpotlight, { passive: true });
+          document.addEventListener('pointerleave', () => spotlight.classList.remove('is-active'));
+          window.addEventListener('blur', () => spotlight.classList.remove('is-active'));
+        }
 
         const tiltCards = document.querySelectorAll('.project-card');
 
