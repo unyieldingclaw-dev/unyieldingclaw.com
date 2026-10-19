@@ -5323,3 +5323,134 @@ nav a:focus-visible,
     animation: none;
   }
 }
+
+
+/* Mission-complete payoff: build the joke, then land the punchline. */
+.trail-complete__mission {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 1rem;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-align: center;
+  pointer-events: none;
+}
+
+.trail-complete__mission span,
+.trail-complete__mission strong,
+.trail-complete__mission small,
+.trail-complete__mission b {
+  opacity: 0;
+  transform: translateY(0.8rem) scale(0.96);
+}
+
+.trail-complete__mission span {
+  color: #68dfbc;
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.trail-complete__mission strong {
+  max-width: 13ch;
+  font-size: clamp(1.8rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.trail-complete__mission small {
+  color: #aec5d9;
+  font-size: clamp(0.82rem, 1.7vw, 1.08rem);
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
+.trail-complete__mission b {
+  margin-top: 0.35rem;
+  color: #fff;
+  font-size: clamp(3rem, 11vw, 8.5rem);
+  font-weight: 1000;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+  text-shadow:
+    0 0 36px rgba(91,140,255,0.72),
+    0 0 100px rgba(22,133,107,0.38);
+}
+
+.trail-complete.is-active .trail-complete__mission span {
+  animation:
+    mission-line-in 380ms 80ms ease forwards,
+    mission-line-out 260ms 900ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission strong {
+  animation:
+    mission-line-in 420ms 420ms ease forwards,
+    mission-line-out 260ms 1450ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission small {
+  animation:
+    mission-line-in 420ms 870ms ease forwards,
+    mission-line-out 260ms 2050ms ease forwards;
+}
+
+.trail-complete.is-active .trail-complete__mission b {
+  animation: hire-nolan-mission 1400ms 1550ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* The souvenir arrives only after the punchline lands. */
+.trail-complete.is-active .trail-complete__card {
+  animation: trail-badge-arrive 620ms 2.85s cubic-bezier(.18,.85,.25,1.12) forwards;
+}
+
+@keyframes mission-line-in {
+  from { opacity: 0; transform: translateY(0.8rem) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mission-line-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-0.45rem) scale(1.02); }
+}
+
+@keyframes hire-nolan-mission {
+  0%   { opacity: 0; transform: scale(0.72) rotate(-2deg); }
+  18%  { opacity: 1; transform: scale(1.07) rotate(1deg); }
+  52%  { opacity: 1; transform: scale(0.98) rotate(-0.45deg); }
+  78%  { opacity: 1; transform: scale(1.025) rotate(0deg); }
+  100% { opacity: 0; transform: scale(1.15) rotate(0deg); }
+}
+
+@media (max-width: 720px) {
+  .trail-complete__mission {
+    gap: 0.55rem;
+  }
+
+  .trail-complete__mission strong {
+    max-width: 12ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-complete.is-active .trail-complete__mission span,
+  .trail-complete.is-active .trail-complete__mission strong,
+  .trail-complete.is-active .trail-complete__mission small,
+  .trail-complete.is-active .trail-complete__mission b {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .trail-complete.is-active .trail-complete__card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    margin-top: 14rem;
+  }
+}
