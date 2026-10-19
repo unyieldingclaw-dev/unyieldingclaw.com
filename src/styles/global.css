@@ -8255,3 +8255,26 @@ html.motion-paused .trail-marker {
     margin-top: 0.5rem;
   }
 }
+
+
+/* Contrast and reflow corrections found during the WCAG pass. */
+.saw-cut-slab span {
+  color: rgba(62, 31, 16, 0.82);
+}
+
+.saw-cut-slab small {
+  color: rgba(64, 33, 18, 0.84);
+}
+
+.footer-key-clue {
+  color: rgba(255, 214, 0, 0.48);
+  border-color: rgba(255, 214, 0, 0.30);
+}
+
+.egg-mark::after,
+.egg-inline::after,
+.egg-signature::after {
+  max-width: min(22rem, calc(100vw - 2rem));
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
