@@ -1,0 +1,49 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Personal Memory Bank"
+  description="Case study: persistent, governed project context for AI-assisted software development."
+  eyebrow="AI engineering · Developer workflow"
+  lede="Persistent project context is easy to describe and surprisingly hard to govern. PMB treats memory as an operational system with authority, freshness, provenance, diagnostics, and deterministic enforcement."
+  status="Active"
+  access="Open source · MIT"
+  tags={['Context engineering', 'Governance', 'CLI', 'CI']}
+  repoUrl="https://github.com/unyieldingclaw-dev/personal-memory-bank"
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      AI coding sessions repeatedly start without the project history that made yesterday's decisions make sense. Simply saving more text does not solve that. Old context becomes misleading, instructions conflict, task state drifts, and a helpful memory layer can quietly become another source of truth.
+    </p>
+  </section>
+
+  <section>
+    <h2>The product decision</h2>
+    <p>
+      Keep the memory model intentionally small, then govern it. PMB organizes project context into a compact set of files with explicit roles and an authority hierarchy rather than letting an assistant treat every remembered statement as equally current or equally binding.
+    </p>
+    <ul>
+      <li>Stable project intent is separated from volatile working context.</li>
+      <li>Freshness and provenance make stale assumptions visible.</li>
+      <li>CLI diagnostics check the system instead of relying on a model to declare itself healthy.</li>
+      <li>Hooks and CI handle structural rules that do not need probabilistic judgment.</li>
+      <li>Semantic review is separated into focused review roles rather than folded into the same execution path.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>A small failure that shaped the design</h2>
+    <p>
+      A deprecated command once reported success while no longer performing the check its caller expected. The durable fix was not better wording—it was making moved commands exit non-zero so automation could not confuse a redirect with successful validation. That is the kind of operational edge case PMB is built around.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why it matters</h2>
+    <p>
+      The project is less about “giving AI memory” than about making persistent context trustworthy enough to use. The interesting engineering lives in conflict resolution, ownership, drift detection, handoffs, and deciding which rules belong in deterministic machinery versus model judgment.
+    </p>
+  </section>
+</CaseStudyLayout>
