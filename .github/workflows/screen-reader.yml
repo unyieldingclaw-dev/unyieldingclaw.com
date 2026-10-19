@@ -43,35 +43,6 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Start preview server
-        shell: pwsh
-        run: |
-          $stdout = Join-Path $env:RUNNER_TEMP "uc-preview.out.log"
-          $stderr = Join-Path $env:RUNNER_TEMP "uc-preview.err.log"
-          $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", "npm run preview -- --host 127.0.0.1 --port 4321" -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-          $process.Id | Out-File -FilePath (Join-Path $env:RUNNER_TEMP "uc-preview.pid")
-
-          for ($i = 0; $i -lt 40; $i++) {
-            try {
-              $response = Invoke-WebRequest -Uri "http://127.0.0.1:4321/" -UseBasicParsing -TimeoutSec 2
-              if ($response.StatusCode -eq 200) { exit 0 }
-            } catch {}
-            Start-Sleep -Seconds 1
-          }
-
-          Get-Content $stdout -ErrorAction SilentlyContinue
-          Get-Content $stderr -ErrorAction SilentlyContinue
-          throw "Preview server did not become ready."
-
       - name: Run real NVDA audit
         run: npm run a11y:nvda
 
-      - name: Stop preview server
-        if: always()
-        shell: pwsh
-        run: |
-          $pidFile = Join-Path $env:RUNNER_TEMP "uc-preview.pid"
-          if (Test-Path $pidFile) {
-            $serverPid = Get-Content $pidFile
-            Stop-Process -Id $serverPid -Force -ErrorAction SilentlyContinue
-          }
