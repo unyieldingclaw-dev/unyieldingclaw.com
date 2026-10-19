@@ -11,6 +11,7 @@ interface Props {
   tags?: string[];
   repoUrl?: string;
   liveUrl?: string;
+  tone?: 'blue' | 'emerald' | 'copper' | 'gold' | 'slate';
 }
 
 const {
@@ -23,50 +24,87 @@ const {
   tags = [],
   repoUrl,
   liveUrl,
+  tone = 'blue',
 } = Astro.props;
+
+const mark = title
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word) => word[0]?.toUpperCase())
+  .join('');
 ---
 
 <BaseLayout title={title} description={description}>
-  <header class="case-hero">
+  <header class={`case-hero case-hero--${tone}`}>
     <div class="shell">
-      <a class="back-link" href="/work/">← All work</a>
-      <div class="case-hero__grid">
-        <div>
-          <p class="eyebrow">{eyebrow}</p>
+      <a class="back-link back-link--light" href="/work/">← All work</a>
+
+      <div class="case-hero__grid case-hero__grid--wow">
+        <div class="case-hero__copy">
+          <div class="case-hero__meta">
+            <span>CASE STUDY</span>
+            <span>{eyebrow}</span>
+          </div>
+
           <h1>{title}</h1>
           <p class="lede">{lede}</p>
+
           {(repoUrl || liveUrl) && (
             <div class="hero-actions">
-              {repoUrl && <a class="button" href={repoUrl}>View repository</a>}
-              {liveUrl && <a class="button secondary" href={liveUrl}>Open live project</a>}
+              {repoUrl && <a class="button button-pop" href={repoUrl}>View repository <span aria-hidden="true">→</span></a>}
+              {liveUrl && <a class="button secondary case-secondary" href={liveUrl}>Open live project</a>}
             </div>
           )}
         </div>
-        <aside class="case-facts" aria-label="Project facts">
-          <div>
+
+        <aside class="case-signal-board" aria-label="Project snapshot">
+          <div class="case-signal-mark" aria-hidden="true">{mark}</div>
+          <div class="case-signal-row">
             <span>Status</span>
             <strong>{status}</strong>
           </div>
-          <div>
+          <div class="case-signal-row">
             <span>Access</span>
             <strong>{access}</strong>
           </div>
-          {tags.length > 0 && (
-            <div>
-              <span>Focus</span>
-              <ul class="tag-list">
-                {tags.map((tag) => <li>{tag}</li>)}
-              </ul>
-            </div>
-          )}
+          <div class="case-signal-row">
+            <span>Focus</span>
+            <ul class="tag-list">
+              {tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          </div>
         </aside>
       </div>
     </div>
   </header>
 
-  <article class="case-body">
-    <div class="shell case-content">
-      <slot />
+  <article class="case-body case-body--wow">
+    <div class="shell case-content case-content--wow">
+      <aside class="case-rail" aria-label="How to read this case study">
+        <p class="case-rail__label">READ THE SYSTEM</p>
+        <div class="case-rail__item"><span>01</span><strong>Problem</strong></div>
+        <div class="case-rail__item"><span>02</span><strong>Decisions</strong></div>
+        <div class="case-rail__item"><span>03</span><strong>Constraints</strong></div>
+        <div class="case-rail__item"><span>04</span><strong>Evidence</strong></div>
+      </aside>
+
+      <div class="case-flow">
+        <slot />
+      </div>
     </div>
   </article>
+
+  <section class="case-next">
+    <div class="shell case-next__inner">
+      <div>
+        <p class="eyebrow">Keep digging</p>
+        <h2>The interesting part is rarely the feature list.</h2>
+      </div>
+      <p>
+        The rest of the portfolio follows the same pattern: workflow first, explicit tradeoffs, bounded automation where AI is involved, and enough evidence to explain why the system behaves the way it does.
+      </p>
+      <a class="button" href="/work/">Explore all work →</a>
+    </div>
+  </section>
 </BaseLayout>
