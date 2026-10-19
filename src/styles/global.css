@@ -7379,3 +7379,155 @@ nav a:focus-visible,
     }
   }
 }
+
+
+/* ==========================================================================
+   Workshop saw v4 — correct travel direction + more realistic sidewinder.
+   The tool faces left, so it now cuts from right to left. At the contact patch,
+   the blade surface moves backward (to the right), matching a real circular saw.
+   ========================================================================== */
+
+.circular-saw--svg {
+  --saw-y: -70%;
+  --saw-scale: .97;
+  left: calc(100% + 7rem);
+  width: 17rem;
+  height: 10.9rem;
+  opacity: 0;
+  transform: translate3d(0, var(--saw-y), 0) scale(var(--saw-scale));
+  transform-origin: center;
+  filter: drop-shadow(0 13px 13px rgba(0,0,0,0.22));
+}
+
+.circular-saw--svg .saw-svg__machine {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.circular-saw--svg .saw-svg__blade-group {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg {
+  animation: saw-pass-v4 2.15s linear forwards;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__blade-group {
+  /* Counter-clockwise on screen: bottom of blade travels right while saw travels left. */
+  animation: saw-spin-v4 .052s linear infinite;
+}
+
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__machine {
+  animation: saw-machine-vibration-v4 .065s steps(2, end) infinite;
+}
+
+.saw-cut-stage.is-cutting .saw-cut-line::after {
+  transform-origin: right center;
+  animation: saw-kerf-v4 2.15s linear forwards;
+}
+
+.saw-cut-stage.is-cut-engaged .saw-cut-slab {
+  animation: stock-shudder-v4 .075s steps(2, end) infinite;
+}
+
+.sawdust-burst i {
+  top: 51.5%;
+}
+
+@keyframes saw-pass-v4 {
+  0% {
+    left: calc(100% + 7rem);
+    opacity: 0;
+    transform: translate3d(0, -74%, 0) scale(.97) rotate(.75deg);
+  }
+  3% {
+    opacity: 1;
+  }
+  8% {
+    left: calc(100% - 4rem);
+    transform: translate3d(0, -70%, 0) scale(.97) rotate(.10deg);
+  }
+  48% {
+    transform: translate3d(0, -69.4%, 0) scale(.97) rotate(-.08deg);
+  }
+  91% {
+    left: -10rem;
+    transform: translate3d(0, -69.7%, 0) scale(.97) rotate(.08deg);
+  }
+  97% {
+    opacity: 1;
+    transform: translate3d(0, -72%, 0) scale(.97) rotate(-.16deg);
+  }
+  100% {
+    left: -19rem;
+    opacity: 0;
+    transform: translate3d(0, -75%, 0) scale(.97) rotate(-.35deg);
+  }
+}
+
+@keyframes saw-spin-v4 {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes saw-machine-vibration-v4 {
+  0%   { transform: translate3d(0,0,0) rotate(0deg); }
+  50%  { transform: translate3d(-.48px,.28px,0) rotate(-.035deg); }
+  100% { transform: translate3d(.34px,-.24px,0) rotate(.035deg); }
+}
+
+@keyframes saw-kerf-v4 {
+  0%, 6% { transform: scaleX(0); }
+  94%, 100% { transform: scaleX(1); }
+}
+
+@keyframes stock-shudder-v4 {
+  0%   { translate: 0 0; }
+  50%  { translate: 0 .30px; }
+  100% { translate: 0 -.24px; }
+}
+
+/* Motion blur on the exposed tooth ring only; body stays crisp. */
+.saw-cut-stage.is-cutting .circular-saw--svg .saw-svg__teeth-ring {
+  stroke-opacity: .72;
+  filter: blur(.32px);
+}
+
+/* More natural stock release: settle first, then the offcut drops away. */
+.saw-cut-stage.is-cut .saw-cut-slab--top {
+  transform: translate3d(0, -103%, 0) rotate(-.25deg);
+  opacity: .16;
+}
+
+.saw-cut-stage.is-cut .saw-cut-slab--bottom {
+  transform: translate3d(-2.6%, 48%, 0) rotate(-5.2deg) scale(.987);
+  opacity: 0;
+}
+
+@media (max-width: 720px) {
+  .circular-saw--svg {
+    --saw-scale: .78;
+    width: 15rem;
+    height: 9.7rem;
+    left: calc(100% + 5rem);
+  }
+
+  @keyframes saw-pass-v4 {
+    0% {
+      left: calc(100% + 5rem);
+      opacity: 0;
+      transform: translate3d(0, -72%, 0) scale(.78) rotate(.55deg);
+    }
+    4% { opacity: 1; }
+    92% {
+      left: -8rem;
+      opacity: 1;
+      transform: translate3d(0, -68%, 0) scale(.78) rotate(-.08deg);
+    }
+    100% {
+      left: -15rem;
+      opacity: 0;
+      transform: translate3d(0, -72%, 0) scale(.78) rotate(-.25deg);
+    }
+  }
+}
