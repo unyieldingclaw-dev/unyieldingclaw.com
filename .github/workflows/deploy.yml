@@ -16,6 +16,50 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium for accessibility audit
+        run: npx playwright install --with-deps chromium
+
+      - name: Build site
+        run: npm run build
+
+      - name: Start preview server
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/uc-preview.log 2>&1 &
+          echo $! > /tmp/uc-preview.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4321/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/uc-preview.log
+          exit 1
+
+      - name: Run WCAG 2.2 AA audit
+        run: npm run a11y
+
+      - name: Stop preview server
+        if: always()
+        run: |
+          if [ -f /tmp/uc-preview.pid ]; then
+            kill "$(cat /tmp/uc-preview.pid)" || true
+          fi
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +74,7 @@ jobs:
 
   deploy:
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: [build, accessibility]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
