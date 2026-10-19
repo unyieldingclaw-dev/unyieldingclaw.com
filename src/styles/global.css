@@ -849,3 +849,533 @@ h1 {
     transition: none !important;
   }
 }
+
+
+/* ==========================================================================
+   Blue Pop Refresh
+   Unyielding Claw = midnight/cobalt/emerald
+   Nolan's Workshop = copper/warm paper
+   ========================================================================== */
+
+:root {
+  --paper: #f4f1ea;
+  --paper-deep: #e7e2d9;
+  --surface: #fbfaf7;
+  --surface-strong: #ffffff;
+  --ink: #18222c;
+  --ink-soft: #354553;
+  --muted: #667684;
+
+  --midnight: #0b1f33;
+  --navy: #123a63;
+  --blue: #2f6fed;
+  --blue-bright: #5b8cff;
+  --blue-soft: #dfe9ff;
+  --emerald: #16856b;
+  --emerald-soft: #dcefe9;
+  --copper: #b46a3c;
+  --copper-soft: #f2dfd1;
+  --gold: #b58945;
+  --gold-soft: #f2e8d3;
+  --slate: #536b7a;
+  --slate-soft: #dde6ea;
+
+  /* Backward-compatible aliases for existing component rules. */
+  --forest: var(--blue);
+  --forest-deep: var(--midnight);
+  --forest-soft: var(--blue-soft);
+
+  --line: #d3d8de;
+  --line-strong: #b9c1c9;
+  --shadow: 0 24px 70px rgba(11, 31, 51, 0.13);
+  --shadow-card: 0 14px 42px rgba(11, 31, 51, 0.09);
+}
+
+body {
+  background:
+    radial-gradient(circle at 92% 6%, rgba(47, 111, 237, 0.10), transparent 26rem),
+    radial-gradient(circle at 5% 42%, rgba(22, 133, 107, 0.055), transparent 28rem),
+    var(--paper);
+}
+
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+
+a {
+  color: var(--navy);
+}
+
+.site-header {
+  border-bottom-color: rgba(124, 145, 165, 0.25);
+  background: rgba(244, 241, 234, 0.90);
+}
+
+.brand-mark {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-color: rgba(91, 140, 255, 0.65);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.22), transparent 28%),
+    linear-gradient(145deg, var(--blue), var(--midnight) 78%);
+  box-shadow: 0 7px 20px rgba(47, 111, 237, 0.25);
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  right: -0.12rem;
+  bottom: -0.12rem;
+  width: 0.58rem;
+  height: 0.58rem;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--emerald);
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  background: rgba(47, 111, 237, 0.10);
+  color: var(--navy);
+}
+
+/* Home hero: dramatic blue field with technical grid texture. */
+.hero {
+  color: #fff;
+  border-bottom-color: rgba(255,255,255,0.08);
+  background:
+    radial-gradient(circle at 78% 18%, rgba(47,111,237,0.33), transparent 23rem),
+    radial-gradient(circle at 69% 87%, rgba(22,133,107,0.14), transparent 21rem),
+    linear-gradient(132deg, #071624 0%, var(--midnight) 44%, #10345d 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 92%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 92%);
+  pointer-events: none;
+}
+
+.hero::after {
+  right: -8rem;
+  bottom: -15rem;
+  width: 38rem;
+  height: 38rem;
+  border-color: rgba(91, 140, 255, 0.20);
+  box-shadow:
+    0 0 0 4rem rgba(47, 111, 237, 0.045),
+    0 0 0 8rem rgba(91, 140, 255, 0.027),
+    0 0 0 12rem rgba(22, 133, 107, 0.02);
+}
+
+.hero .eyebrow {
+  color: #91b5ff;
+}
+
+.hero h1 {
+  text-shadow: 0 12px 38px rgba(0,0,0,0.22);
+}
+
+.hero h1 em {
+  color: #78a2ff;
+  background: linear-gradient(90deg, #91b4ff 0%, #63c9e7 55%, #4bd2aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero .lede {
+  color: #c7d5e4;
+}
+
+.hero .button {
+  border-color: var(--blue);
+  background: var(--blue);
+  box-shadow: 0 11px 30px rgba(47, 111, 237, 0.29);
+}
+
+.hero .button:hover {
+  background: #3d79f3;
+  box-shadow: 0 15px 38px rgba(47, 111, 237, 0.34);
+}
+
+.hero .button.secondary {
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.035);
+  color: #fff;
+}
+
+.hero .button.secondary:hover {
+  background: rgba(255,255,255,0.09);
+}
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(145,181,255,0.29);
+  background:
+    linear-gradient(150deg, rgba(91,140,255,0.17), transparent 48%),
+    rgba(5, 18, 32, 0.63);
+  color: #f0f5fb;
+  box-shadow: 0 26px 76px rgba(0,0,0,0.26);
+  backdrop-filter: blur(9px);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  top: -3.2rem;
+  right: -3.2rem;
+  width: 8.5rem;
+  height: 8.5rem;
+  border: 1px solid rgba(75,210,170,0.24);
+  border-radius: 50%;
+}
+
+.hero-panel__label {
+  color: #a6bdd8;
+}
+
+.signal-list dt {
+  color: #65c3a8;
+}
+
+.signal-list div {
+  border-top-color: rgba(255,255,255,0.14);
+}
+
+/* Primary blue interaction language. */
+.eyebrow {
+  color: var(--blue);
+}
+
+.button {
+  border-color: var(--blue);
+  background: var(--blue);
+  box-shadow: 0 9px 25px rgba(47,111,237,0.18);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: #3d79f3;
+  box-shadow: 0 13px 31px rgba(47,111,237,0.24);
+}
+
+.button.secondary {
+  border-color: rgba(47,111,237,0.55);
+  color: var(--navy);
+}
+
+.text-link,
+.project-link {
+  color: var(--navy);
+}
+
+/* Interior page headers get a blue signal line and subtle glow. */
+.page-header,
+.case-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(47,111,237,0.14), transparent 23rem),
+    linear-gradient(180deg, rgba(255,255,255,0.70), rgba(244,241,234,0.80));
+}
+
+.page-header::after,
+.case-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(23rem, 42vw);
+  height: 0.3rem;
+  background: linear-gradient(90deg, var(--blue), var(--emerald));
+}
+
+/* Project cards: stronger shape, hover, and oversized project mark. */
+.project-grid {
+  gap: 1.2rem;
+}
+
+.project-card {
+  min-height: 22.5rem;
+  border-color: #d7dde4;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.96), rgba(248,249,251,0.90));
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(47,111,237,0.35);
+  box-shadow: 0 22px 52px rgba(11,31,51,0.14);
+}
+
+.project-card::before {
+  height: 0.3rem;
+  background: linear-gradient(90deg, var(--blue), var(--blue-bright));
+}
+
+.project-card--blue::before {
+  background: linear-gradient(90deg, var(--blue), #72a0ff);
+}
+
+.project-card--emerald::before {
+  background: linear-gradient(90deg, var(--emerald), #55c2a6);
+}
+
+.project-card--slate::before {
+  background: linear-gradient(90deg, var(--slate), #7698aa);
+}
+
+.project-card--gold::before {
+  background: linear-gradient(90deg, var(--gold), #d5a85e);
+}
+
+.project-card--copper::before {
+  background: linear-gradient(90deg, var(--copper), #e0925f);
+}
+
+.project-card__mark {
+  position: absolute;
+  right: 1.15rem;
+  bottom: 0.65rem;
+  z-index: 0;
+  color: rgba(47,111,237,0.07);
+  font-size: clamp(5rem, 11vw, 8.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.project-card--emerald .project-card__mark { color: rgba(22,133,107,0.075); }
+.project-card--copper .project-card__mark { color: rgba(180,106,60,0.08); }
+.project-card--gold .project-card__mark { color: rgba(181,137,69,0.09); }
+.project-card--slate .project-card__mark { color: rgba(83,107,122,0.08); }
+
+.project-card > *:not(.project-card__mark) {
+  position: relative;
+  z-index: 1;
+}
+
+.status-chip {
+  border-color: rgba(47,111,237,0.16);
+  background: rgba(223,233,255,0.55);
+  color: var(--navy);
+}
+
+.tag-list li {
+  background: rgba(47,111,237,0.085);
+  color: #304d68;
+}
+
+.project-card--emerald .tag-list li {
+  background: rgba(22,133,107,0.09);
+}
+
+.project-card--copper .tag-list li {
+  background: rgba(180,106,60,0.10);
+}
+
+.project-card--gold .tag-list li {
+  background: rgba(181,137,69,0.11);
+}
+
+.project-card--slate .tag-list li {
+  background: rgba(83,107,122,0.10);
+}
+
+/* Dark sections now belong to the Unyielding Claw blue system. */
+.section--dark {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(47,111,237,0.20), transparent 24rem),
+    linear-gradient(138deg, #071724 0%, var(--midnight) 52%, #0f3459 100%);
+}
+
+.section--dark::after {
+  content: "";
+  position: absolute;
+  right: -7rem;
+  bottom: -12rem;
+  width: 27rem;
+  height: 27rem;
+  border: 1px solid rgba(91,140,255,0.13);
+  border-radius: 50%;
+}
+
+.section--dark > .shell {
+  position: relative;
+  z-index: 1;
+}
+
+.section--dark .eyebrow {
+  color: #91b5ff;
+}
+
+.section--dark .section-intro,
+.section--dark p {
+  color: #bfd0df;
+}
+
+.principle {
+  border-top-color: rgba(143,179,255,0.32);
+}
+
+.principle span {
+  color: #60c1a6;
+}
+
+.principle h3 {
+  color: #fff;
+}
+
+/* Emerald stays deliberate and small: identity, status, key signal. */
+.identity-mark {
+  position: relative;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.20), transparent 30%),
+    linear-gradient(145deg, var(--blue), var(--midnight) 80%);
+  box-shadow: 0 10px 28px rgba(47,111,237,0.18);
+}
+
+.identity-mark::after {
+  content: "";
+  position: absolute;
+  right: 0.1rem;
+  bottom: 0.1rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--emerald);
+}
+
+/* Workshop keeps its own warm material language. */
+.section--warm {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(180,106,60,0.13), transparent 23rem),
+    linear-gradient(135deg, #ead9c8 0%, #f7f0e6 58%, #e5d4c3 100%);
+}
+
+.section--warm .eyebrow {
+  color: var(--copper-deep, #8d4d2a);
+}
+
+.section--warm .text-link {
+  color: #744126;
+}
+
+.workshop-card {
+  border-color: rgba(180,106,60,0.24);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.60), rgba(248,234,220,0.46));
+  box-shadow: 0 12px 32px rgba(97,62,38,0.07);
+}
+
+.feature-note {
+  border-color: rgba(47,111,237,0.22);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.68), rgba(237,243,255,0.56));
+  box-shadow: 0 12px 34px rgba(11,31,51,0.06);
+}
+
+.section--warm .feature-note {
+  border-color: rgba(180,106,60,0.28);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.64), rgba(247,231,215,0.54));
+}
+
+/* Case studies become more editorial and less beige-on-beige. */
+.case-facts {
+  border-color: rgba(47,111,237,0.18);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.92), rgba(239,244,255,0.70));
+  box-shadow: 0 14px 38px rgba(11,31,51,0.07);
+}
+
+.case-facts span {
+  color: var(--blue);
+}
+
+.case-callout {
+  border-left-color: var(--blue);
+  box-shadow: 0 14px 38px rgba(11,31,51,0.07);
+}
+
+.callout {
+  border-left-color: var(--blue);
+}
+
+.site-footer {
+  background:
+    radial-gradient(circle at 86% 20%, rgba(47,111,237,0.14), transparent 22rem),
+    #071522;
+  color: #c7d4df;
+}
+
+.footer-grid p {
+  color: #91a6b7;
+}
+
+.footer-grid a {
+  color: #d9e6f3;
+}
+
+.footer-label {
+  color: #78a2ff !important;
+}
+
+.footer-bottom {
+  color: #74899a;
+  border-top-color: rgba(143,179,255,0.12);
+}
+
+/* Small polish on larger screens. */
+@media (min-width: 901px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.48fr) minmax(18rem, 0.62fr);
+  }
+
+  .project-card h3 {
+    max-width: 18ch;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero::after {
+    right: -16rem;
+    bottom: -19rem;
+  }
+
+  .hero-panel {
+    margin-top: 0.5rem;
+  }
+
+  .project-card__mark {
+    font-size: 6.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-card,
+  .button,
+  .project-link {
+    transition-duration: 0.18s;
+  }
+}

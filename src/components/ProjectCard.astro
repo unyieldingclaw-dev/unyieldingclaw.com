@@ -6,7 +6,7 @@ interface Props {
   description: string;
   status?: string;
   tags?: string[];
-  tone?: 'forest' | 'copper' | 'slate' | 'gold';
+  tone?: 'blue' | 'emerald' | 'copper' | 'slate' | 'gold';
   linkLabel?: string;
 }
 
@@ -17,12 +17,20 @@ const {
   description,
   status,
   tags = [],
-  tone = 'forest',
+  tone = 'blue',
   linkLabel = 'Read case study',
 } = Astro.props;
+
+const mark = title
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word) => word[0]?.toUpperCase())
+  .join('');
 ---
 
 <article class={`project-card project-card--${tone}`}>
+  <div class="project-card__mark" aria-hidden="true">{mark}</div>
   <div class="project-card__top">
     <p class="project-kicker">{eyebrow}</p>
     {status && <span class="status-chip">{status}</span>}
