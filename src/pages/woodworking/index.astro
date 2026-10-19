@@ -113,18 +113,95 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           </div>
 
           <div class="saw-cut-line" aria-hidden="true"></div>
-          <div class="circular-saw" data-circular-saw aria-hidden="true">
-            <div class="circular-saw__shoe"></div>
-            <div class="circular-saw__blade"></div>
-            <div class="circular-saw__guard"></div>
-            <div class="circular-saw__body">
-              <span class="circular-saw__motor-cap"></span>
-              <span class="circular-saw__vent"></span>
-            </div>
-            <div class="circular-saw__handle">
-              <span class="circular-saw__trigger"></span>
-            </div>
-            <div class="circular-saw__front-grip"></div>
+          <div class="circular-saw circular-saw--svg" data-circular-saw aria-hidden="true">
+            <svg viewBox="0 0 240 150" role="presentation" focusable="false">
+              <defs>
+                <linearGradient id="sawBody" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f0c84b"/>
+                  <stop offset="42%" stop-color="#c98f27"/>
+                  <stop offset="100%" stop-color="#765018"/>
+                </linearGradient>
+                <linearGradient id="sawMetal" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f4f6f7"/>
+                  <stop offset="35%" stop-color="#aab2b7"/>
+                  <stop offset="68%" stop-color="#697277"/>
+                  <stop offset="100%" stop-color="#c9d0d4"/>
+                </linearGradient>
+                <linearGradient id="sawDark" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#4a4337"/>
+                  <stop offset="100%" stop-color="#181b1d"/>
+                </linearGradient>
+                <radialGradient id="bladeMetal" cx="45%" cy="38%" r="65%">
+                  <stop offset="0%" stop-color="#f7f8f8"/>
+                  <stop offset="36%" stop-color="#cdd3d6"/>
+                  <stop offset="72%" stop-color="#889196"/>
+                  <stop offset="100%" stop-color="#555d61"/>
+                </radialGradient>
+                <filter id="sawShadow" x="-30%" y="-30%" width="170%" height="190%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".32"/>
+                </filter>
+              </defs>
+
+              <g filter="url(#sawShadow)">
+                <path class="saw-svg__shoe" d="M11 125 L218 125 L231 133 L220 141 L16 141 L7 135 Z" fill="url(#sawMetal)" stroke="#596166" stroke-width="2"/>
+                <path d="M17 128 L218 128" stroke="#fff" stroke-opacity=".48" stroke-width="2"/>
+
+                <g class="saw-svg__blade-group">
+                  <circle class="saw-svg__blade" cx="70" cy="103" r="49" fill="url(#bladeMetal)" stroke="#4f575b" stroke-width="3"/>
+                  <g class="saw-svg__teeth" fill="#d8dde0" stroke="#596166" stroke-width="1">
+                    <path d="M70 50 l5 -8 4 10 z"/>
+                    <path d="M91 54 l8 -6 1 11 z"/>
+                    <path d="M109 67 l10 -3 -3 11 z"/>
+                    <path d="M119 87 l10 1 -7 9 z"/>
+                    <path d="M121 109 l9 5 -10 6 z"/>
+                    <path d="M113 130 l6 8 -11 2 z"/>
+                    <path d="M95 145 l2 10 -10 -4 z"/>
+                    <path d="M74 151 l-2 10 -8 -7 z"/>
+                    <path d="M51 147 l-6 8 -4 -10 z"/>
+                    <path d="M33 134 l-9 5 1 -11 z"/>
+                    <path d="M21 115 l-10 1 5 -10 z"/>
+                    <path d="M20 93 l-10 -3 8 -8 z"/>
+                    <path d="M29 71 l-8 -7 11 -3 z"/>
+                    <path d="M47 56 l-4 -9 11 1 z"/>
+                  </g>
+                  <circle cx="70" cy="103" r="12" fill="#4a5155" stroke="#b8c0c4" stroke-width="4"/>
+                  <circle cx="70" cy="103" r="4" fill="#1f2325"/>
+                </g>
+
+                <path class="saw-svg__guard" d="M28 101 A49 49 0 0 1 116 73 L111 87 A34 34 0 0 0 43 103 Z"
+                      fill="url(#sawMetal)" stroke="#5e666a" stroke-width="3"/>
+                <path d="M35 88 A41 41 0 0 1 106 69" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="3"/>
+
+                <path class="saw-svg__body"
+                      d="M93 48 C105 33 132 29 164 33 L194 47 C207 53 214 66 211 81 L205 105 C202 115 194 121 182 121 L112 120 C99 120 90 110 90 97 L88 66 C88 59 89 54 93 48 Z"
+                      fill="url(#sawBody)" stroke="#6f4a15" stroke-width="3"/>
+                <path d="M104 51 C125 39 160 40 190 54" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="4" stroke-linecap="round"/>
+
+                <g class="saw-svg__vents" stroke="#5c411d" stroke-width="3" stroke-linecap="round" opacity=".78">
+                  <path d="M139 91 l0 17"/>
+                  <path d="M147 89 l0 19"/>
+                  <path d="M155 88 l0 20"/>
+                  <path d="M163 89 l0 18"/>
+                </g>
+
+                <circle cx="188" cy="79" r="17" fill="#34393c" stroke="#7c8589" stroke-width="4"/>
+                <circle cx="188" cy="79" r="8" fill="#1d2022"/>
+
+                <path class="saw-svg__handle"
+                      d="M112 52 C116 22 133 10 161 12 C181 13 194 26 196 44 L178 48 C176 36 168 29 156 28 C142 27 134 35 132 53 Z"
+                      fill="url(#sawDark)" stroke="#17191a" stroke-width="3"/>
+                <path d="M142 31 C151 25 165 27 173 36" fill="none" stroke="#6f6758" stroke-width="4" stroke-linecap="round"/>
+                <rect x="166" y="41" width="17" height="8" rx="4" fill="#17191a"/>
+
+                <path class="saw-svg__front-grip"
+                      d="M86 59 C88 44 96 35 108 34 L119 37 L116 65 L101 73 Z"
+                      fill="url(#sawDark)" stroke="#1b1d1e" stroke-width="3"/>
+                <path d="M94 50 L111 47" stroke="#6e6658" stroke-width="3" stroke-linecap="round"/>
+
+                <path d="M111 117 L202 117" stroke="#4f3d23" stroke-width="2" opacity=".5"/>
+                <text x="181" y="111" font-family="ui-monospace, monospace" font-size="10" font-weight="900" fill="#5a3a11">7¼</text>
+              </g>
+            </svg>
           </div>
           <div class="sawdust-burst" data-saw-dust aria-hidden="true"></div>
           <span class="saw-cut-hint">hover here // yes, really</span>
