@@ -12,6 +12,7 @@ interface Props {
   repoUrl?: string;
   liveUrl?: string;
   tone?: 'blue' | 'emerald' | 'copper' | 'gold' | 'slate';
+  visual?: 'pmb' | 'acr' | 'sidequest' | 'pitlogic' | 'tipsy' | 'bowling';
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   repoUrl,
   liveUrl,
   tone = 'blue',
+  visual,
 } = Astro.props;
 
 const mark = title
@@ -36,7 +38,9 @@ const mark = title
 ---
 
 <BaseLayout title={title} description={description}>
-  <header class={`case-hero case-hero--${tone}`}>
+  <header class={`case-hero case-hero--${tone}${visual ? ` case-hero--visual case-hero--${visual}` : ''}`}>
+    {visual && <div class={`case-hero__art case-hero__art--${visual}`} aria-hidden="true"></div>}
+    <div class="case-hero__veil" aria-hidden="true"></div>
     <div class="shell">
       <a class="back-link back-link--light" href="/work/">← All work</a>
 
@@ -58,7 +62,7 @@ const mark = title
           )}
         </div>
 
-        <aside class="case-signal-board" aria-label="Project snapshot">
+        <aside class="case-signal-board" aria-label="Project snapshot" data-case-signal>
           <div class="case-signal-mark" aria-hidden="true">{mark}</div>
           <div class="case-signal-row">
             <span>Status</span>
