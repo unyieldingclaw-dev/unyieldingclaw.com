@@ -4,66 +4,153 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About"
-  description="About Eric Nolan: technical product management, engineering, trustworthy AI systems, Scouting leadership, and practical building."
+  description="About Eric Nolan: technical product management, hands-on AI development, engineering, Scouting leadership, and practical building."
 >
-  <header class="page-header">
-    <div class="shell">
-      <p class="eyebrow">About</p>
-      <h1>Product judgment grounded in engineering.</h1>
-      <p class="lede">
-        My background spans software engineering, performance engineering, enterprise release delivery, and technical product management. I am most useful where a problem needs both product judgment and enough technical depth to challenge how the system will actually behave.
-      </p>
+  <header class="subhero subhero--about">
+    <div class="shell subhero-grid">
+      <div class="subhero-copy">
+        <div class="subhero-badges">
+          <span>20+ YEARS TECH</span>
+          <span>AI BUILDER</span>
+          <span>PRODUCT LEADER</span>
+          <span>EAGLE SCOUT</span>
+        </div>
+        <p class="subhero-kicker">ERIC NOLAN // BUILDER FIRST</p>
+        <h1>Product judgment with dirt under its fingernails.</h1>
+        <p class="lede">
+          I came up through software development, performance engineering, release delivery, and product leadership. Today I spend a lot of that range building and governing AI systems—close enough to the code to know when the architecture story is lying.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-pop" href="/work/">See the evidence →</a>
+          <a class="button secondary case-secondary" href="/contact/">Start a conversation</a>
+        </div>
+      </div>
+
+      <aside class="about-stack" aria-label="Career and identity snapshot">
+        <div class="about-stack__card about-stack__card--ai">
+          <span>NOW</span>
+          <strong>Technical Product + AI Development</strong>
+          <small>Strategy, architecture, Python, orchestration, governance, integration, testing, rollout.</small>
+        </div>
+        <div class="about-stack__card about-stack__card--engineering">
+          <span>BEFORE</span>
+          <strong>Engineering + Release Systems</strong>
+          <small>Software development, performance engineering, architecture, release and enterprise delivery.</small>
+        </div>
+        <div class="about-stack__card about-stack__card--scouting">
+          <span>ALWAYS</span>
+          <strong>Scouting + Service</strong>
+          <small>Eagle Scout · Sachem · Cubmaster · Wood Badge.</small>
+        </div>
+      </aside>
     </div>
   </header>
 
-  <section class="section">
-    <div class="shell split-feature">
-      <div class="prose">
-        <h2>What I optimize for</h2>
+  <section class="section about-career">
+    <div class="shell career-grid">
+      <div class="career-intro">
+        <p class="eyebrow">Career arc</p>
+        <h2>I did not arrive at AI from a slide deck.</h2>
         <p>
-          Credibility, maintainability, explicit tradeoffs, bounded authority, and systems that fail in understandable ways. I am less interested in maximizing autonomy than in using the right amount of automation for the job.
-        </p>
-        <p>
-          That shows up in AI work as context authority, verification, deterministic controls, and failure handling. It shows up in product work as narrow workflows, non-goals, privacy boundaries, and data models that reflect how people actually behave.
+          More than two decades in technology gave me a useful bias: systems have to operate after the demo, people have to understand them, and someone eventually has to debug the consequences.
         </p>
       </div>
 
-      <aside class="feature-note">
-        <strong>Builder is a useful word here.</strong>
-        <p>I build software, workflows, research frameworks, shop fixtures, jigs, furniture, and tools for my own recurring problems. The medium changes; the bias toward useful systems does not.</p>
+      <div class="career-timeline" aria-label="Career progression">
+        <article>
+          <span>1998 → 2004</span>
+          <strong>Application Development</strong>
+          <p>Enterprise software, coding, testing, packaging, support, troubleshooting, and documentation.</p>
+        </article>
+        <article>
+          <span>2004 → 2013</span>
+          <strong>Release + Performance Engineering</strong>
+          <p>Release systems, capacity, performance analysis, launch readiness, architecture, vendors, and production realities.</p>
+        </article>
+        <article>
+          <span>2013 → 2020</span>
+          <strong>Product + Business Translation</strong>
+          <p>Epics, requirements, prioritization, stakeholder alignment, roadmaps, risks, dependencies, and delivery.</p>
+        </article>
+        <article>
+          <span>2020 → NOW</span>
+          <strong>Technical Product + AI Systems</strong>
+          <p>AI product strategy, hands-on development, orchestration, APIs, governance, testing, developer enablement, and rollout.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark about-values">
+    <div class="shell">
+      <div class="section-heading section-heading--punch">
+        <div>
+          <p class="eyebrow">What I optimize for</p>
+          <h2>Useful. Explainable. Durable.</h2>
+        </div>
+        <p class="section-intro">
+          I like ambitious technology. I just don't confuse ambition with complexity.
+        </p>
+      </div>
+
+      <div class="principle-grid principle-grid--punch">
+        <article class="principle">
+          <span>01 // EVIDENCE</span>
+          <h3>Show the work.</h3>
+          <p>Public implementations and case studies are more useful than stacking adjectives into a headline.</p>
+        </article>
+        <article class="principle">
+          <span>02 // BOUNDARIES</span>
+          <h3>Know what the system may do.</h3>
+          <p>Authority, privacy, approvals, and failure behavior should be designed—not discovered in production.</p>
+        </article>
+        <article class="principle">
+          <span>03 // JUDGMENT</span>
+          <h3>Do not automate the wrong thing faster.</h3>
+          <p>Product sense still matters. Sometimes the best AI architecture is less AI.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--scouting">
+    <div class="shell scouting-grid">
+      <div class="scouting-mark" aria-hidden="true">UC</div>
+      <div>
+        <p class="eyebrow">Scouting is not a résumé footnote</p>
+        <h2>Unyielding Claw has a history.</h2>
+        <p>
+          <strong>Unyielding Claw is my Mic-O-Say name.</strong> I am an Eagle Scout and a Sachem in the Heart of America Council's Tribe of Mic-O-Say. Scouting has been a major thread in my life through leadership, service, mentoring, Cub Scouting, Wood Badge, and helping people grow into responsibility.
+        </p>
+        <p>
+          The name became my public engineering identity because it already meant something to me long before GitHub did.
+        </p>
+        <a class="text-link" href="https://www.hoac-bsa.org/micosay">Learn about Mic-O-Say from the Heart of America Council →</a>
+      </div>
+      <aside class="scouting-callout">
+        <span>LEADERSHIP THREAD</span>
+        <strong>Eagle Scout</strong>
+        <strong>Sachem, Tribe of Mic-O-Say</strong>
+        <strong>Cubmaster</strong>
+        <strong>Wood Badge</strong>
       </aside>
     </div>
   </section>
 
-  <section class="section section--warm">
-    <div class="shell">
-      <div class="identity-card">
-        <div class="identity-mark" aria-hidden="true">UC</div>
-        <div>
-          <p class="eyebrow">Why “Unyielding Claw”?</p>
-          <h2>It predates the GitHub handle.</h2>
-          <p>
-            <strong>Unyielding Claw is my Mic-O-Say name.</strong> I am a Sachem in the Heart of America Council's Tribe of Mic-O-Say, an honor camping and leadership society within Scouting America. I use the name here because it is a long-standing part of my identity—not because an AI branding exercise produced it.
-          </p>
-          <p>
-            <a class="text-link" href="https://www.hoac-bsa.org/micosay">Learn about Mic-O-Say from the Heart of America Council →</a>
-          </p>
-        </div>
+  <section class="section about-builder">
+    <div class="shell bridge-grid">
+      <div>
+        <p class="eyebrow">Builder is the through-line</p>
+        <h2>Software. Systems. Jigs. Teams.</h2>
+        <p class="section-intro">
+          The medium changes, but I keep coming back to the same thing: understand what has to work, build enough structure to make it dependable, and improve it with evidence from actual use.
+        </p>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell prose">
-      <h2>Public-safe by design</h2>
-      <p>
-        This site documents personal projects, public reference implementations, private-project case studies, and general professional experience. Employer code, data, credentials, confidential implementations, and proprietary details are intentionally excluded.
-      </p>
-
-      <h2>Evidence over positioning</h2>
-      <p>
-        I would rather show the decisions inside a real project than stack labels into a headline. The case studies are written around the problem, constraints, tradeoffs, architecture, verification, and what I would change next.
-      </p>
+      <a class="bridge-card" href="/woodworking/">
+        <span>AFTER HOURS</span>
+        <strong>Nolan's Workshop</strong>
+        <small>Same problem-solving habit. More sawdust. →</small>
+      </a>
     </div>
   </section>
 </BaseLayout>
