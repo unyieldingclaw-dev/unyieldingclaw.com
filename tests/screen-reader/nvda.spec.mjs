@@ -1,5 +1,7 @@
-import { nvdaTest as test } from '@guidepup/playwright';
+import guidepupPlaywright from '@guidepup/playwright';
 import { expect } from '@playwright/test';
+
+const { nvdaTest: test } = guidepupPlaywright;
 
 const routes = [
   '/',
