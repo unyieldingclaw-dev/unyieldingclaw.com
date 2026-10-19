@@ -191,7 +191,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       const spawnDust = (progress) => {
         if (!dustBurst) return;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 4; i++) {
           const particle = document.createElement('i');
           particle.style.setProperty('--x', (5 + progress * 90) + '%');
           particle.style.setProperty('--dx', (-20 + Math.random() * 70) + 'px');
@@ -226,7 +226,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const emit = (now) => {
           const progress = Math.min(1, (now - started) / duration);
 
-          if (now - lastDustAt > 34) {
+          if (now - lastDustAt > 52) {
             spawnDust(progress);
             lastDustAt = now;
           }
