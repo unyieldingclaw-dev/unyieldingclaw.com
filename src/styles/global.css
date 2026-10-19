@@ -5454,3 +5454,148 @@ nav a:focus-visible,
     margin-top: 14rem;
   }
 }
+
+
+/* ==========================================================================
+   Harness map geometry correction
+   Precise while idle; personality only after interaction.
+   ========================================================================== */
+
+@media (min-width: 721px) {
+  .harness-map {
+    --harness-node-width: 9.15rem;
+    --harness-node-height: 3.75rem;
+  }
+
+  .harness-map .harness-node {
+    width: var(--harness-node-width);
+    min-width: var(--harness-node-width);
+    height: var(--harness-node-height);
+    min-height: var(--harness-node-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  /* One exact center line, then mirrored left/right pairs. */
+  .harness-map .node-context {
+    top: 1.4rem;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+
+  .harness-map .node-memory,
+  .harness-map .node-tools {
+    top: 5.3rem;
+    bottom: auto;
+  }
+
+  .harness-map .node-memory {
+    left: 1.1rem;
+    right: auto;
+  }
+
+  .harness-map .node-tools {
+    right: 1.1rem;
+    left: auto;
+  }
+
+  .harness-map .node-orchestration,
+  .harness-map .node-governance {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
+  .harness-map .node-orchestration {
+    left: 0.7rem;
+    right: auto;
+  }
+
+  .harness-map .node-governance {
+    right: 0.7rem;
+    left: auto;
+  }
+
+  .harness-map .node-evaluation,
+  .harness-map .node-runtime {
+    top: auto;
+    bottom: 4.8rem;
+  }
+
+  .harness-map .node-evaluation {
+    left: 1.1rem;
+    right: auto;
+  }
+
+  .harness-map .node-runtime {
+    right: 1.1rem;
+    left: auto;
+  }
+
+  /* Hover is where the diagram is allowed to misbehave. */
+  .harness-map .harness-node {
+    scale: 1;
+    transition:
+      translate 230ms cubic-bezier(.18,.85,.25,1.22),
+      rotate 230ms cubic-bezier(.18,.85,.25,1.22),
+      scale 230ms cubic-bezier(.18,.85,.25,1.22),
+      box-shadow 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease;
+  }
+
+  .harness-map .node-context:hover {
+    translate: 0 13px;
+    rotate: -0.9deg;
+    scale: 1.015;
+  }
+
+  .harness-map .node-memory:hover {
+    translate: -5px 11px;
+    rotate: -2deg;
+    scale: 1.018;
+    transform-origin: 90% 0%;
+  }
+
+  .harness-map .node-tools:hover {
+    translate: 5px 13px;
+    rotate: 1.9deg;
+    scale: 1.018;
+    transform-origin: 10% 0%;
+  }
+
+  .harness-map .node-orchestration:hover {
+    translate: -5px 15px;
+    rotate: 1.25deg;
+    scale: 1.015;
+  }
+
+  .harness-map .node-governance:hover {
+    translate: 5px 10px;
+    rotate: -1.15deg;
+    scale: 1.015;
+  }
+
+  .harness-map .node-evaluation:hover {
+    translate: -4px 13px;
+    rotate: 1.55deg;
+    scale: 1.018;
+  }
+
+  .harness-map .node-runtime:hover {
+    translate: 4px 11px;
+    rotate: -1.45deg;
+    scale: 1.018;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .harness-map .harness-node {
+    scale: 1 !important;
+  }
+}
