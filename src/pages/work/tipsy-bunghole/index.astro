@@ -6,20 +6,21 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   title="Tipsy Bunghole"
   description="Case study: a private whiskey-club application for blind tasting events, shared history, roles, and institutional memory."
   eyebrow="Live event workflow · Club memory"
-  lede="A long-running whiskey club had accumulated years of results, bottle history, lore, and event knowledge—much of it living in one person's memory or scattered posts. The product turns that institutional knowledge into a shared system without getting in the way of the event."
+  lede="A whiskey night should feel like a whiskey night, not a database migration. Tipsy Bunghole keeps years of bottles, votes, guesses, winners, lore, and club history from living in one person's head—without making everybody babysit an app while they are trying to drink whiskey."
   status="Active development"
   access="Private repository · Club-only data"
   tags={['React', 'Supabase', 'Role workflows', 'Event state']}
+  sections={['The problem', 'Architecture follows the club', 'The hardest requirement is social, not technical', 'Why it stays private']}
   tone="copper"
   visual="tipsy"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      The club needed to answer basic historical questions—what had been tasted, who won, what people thought, which bottle was most wanted—without relying on one person to remember fifteen years of history.
+      We had fifteen years of “somebody remembers that, right?” What had we tasted? Who won? Which bottle got crushed in the vote? What did people guess? The answers existed, but not in one dependable place.
     </p>
     <p>
-      It also needed to run a live blind-tasting event from setup through serving, voting, guessing, reveal, comments, and results without making everyone stare at a complicated app instead of enjoying the night.
+      The other problem was live use. Setup, serving, voting, guessing, reveal, comments, results—every extra tap is competing with friends, conversation, and a glass of whiskey. The app has to know when to get out of the way.
     </p>
   </section>
 
@@ -40,7 +41,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   <section class="case-callout">
     <h2>The hardest requirement is social, not technical</h2>
     <p>
-      A live event has a very low tolerance for friction. Every extra field, navigation step, or ambiguous state competes with the actual reason people gathered. That makes workflow design, role clarity, and recovery from partial participation more important than adding more features.
+      A live event has almost no patience for software friction. If the steward has to stop pouring to figure out a screen, I lost. If somebody misses a vote, the night still has to continue. Role clarity and recovery matter more here than another clever feature ever will.
     </p>
   </section>
 

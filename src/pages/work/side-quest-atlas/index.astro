@@ -6,10 +6,11 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   title="Side Quest Atlas"
   description="Case study: private group travel memory capture built around low-friction entry, shared history, and clear data boundaries."
   eyebrow="Product design · Travel memory"
-  lede="Travel memories are easy to create and surprisingly easy to lose. Side Quest Atlas is designed to capture the meaningful part quickly, then let the group enrich it later without turning the experience into data entry."
+  lede="Trips are very good at creating memories and terrible at filing them. Side Quest Atlas lets us save the useful bit while it is fresh, then fill in the story later when nobody is standing on a sidewalk waiting for me to finish typing."
   status="In development"
   access="Private repository · Public-safe case study"
   tags={['Flutter', 'Supabase', 'RLS', 'Domain modeling']}
+  sections={['The problem', 'The product principle', 'What I left out on purpose', 'Why the code stays private']}
   tone="gold"
   visual="sidequest"
 >
@@ -35,16 +36,16 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   </section>
 
   <section class="case-callout">
-    <h2>What is intentionally missing</h2>
+    <h2>What I left out on purpose</h2>
     <p>
-      No public review feed. No follower graph. No recommendation engine added just because travel products often have one. The product is for a small group preserving its own history, not for becoming another social network.
+      No public review feed. No follower graph. No recommendation engine because “travel app” apparently comes with a checklist. This is for a small group keeping its own history, not for accidentally inventing another social network.
     </p>
   </section>
 
   <section>
-    <h2>Why the repository stays private</h2>
+    <h2>Why the code stays private</h2>
     <p>
-      The application is built around personal and family travel data. A public case study can show the product model, architecture decisions, privacy boundaries, and tradeoffs without turning the underlying repository or real user history into portfolio material.
+      The app is built around personal and family travel. The interesting part for a portfolio is how the product works and why I made the choices I did—not somebody's vacation history.
     </p>
   </section>
 </CaseStudyLayout>

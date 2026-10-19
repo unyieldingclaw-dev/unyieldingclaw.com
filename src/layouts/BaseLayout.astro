@@ -13,6 +13,7 @@ const {
 
 const fullTitle = title === 'Eric Nolan | Unyielding Claw' ? title : `${title} | Eric Nolan`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const socialImageURL = new URL('/social-card.png', Astro.site ?? Astro.url.origin);
 const pathname = Astro.url.pathname;
 
 const navItems = [
@@ -57,15 +58,21 @@ const personSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Eric Nolan — Unyielding Claw" />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
 
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
@@ -96,6 +103,10 @@ const personSchema = {
           <li class="trail-guide__secret" data-trail-chapter="offtrail" data-trail-total="1"><span>Bonus / Off Trail</span><b>?</b></li>
         </ol>
         <p class="trail-guide__footer" data-trail-message>There are more. Probably.</p>
+        <div class="trail-guide__reset-wrap">
+          <button type="button" class="trail-guide__reset" data-trail-reset data-reset-label="RESET TRAIL">RESET TRAIL</button>
+          <small>Handing the screen to somebody else? Start clean.</small>
+        </div>
       </div>
     </aside>
 
@@ -115,6 +126,7 @@ const personSchema = {
         <strong>Unyielding Explorer</strong>
         <small>You found everything nobody asked you to find.</small>
         <button type="button" data-trail-pin>PIN THE BADGE</button>
+        <button type="button" class="trail-complete__reset" data-trail-reset data-reset-label="RESET FOR NEXT EXPLORER">RESET FOR NEXT EXPLORER</button>
       </div>
     </div>
 
@@ -318,6 +330,9 @@ const personSchema = {
 
         const trailComplete = document.querySelector('[data-trail-complete]');
         const trailPin = document.querySelector('[data-trail-pin]');
+        const trailResetButtons = document.querySelectorAll('[data-trail-reset]');
+        let trailResetArmed = false;
+        let trailResetTimer;
 
         const maybeCelebrateTrail = () => {
           const unique = [...new Set(foundMarkers)];
@@ -341,6 +356,61 @@ const personSchema = {
           }, 850);
           trailGuide?.classList.add('has-earned-badge');
           showToast('BADGE PINNED // UNYIELDING EXPLORER', 2400);
+        });
+
+        const restoreResetLabels = () => {
+          trailResetButtons.forEach((button) => {
+            button.textContent = button.getAttribute('data-reset-label') || 'RESET TRAIL';
+          });
+        };
+
+        const resetTrail = () => {
+          foundMarkers = [];
+          clearTimeout(trailResetTimer);
+          trailResetArmed = false;
+
+          try {
+            localStorage.removeItem(trailKey);
+            localStorage.removeItem(legacyTrailKey);
+            localStorage.removeItem(rewardKey);
+          } catch {}
+
+          trailGuide?.classList.remove('has-earned-badge', 'is-open');
+          trailToggle?.setAttribute('aria-expanded', 'false');
+          trailComplete?.classList.remove('is-active', 'is-pinned');
+          trailComplete?.setAttribute('aria-hidden', 'true');
+          document.querySelectorAll('[data-trail-marker].is-found').forEach((marker) => marker.classList.remove('is-found'));
+          restoreResetLabels();
+          renderTrail();
+          showToast('TRAIL RESET // FRESH BOOTS, CLEAN MAP', 1800);
+
+          setTimeout(() => {
+            if (window.location.pathname === '/') {
+              window.location.reload();
+            } else {
+              window.location.assign('/');
+            }
+          }, 650);
+        };
+
+        trailResetButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            if (trailResetArmed) {
+              resetTrail();
+              return;
+            }
+
+            trailResetArmed = true;
+            trailResetButtons.forEach((item) => {
+              item.textContent = 'RESET? CLICK AGAIN';
+            });
+
+            clearTimeout(trailResetTimer);
+            trailResetTimer = setTimeout(() => {
+              trailResetArmed = false;
+              restoreResetLabels();
+            }, 3200);
+          });
         });
 
         const discoverTrail = (id, toast = 'TRAIL FIND') => {
