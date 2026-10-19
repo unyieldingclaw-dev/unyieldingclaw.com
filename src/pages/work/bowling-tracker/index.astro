@@ -6,10 +6,11 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   title="Bowling Tracker"
   description="Case study: a private bowling product for sessions, equipment, oil patterns, drills, leagues, and analytics."
   eyebrow="Sports product · Personal analytics"
-  lede="Bowling performance is more than a final score. The product tracks the context around the game—equipment, oil condition, location, session type, deliveries, practice, and trends—without turning every trip to the lanes into bookkeeping."
+  lede="A final score tells me what I shot. It does not tell me why. Bowling Tracker keeps the useful context—ball, lane, pattern, practice, league, adjustments—without turning every trip to the lanes into a data-entry job."
   status="Active development"
   access="Private repository · Public-safe case study"
   tags={['Flutter', 'Offline sync', 'Analytics', 'Domain rules']}
+  sections={['The problem', 'Domain decisions that matter', 'Narrow does not mean shallow', 'Why it stays private']}
   tone="slate"
   visual="bowling"
 >
@@ -28,14 +29,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
       <li>Ball attribution lives at the delivery level so equipment analysis has evidence behind it.</li>
       <li>Retired equipment is preserved rather than deleted, because historical sessions still need to explain themselves.</li>
       <li>“House pattern” is treated as a grouping, not invented as a fake oil-pattern entity.</li>
-      <li>An offline local store and later synchronization support the real environment: bowling centers do not always have reliable connectivity.</li>
+      <li>An offline local store and later synchronization support the real environment. Bowling centers are not exactly famous for enterprise-grade Wi-Fi.</li>
     </ul>
   </section>
 
   <section class="case-callout">
-    <h2>A focused product can still become deep</h2>
+    <h2>Narrow does not mean shallow</h2>
     <p>
-      Narrow scope does not mean shallow behavior. Once the core session model is sound, drills, leave conversion, ball maintenance, trend analysis, league detail, and equipment recommendations can grow from the same evidence without turning the app into a generic sports platform.
+      I do not want a generic sports platform with a bowling skin. Once the session model is sound, drills, leave conversion, ball maintenance, trends, league detail, and equipment analysis can grow naturally from bowling data instead of from a giant feature checklist.
     </p>
   </section>
 
