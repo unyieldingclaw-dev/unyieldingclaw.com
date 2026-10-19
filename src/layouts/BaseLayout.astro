@@ -73,6 +73,9 @@ const personSchema = {
     <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="cursor-spotlight" aria-hidden="true"></div>
     <div class="egg-toast" role="status" aria-live="polite"></div>
+    <div class="miz-takeover" data-miz-takeover aria-hidden="true">
+      <strong>ZOU!</strong>
+    </div>
 
     <aside class="trail-guide" data-trail-guide hidden aria-label="Hidden trail guide">
       <button class="trail-guide__toggle" type="button" aria-expanded="false">
@@ -168,8 +171,10 @@ const personSchema = {
         const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
         const eggToast = document.querySelector('.egg-toast');
+        const mizTakeover = document.querySelector('[data-miz-takeover]');
         let eggBuffer = '';
         let eggTimer;
+        let mizTimer;
 
         const showToast = (message, duration = 1800) => {
           if (!eggToast) return;
@@ -187,9 +192,25 @@ const personSchema = {
           eggBuffer = (eggBuffer + event.key.toLowerCase()).slice(-12);
 
           if (eggBuffer.endsWith('miz')) {
-            showToast('ZOU!');
-            window.unyieldingTrailDiscover?.('home-miz', 'MIZ // ZOU');
             eggBuffer = '';
+
+            if (!mizTakeover) {
+              showToast('ZOU!');
+              return;
+            }
+
+            clearTimeout(mizTimer);
+            mizTakeover.classList.remove('is-active');
+            mizTakeover.setAttribute('aria-hidden', 'false');
+
+            // Restart the animation cleanly if somebody enthusiastically types MIZ again.
+            void mizTakeover.offsetWidth;
+            mizTakeover.classList.add('is-active');
+
+            mizTimer = setTimeout(() => {
+              mizTakeover.classList.remove('is-active');
+              mizTakeover.setAttribute('aria-hidden', 'true');
+            }, reduceMotion ? 1200 : 2100);
           }
         });
 
@@ -226,6 +247,19 @@ const personSchema = {
           }
         } catch {
           foundMarkers = [];
+        }
+
+        // MIZ → ZOU remains an Easter egg, but is no longer required for
+        // Trail completion. Preserve progress for anyone who found the old
+        // keyboard-only discovery by migrating it to the new visible Home marker.
+        if (foundMarkers.includes('home-miz')) {
+          foundMarkers = foundMarkers
+            .map((id) => id === 'home-miz' ? 'home-range' : id)
+            .filter((id, index, all) => all.indexOf(id) === index);
+
+          try {
+            localStorage.setItem(trailKey, JSON.stringify(foundMarkers));
+          } catch {}
         }
 
         const saveTrail = () => {
