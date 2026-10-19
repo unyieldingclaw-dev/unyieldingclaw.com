@@ -8025,3 +8025,191 @@ nav a:focus-visible,
     max-width: 100%;
   }
 }
+
+
+/* ==========================================================================
+   WCAG 2.2 AA hardening
+   Focus, contrast, reflow, target size, text spacing, forced colors, and
+   non-drag alternatives. These rules are intentionally low-impact visually.
+   ========================================================================== */
+
+:root {
+  /* Previous #667684 fell below 4.5:1 on the warm paper background. */
+  --muted: #5f6d78;
+}
+
+html {
+  scroll-padding-top: 6.5rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+:where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 3px solid #5b8cff;
+  outline-offset: 3px;
+}
+
+.section--dark :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible,
+.hero :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible,
+.subhero :where(
+  a,
+  button,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline-color: #b8d2ff;
+}
+
+.harness-map:focus-visible {
+  outline: 3px solid #b8d2ff;
+  outline-offset: 5px;
+}
+
+.egg-inline[tabindex],
+.scouting-mark[tabindex],
+.micro-joke[tabindex],
+.proof-board-punch[tabindex] {
+  border-radius: 0.3rem;
+}
+
+.egg-mark::after,
+.egg-inline::after,
+.egg-signature::after {
+  pointer-events: auto;
+}
+
+.egg-tooltip-dismissed::after {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Keep the hidden Trail controls subtle, but not below non-text contrast. */
+.trail-marker {
+  opacity: 0.72;
+  color: rgba(184, 210, 255, 0.94);
+  border-color: rgba(126, 169, 255, 0.52);
+}
+
+.trail-guide li b {
+  color: #7890a3;
+}
+
+/* WCAG 2.2 target-size minimum for the intentionally tiny keyboard clue. */
+.footer-key-clue {
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Preserve the exact desktop Harness geometry while allowing text-spacing
+   overrides and zoom to increase a node's height instead of clipping it. */
+@media (min-width: 721px) {
+  .harness-map .harness-node {
+    height: auto;
+    min-height: var(--harness-node-height, 3.75rem);
+  }
+}
+
+/* 2.5.7 Dragging Movements: wiping remains fun, but never required. */
+.sawdust-bench__clear {
+  position: absolute;
+  left: 50%;
+  bottom: 0.8rem;
+  z-index: 12;
+  min-height: 2.75rem;
+  max-width: calc(100% - 1.2rem);
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255, 244, 227, 0.46);
+  border-radius: 999px;
+  background: rgba(66, 38, 20, 0.88);
+  color: #fff5e6;
+  font: 800 0.72rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-align: center;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 24px rgba(57,34,18,0.22);
+}
+
+.sawdust-bench__clear[hidden] {
+  display: none !important;
+}
+
+.sawdust-bench__clear:hover,
+.sawdust-bench__clear:focus-visible {
+  background: rgba(82, 47, 24, 0.96);
+}
+
+/* Respect system high-contrast modes instead of preserving decorative paint. */
+@media (forced-colors: active) {
+  :where(a, button, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  .project-card,
+  .harness-map,
+  .harness-node,
+  .harness-core,
+  .harness-question,
+  .rule-card,
+  .workshop-card,
+  .contact-action,
+  .about-stack__card,
+  .trail-guide__panel,
+  .trail-complete__card,
+  .matrix-overlay__message {
+    border: 1px solid CanvasText;
+    forced-color-adjust: auto;
+  }
+
+  .trail-marker,
+  .footer-key-clue {
+    opacity: 1;
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+  .sawdust-bench__clear {
+    bottom: 0.55rem;
+    width: min(18rem, calc(100% - 1.1rem));
+  }
+}
