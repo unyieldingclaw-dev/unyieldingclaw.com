@@ -499,6 +499,99 @@ const personSchema = {
           card.addEventListener('focusout', resetHarnessQuestion);
         });
 
+        // Shared physical motion for ordinary card surfaces. Specialized
+        // interactions (project cards, Harness nodes/questions, case-study panels,
+        // Workshop benches) keep their own behavior.
+        const liveCardSelector = [
+          '.principle-grid--punch .principle',
+          '.range-card',
+          '.bridge-card',
+          '.rule-card',
+          '.workshop-grid--wow .workshop-card',
+          '.process-strip > div',
+          '.career-timeline article',
+          '.about-stack__card',
+          '.contact-action',
+          '.contact-topic-grid article',
+          '.feature-note',
+          '.identity-card',
+          '.work-console',
+          '.scouting-callout'
+        ].join(', ');
+
+        if (finePointer && !reduceMotion) {
+          document.querySelectorAll(liveCardSelector).forEach((card, index) => {
+            // Avoid double-wiring anything that also belongs to a specialized system.
+            if (
+              card.matches(
+                '.project-card, .harness-question, .harness-node, .harness-core, [data-case-signal], .case-flow > section'
+              )
+            ) return;
+
+            card.classList.add('uc-live-card');
+
+            let frame;
+            const direction = index % 2 === 0 ? -1 : 1;
+            const personality = (index % 4) + 1;
+
+            const resetLiveCard = () => {
+              cancelAnimationFrame(frame);
+              card.style.setProperty('--live-x', '0px');
+              card.style.setProperty('--live-y', '0px');
+              card.style.setProperty('--live-r', '0deg');
+              card.style.setProperty('--live-s', '1');
+              card.style.setProperty('--live-glow-x', '50%');
+              card.style.setProperty('--live-glow-y', '50%');
+              card.classList.remove('is-live-moving');
+            };
+
+            const wakeLiveCard = () => {
+              const kickX = direction * (5 + personality * 1.8);
+              const kickY = -5 - personality * 1.2;
+              const kickR = -direction * (0.35 + personality * 0.16);
+              const kickS = 1.01 + personality * 0.003;
+
+              card.style.setProperty('--live-x', kickX.toFixed(1) + 'px');
+              card.style.setProperty('--live-y', kickY.toFixed(1) + 'px');
+              card.style.setProperty('--live-r', kickR.toFixed(2) + 'deg');
+              card.style.setProperty('--live-s', kickS.toFixed(3));
+              card.classList.add('is-live-moving');
+            };
+
+            card.addEventListener('pointerenter', wakeLiveCard);
+
+            card.addEventListener('pointermove', (event) => {
+              cancelAnimationFrame(frame);
+
+              frame = requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+                const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+                const travelX = 14 + personality * 1.5;
+                const travelY = 10 + personality;
+                const rotate = 1.4 + personality * 0.18;
+
+                const x = (px - 0.5) * travelX + direction * 2.5;
+                const y = (py - 0.5) * travelY - 5;
+                const r = (px - 0.5) * rotate - direction * 0.28;
+                const scale = 1.014 + (1 - Math.abs(px - 0.5) * 2) * 0.008;
+
+                card.style.setProperty('--live-x', x.toFixed(1) + 'px');
+                card.style.setProperty('--live-y', y.toFixed(1) + 'px');
+                card.style.setProperty('--live-r', r.toFixed(2) + 'deg');
+                card.style.setProperty('--live-s', scale.toFixed(3));
+                card.style.setProperty('--live-glow-x', (px * 100).toFixed(1) + '%');
+                card.style.setProperty('--live-glow-y', (py * 100).toFixed(1) + '%');
+              });
+            });
+
+            card.addEventListener('pointerleave', resetLiveCard);
+            card.addEventListener('focusin', wakeLiveCard);
+            card.addEventListener('focusout', resetLiveCard);
+          });
+        }
+
         const tiltCards = document.querySelectorAll('.project-card');
 
         tiltCards.forEach((card) => {
