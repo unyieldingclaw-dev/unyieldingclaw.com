@@ -3528,3 +3528,29 @@ h2 {
     grid-column: auto;
   }
 }
+
+
+/* Child-page readability corrections */
+.section--dark .section-heading h2,
+.section--dark h2 {
+  color: #f7fbff;
+}
+
+.harness-principles .section-heading h2 {
+  max-width: 9ch;
+  color: #f7fbff;
+  background: linear-gradient(180deg, #ffffff 0%, #b8d2ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.harness-principles .section-intro {
+  max-width: 36rem;
+  color: #c2d5e5;
+}
+
+#framework {
+  scroll-margin-top: 6rem;
+}
