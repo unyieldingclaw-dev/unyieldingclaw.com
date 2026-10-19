@@ -412,6 +412,41 @@ const personSchema = {
           window.addEventListener('blur', () => spotlight.classList.remove('is-active'));
         }
 
+        const quirkyCards = document.querySelectorAll(
+          '.harness-question, .career-timeline article, .about-values .principle, .work-bridge .bridge-card, .workshop-crossover .bridge-card, .contact-boundary .bridge-card'
+        );
+
+        const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+        quirkyCards.forEach((card, index) => {
+          const resetQuirk = () => {
+            card.classList.remove('is-quirking');
+            card.style.setProperty('--quirk-x', '0px');
+            card.style.setProperty('--quirk-y', '0px');
+            card.style.setProperty('--quirk-r', '0deg');
+            card.style.setProperty('--quirk-s', '1');
+          };
+
+          const applyQuirk = () => {
+            const direction = (index % 2 === 0 ? 1 : -1) * (Math.random() > 0.42 ? 1 : -1);
+            const x = randomBetween(3.5, 10.5) * direction;
+            const y = -randomBetween(4, 11);
+            const rotate = randomBetween(0.35, 1.65) * -direction;
+            const scale = randomBetween(1.008, 1.025);
+
+            card.style.setProperty('--quirk-x', x.toFixed(2) + 'px');
+            card.style.setProperty('--quirk-y', y.toFixed(2) + 'px');
+            card.style.setProperty('--quirk-r', rotate.toFixed(2) + 'deg');
+            card.style.setProperty('--quirk-s', scale.toFixed(3));
+            card.classList.add('is-quirking');
+          };
+
+          card.addEventListener('pointerenter', applyQuirk);
+          card.addEventListener('pointerleave', resetQuirk);
+          card.addEventListener('focusin', applyQuirk);
+          card.addEventListener('focusout', resetQuirk);
+        });
+
         const tiltCards = document.querySelectorAll('.project-card');
 
         tiltCards.forEach((card) => {
