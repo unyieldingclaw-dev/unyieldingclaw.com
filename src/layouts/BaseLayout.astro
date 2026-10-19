@@ -96,6 +96,20 @@ const personSchema = {
       </div>
     </aside>
 
+    <div class="trail-complete" data-trail-complete aria-hidden="true">
+      <div class="trail-complete__flash">HIRE NOLAN!</div>
+      <div class="trail-complete__card">
+        <div class="trail-badge" aria-hidden="true">
+          <span>UC</span>
+          <b>EXPLORER</b>
+        </div>
+        <p>TRAIL GUIDE // RANK EARNED</p>
+        <strong>Unyielding Explorer</strong>
+        <small>You found everything nobody asked you to find.</small>
+        <button type="button" data-trail-pin>PIN THE BADGE</button>
+      </div>
+    </div>
+
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
@@ -180,7 +194,9 @@ const personSchema = {
         const trailMessage = trailGuide?.querySelector('[data-trail-message]');
         const trailKey = 'unyielding-claw-trail-v2';
         const legacyTrailKey = 'unyielding-claw-trail-v1';
+        const mainTrailTotal = 16;
         const trailTotal = 17;
+        const rewardKey = 'unyielding-claw-trail-reward-v1';
         let foundMarkers = [];
 
         const legacyMap = {
@@ -217,10 +233,13 @@ const personSchema = {
           const unique = [...new Set(foundMarkers)];
           trailGuide.hidden = unique.length === 0;
 
+          const mainCount = unique.filter((id) => !id.startsWith('offtrail-')).length;
+          const bonusCount = unique.filter((id) => id.startsWith('offtrail-')).length;
+
           if (trailCount) {
-            trailCount.textContent = unique.length < 6
-              ? unique.length + '/?'
-              : unique.length + '/' + trailTotal;
+            trailCount.textContent = mainCount < 6
+              ? mainCount + '/?'
+              : mainCount + '/' + mainTrailTotal;
           }
 
           trailGuide.querySelectorAll('[data-trail-chapter]').forEach((item) => {
@@ -241,24 +260,61 @@ const personSchema = {
           });
 
           if (trailMessage) {
-            trailMessage.textContent = unique.length >= trailTotal
-              ? 'TRAIL COMPLETE // Apparently curiosity is a core competency.'
-              : unique.length >= 12
+            trailMessage.textContent = mainCount >= mainTrailTotal
+              ? bonusCount > 0
+                ? 'TRAIL COMPLETE + OFF-TRAIL PATCH // Apparently curiosity is a core competency.'
+                : 'TRAIL COMPLETE // Rank earned. There may still be something off trail.'
+              : mainCount >= 12
                 ? 'At this point you are either thorough or avoiding work.'
-                : unique.length >= 6
+                : mainCount >= 6
                   ? 'The map got bigger. You knew it would.'
-                  : unique.length >= 3
+                  : mainCount >= 3
                     ? 'You are here. Probably. Context matters.'
                     : 'There are more. Definitely.';
           }
         };
+
+        const trailComplete = document.querySelector('[data-trail-complete]');
+        const trailPin = document.querySelector('[data-trail-pin]');
+
+        const maybeCelebrateTrail = () => {
+          const unique = [...new Set(foundMarkers)];
+          const mainCount = unique.filter((id) => !id.startsWith('offtrail-')).length;
+          if (mainCount < mainTrailTotal || !trailComplete) return;
+
+          let alreadyRewarded = false;
+          try { alreadyRewarded = localStorage.getItem(rewardKey) === 'earned'; } catch {}
+          if (alreadyRewarded) return;
+
+          trailComplete.classList.add('is-active');
+          trailComplete.setAttribute('aria-hidden', 'false');
+        };
+
+        trailPin?.addEventListener('click', () => {
+          try { localStorage.setItem(rewardKey, 'earned'); } catch {}
+          trailComplete?.classList.add('is-pinned');
+          setTimeout(() => {
+            trailComplete?.classList.remove('is-active', 'is-pinned');
+            trailComplete?.setAttribute('aria-hidden', 'true');
+          }, 850);
+          trailGuide?.classList.add('has-earned-badge');
+          showToast('BADGE PINNED // UNYIELDING EXPLORER', 2400);
+        });
 
         const discoverTrail = (id, toast = 'TRAIL FIND') => {
           if (!id || foundMarkers.includes(id)) return false;
           foundMarkers.push(id);
           saveTrail();
           renderTrail();
-          showToast(toast + ' // ' + [...new Set(foundMarkers)].length + '/?', 2200);
+          const unique = [...new Set(foundMarkers)];
+          const mainCount = unique.filter((entry) => !entry.startsWith('offtrail-')).length;
+          showToast(
+            id.startsWith('offtrail-')
+              ? 'BONUS PATCH FOUND // LOST BUT FUNCTIONAL'
+              : toast + ' // ' + mainCount + '/?',
+            2200
+          );
+          maybeCelebrateTrail();
           return true;
         };
 
@@ -300,6 +356,12 @@ const personSchema = {
         });
 
         renderTrail();
+
+        try {
+          if (localStorage.getItem(rewardKey) === 'earned') {
+            trailGuide?.classList.add('has-earned-badge');
+          }
+        } catch {}
 
         if (reduceMotion) return;
 
