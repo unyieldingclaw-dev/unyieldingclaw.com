@@ -557,6 +557,17 @@ const personSchema = {
               trailToggle?.focus();
               return;
             }
+
+            const hoveredEgg = document.querySelector('[data-egg]:hover');
+            const focusedEgg = document.activeElement instanceof Element
+              ? document.activeElement.closest('[data-egg]')
+              : null;
+            const egg = focusedEgg || hoveredEgg;
+            if (egg) {
+              event.preventDefault();
+              egg.classList.add('egg-tooltip-dismissed');
+              return;
+            }
           }
 
           if (event.key === 'Tab' && trailComplete?.classList.contains('is-active')) {
@@ -575,6 +586,11 @@ const personSchema = {
               first.focus();
             }
           }
+        });
+
+        document.querySelectorAll('[data-egg]').forEach((egg) => {
+          egg.addEventListener('pointerleave', () => egg.classList.remove('egg-tooltip-dismissed'));
+          egg.addEventListener('focusin', () => egg.classList.remove('egg-tooltip-dismissed'));
         });
 
         renderTrail();
