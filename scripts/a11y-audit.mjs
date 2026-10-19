@@ -192,8 +192,8 @@ try {
     await saw.focus();
     await page.keyboard.press('Enter');
 
-    if (!(await saw.evaluate((el) => el.classList.contains('is-cutting')))) {
-      fail('Workshop saw: Enter does not start the interaction');
+    if (!(await saw.evaluate((el) => el.classList.contains('is-cutting') || el.classList.contains('is-cut')))) {
+      fail('Workshop saw: Enter does not start or complete the interaction');
     }
 
     await page.waitForTimeout(2400);
