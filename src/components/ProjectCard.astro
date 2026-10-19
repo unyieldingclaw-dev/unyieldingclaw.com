@@ -34,11 +34,6 @@ const inferredVisual =
    href.includes('/bowling-tracker/') ? 'bowling' :
    undefined);
 
-const cardId = 'project-' + title
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-+|-+$/g, '');
-
 const mark = title
   .split(/\s+/)
   .filter(Boolean)
@@ -50,8 +45,6 @@ const mark = title
 <a
   class={`project-card project-card--${tone}${inferredVisual ? ` project-card--visual project-card--${inferredVisual}` : ''}`}
   href={href}
-  aria-labelledby={`${cardId}-title`}
-  aria-describedby={`${cardId}-description`}
 >
   {inferredVisual && <div class={`project-card__art project-card__art--${inferredVisual}`} aria-hidden="true"></div>}
   <div class="project-card__veil" aria-hidden="true"></div>
@@ -60,8 +53,8 @@ const mark = title
     <p class="project-kicker">{eyebrow}</p>
     {status && <span class="status-chip">{status}</span>}
   </div>
-  <h3 id={`${cardId}-title`}>{title}</h3>
-  <p id={`${cardId}-description`}>{description}</p>
+  <h3>{title}</h3>
+  <p>{description}</p>
   {tags.length > 0 && (
     <ul class="tag-list" aria-label="Project themes">
       {tags.map((tag) => <li>{tag}</li>)}
