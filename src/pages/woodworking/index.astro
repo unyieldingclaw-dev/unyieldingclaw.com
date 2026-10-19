@@ -283,6 +283,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         ctx.fillStyle = bank;
         ctx.fillRect(0, rect.height * 0.52, rect.width, rect.height * 0.48);
 
+        if (finalPass) {
+          // Deliberately bury the hidden message so the rag interaction matters.
+          const cover = ctx.createRadialGradient(
+            rect.width * 0.5, rect.height * 0.5, 18,
+            rect.width * 0.5, rect.height * 0.5, rect.width * 0.38
+          );
+          cover.addColorStop(0, 'rgba(207,164,105,0.98)');
+          cover.addColorStop(0.52, 'rgba(218,181,126,0.95)');
+          cover.addColorStop(0.82, 'rgba(190,140,83,0.78)');
+          cover.addColorStop(1, 'rgba(190,140,83,0)');
+          ctx.fillStyle = cover;
+          ctx.fillRect(0, 0, rect.width, rect.height);
+        }
+
         ctx.restore();
 
         if (finalPass) {
