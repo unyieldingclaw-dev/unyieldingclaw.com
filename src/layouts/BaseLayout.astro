@@ -127,7 +127,7 @@ const personSchema = {
         document.documentElement.classList.add('motion-enabled');
 
         const revealTargets = document.querySelectorAll(
-          '.section-heading, .project-card, .principle, .feature-note, .identity-card, .workshop-card, .case-content > section'
+          '.section-heading, .project-card, .principle, .feature-note, .identity-card, .workshop-card, .case-content > section, .proof-module, .range-card, .manifesto-grid'
         );
 
         revealTargets.forEach((el) => el.classList.add('reveal-ready'));
@@ -187,7 +187,7 @@ const personSchema = {
         });
 
         const hero = document.querySelector('.hero');
-        const heroPanel = document.querySelector('.hero-panel');
+        const heroPanel = document.querySelector('.ai-proof-board, .hero-panel');
 
         if (hero && heroPanel) {
           let heroFrame;
