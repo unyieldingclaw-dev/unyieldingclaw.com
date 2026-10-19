@@ -1,0 +1,50 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="PitLogic"
+  description="Case study: client-side BBQ telemetry, alerts, history, and cook analytics."
+  eyebrow="Product engineering · Telemetry"
+  lede="PitLogic turns a pile of temperature readings into a usable cooking workflow: what is happening now, what needs attention, what is likely next, and what can be learned from prior cooks."
+  status="Active"
+  access="Open source · MIT"
+  tags={['React', 'PWA', 'Telemetry', 'Analytics']}
+  repoUrl="https://github.com/unyieldingclaw-dev/pitlogic"
+  liveUrl="https://unyieldingclaw-dev.github.io/pitlogic/"
+>
+  <section>
+    <h2>The problem</h2>
+    <p>
+      Long cooks create lots of data but still leave the cook answering practical questions: Is the pit cooling off? Is the meat entering a stall? Am I likely to finish on time? What happened the last time I cooked this cut?
+    </p>
+  </section>
+
+  <section>
+    <h2>The product shape</h2>
+    <p>
+      The application stays client-side instead of introducing accounts and a backend that the use case does not require. It combines active-cook monitoring with history and analytics, while keeping the data portable.
+    </p>
+    <ul>
+      <li>Live ThermoWorks RFX data arrives through MQTT over WebSocket.</li>
+      <li>Target and low-pit alarms surface actionable conditions instead of just drawing graphs.</li>
+      <li>Stall detection and finish-time estimates turn telemetry into decisions.</li>
+      <li>Cook history, comparisons, recipes, and JSON backup make the data useful after the cook ends.</li>
+      <li>PWA and accessibility work keep the product usable on the devices and in the situations where it actually gets used.</li>
+    </ul>
+  </section>
+
+  <section class="case-callout">
+    <h2>An intentional non-decision</h2>
+    <p>
+      There is no backend simply because “real apps have backends.” Local storage, export/import, and direct device integration satisfy the current operating model with less infrastructure, less account friction, and fewer failure modes.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this demonstrates</h2>
+    <p>
+      PitLogic is useful portfolio evidence because the product is not about AI infrastructure. It shows end-to-end product decisions around live data, alarms, forecasting, accessibility, testing, deployment, and the discipline to stop before unnecessary platform work takes over.
+    </p>
+  </section>
+</CaseStudyLayout>
