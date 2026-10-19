@@ -1,45 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#071421"/><stop offset=".48" stop-color="#0c2742"/><stop offset="1" stop-color="#1f4f78"/>
+      <stop stop-color="#06111c"/>
+      <stop offset=".52" stop-color="#0a2034"/>
+      <stop offset="1" stop-color="#102f50"/>
     </linearGradient>
-    <linearGradient id="lane" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#e7c692"/><stop offset=".55" stop-color="#b77b47"/><stop offset="1" stop-color="#51311f"/>
-    </linearGradient>
-    <radialGradient id="ball" cx="38%" cy="32%" r="70%">
-      <stop stop-color="#3e86d6"/><stop offset=".3" stop-color="#163d69"/><stop offset=".72" stop-color="#08192a"/><stop offset="1" stop-color="#03090f"/>
+    <radialGradient id="coolGlow" cx="82%" cy="42%" r="65%">
+      <stop stop-color="#4f91d8" stop-opacity=".20"/>
+      <stop offset=".55" stop-color="#2b5b8c" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
     </radialGradient>
-    <filter id="pinGlow"><feGaussianBlur stdDeviation="6"/></filter>
+    <pattern id="microGrid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <path d="M52 0H0V52" fill="none" stroke="#98c1ea" stroke-opacity=".055" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="laneFade" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#8fb4d8" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#d8b17a" stop-opacity=".14"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
   </defs>
+
   <rect width="1200" height="800" fill="url(#bg)"/>
-  <path d="M500 70h200l250 730H250Z" fill="url(#lane)" stroke="#f0d6ac" stroke-opacity=".35" stroke-width="4"/>
-  <g opacity=".13" stroke="#fff" stroke-width="2">
-    <path d="M375 800 548 70M825 800 652 70"/>
-    <path d="M320 630h560M345 560h510M370 490h460M395 420h410"/>
-  </g>
-  <g fill="none" stroke="#6da1ff" stroke-opacity=".23" stroke-width="4">
-    <path d="M410 610c75-48 305-48 380 0"/>
-    <path d="M435 555c68-39 265-39 330 0"/>
-    <path d="M465 500c58-31 213-31 270 0"/>
-    <path d="M495 448c47-24 163-24 210 0"/>
-  </g>
-  <g transform="translate(505 70)">
-    <ellipse cx="95" cy="165" rx="160" ry="105" fill="#fff" opacity=".08" filter="url(#pinGlow)"/>
-    <g fill="#f7f8fa" stroke="#d9e0e5" stroke-width="3">
-      <path d="M88 0c-11 18-15 34-11 50 2 10 8 20 14 29-16 25-25 51-25 80 0 52 35 82 82 82s82-30 82-82c0-29-9-55-25-80 6-9 12-19 14-29 4-16 0-32-11-50Z"/>
-      <path d="M-8 70c-8 12-11 23-9 35 1 7 5 15 10 22-11 17-17 35-17 55 0 36 25 57 57 57 10 0 19-2 27-5-12-21-18-45-18-71 0-34 11-65 30-90-8-7-14-14-19-20Z"/>
-      <path d="M304 70c8 12 11 23 9 35-1 7-5 15-10 22 11 17 17 35 17 55 0 36-25 57-57 57-10 0-19-2-27-5 12-21 18-45 18-71 0-34-11-65-30-90 8-7 14-14 19-20Z"/>
+  <rect width="1200" height="800" fill="url(#coolGlow)"/>
+  <rect width="1200" height="800" fill="url(#microGrid)"/>
+
+  <g opacity=".78">
+    <path d="M520 800 742 118H978L1190 800Z" fill="url(#laneFade)" stroke="#7fa8cf" stroke-opacity=".18" stroke-width="3"/>
+    <g stroke="#a7c6e2" stroke-opacity=".11" stroke-width="2">
+      <path d="M575 800 767 118M630 800 792 118M685 800 817 118M740 800 842 118M795 800 867 118M850 800 892 118M905 800 917 118M960 800 942 118M1015 800 967 118M1070 800 992 118M1125 800 1017 118"/>
     </g>
-    <g fill="#b92f3d">
-      <rect x="79" y="75" width="138" height="15" rx="4"/>
-      <rect x="-15" y="125" width="58" height="11" rx="3"/>
-      <rect x="253" y="125" width="58" height="11" rx="3"/>
+    <g stroke="#c8d9e9" stroke-opacity=".10" stroke-width="2">
+      <path d="M555 690h604M580 610h554M607 535h503M635 465h451M662 400h400M687 342h351M709 288h307M731 240h261M748 197h226M763 159h197"/>
     </g>
   </g>
-  <g transform="translate(725 525)">
-    <ellipse cx="118" cy="205" rx="128" ry="28" fill="#000" opacity=".32"/>
-    <circle cx="118" cy="118" r="112" fill="url(#ball)" stroke="#5a8fc5" stroke-width="5"/>
-    <path d="M52 72c55-31 112-28 157 2" fill="none" stroke="#6ea6d8" stroke-opacity=".25" stroke-width="7" stroke-linecap="round"/>
-    <circle cx="87" cy="91" r="10" fill="#02070b"/><circle cx="119" cy="78" r="10" fill="#02070b"/><circle cx="142" cy="108" r="10" fill="#02070b"/>
+
+  <g transform="translate(780 390)" fill="none" stroke-linecap="round">
+    <path d="M-240 80C-178-22-72-92 58-91 188-91 262-28 281 56 298 132 244 201 150 226 52 252-89 242-181 189-242 154-274 119-240 80Z"
+          stroke="#6ba7dd" stroke-opacity=".18" stroke-width="3"/>
+    <path d="M-188 72C-141 0-58-49 45-48 143-48 207-8 224 53 240 111 201 158 126 177 48 197-58 191-131 151-180 124-206 101-188 72Z"
+          stroke="#78b8ef" stroke-opacity=".23" stroke-width="3"/>
+    <path d="M-132 65C-96 19-36-12 39-11 111-11 157 15 170 57 182 96 153 126 99 139 42 153-35 149-87 123-122 105-145 87-132 65Z"
+          stroke="#86c8ff" stroke-opacity=".30" stroke-width="3"/>
+    <path d="M-80 59C-56 35-17 19 32 20 79 20 109 34 117 58 124 80 105 98 70 106 33 115-16 112-49 97-71 87-89 72-80 59Z"
+          stroke="#9fd6ff" stroke-opacity=".36" stroke-width="3"/>
+  </g>
+
+  <g fill="#081725" stroke="#86c7ff" stroke-width="3">
+    <circle cx="856" cy="514" r="11"/><circle cx="936" cy="336" r="9"/><circle cx="989" cy="230" r="7"/>
+  </g>
+  <g fill="#9ad4ff">
+    <circle cx="856" cy="514" r="3.5"/><circle cx="936" cy="336" r="3"/><circle cx="989" cy="230" r="2.5"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M655 780C667 658 708 586 775 545 828 513 888 490 936 336 961 257 969 225 989 230"
+          stroke="#79bfff" stroke-opacity=".55" stroke-width="6"/>
+    <path d="M725 800C732 683 763 620 816 579 863 543 905 504 928 424 947 359 960 300 975 257"
+          stroke="#4d7fc8" stroke-opacity=".28" stroke-width="4" stroke-dasharray="10 13"/>
+    <path d="M598 800C613 699 643 634 692 594 735 558 783 532 817 470"
+          stroke="#b4dfff" stroke-opacity=".18" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(850 140)" fill="#b9d5ec" fill-opacity=".26" stroke="#cde3f4" stroke-opacity=".20" stroke-width="2">
+    <circle cx="80" cy="0" r="9"/>
+    <circle cx="55" cy="26" r="8"/><circle cx="105" cy="26" r="8"/>
+    <circle cx="30" cy="52" r="7"/><circle cx="80" cy="52" r="7"/><circle cx="130" cy="52" r="7"/>
+    <circle cx="5" cy="78" r="6"/><circle cx="55" cy="78" r="6"/><circle cx="105" cy="78" r="6"/><circle cx="155" cy="78" r="6"/>
+  </g>
+
+  <g transform="translate(685 565)" fill="#85c3f5" fill-opacity=".30">
+    <path d="M0 0 13 28 0 21-13 28Z"/><path d="M64-8 77 20 64 13 51 20Z"/><path d="M128-15 141 13 128 6 115 13Z"/>
+  </g>
+
+  <g transform="translate(1015 395)" opacity=".34">
+    <rect width="142" height="92" rx="10" fill="#081725" stroke="#80b8ea" stroke-opacity=".30"/>
+    <path d="M18 66 43 52 65 61 92 34 122 22" fill="none" stroke="#8dcbff" stroke-opacity=".62" stroke-width="3"/>
+    <g fill="#91cbfb"><circle cx="18" cy="66" r="3"/><circle cx="43" cy="52" r="3"/><circle cx="65" cy="61" r="3"/><circle cx="92" cy="34" r="3"/><circle cx="122" cy="22" r="3"/></g>
+  </g>
+
+  <g transform="translate(1040 530)" opacity=".30">
+    <rect width="118" height="70" rx="10" fill="#081725" stroke="#80b8ea" stroke-opacity=".28"/>
+    <g fill="#8fc8f6"><rect x="18" y="43" width="10" height="12" rx="2"/><rect x="36" y="35" width="10" height="20" rx="2"/><rect x="54" y="25" width="10" height="30" rx="2"/><rect x="72" y="31" width="10" height="24" rx="2"/><rect x="90" y="16" width="10" height="39" rx="2"/></g>
+  </g>
+
+  <g transform="translate(1125 735)" opacity=".20">
+    <circle r="125" fill="#06101a" stroke="#76b7ed" stroke-width="5"/>
+    <circle cx="-42" cy="-30" r="11" fill="#02070b"/><circle cx="-9" cy="-43" r="11" fill="#02070b"/><circle cx="17" cy="-17" r="11" fill="#02070b"/>
+    <path d="M-88-70c52-31 112-28 154 2" fill="none" stroke="#8bc8f7" stroke-opacity=".28" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <g fill="#72b5ee" opacity=".09" filter="url(#blur)">
+    <circle cx="1025" cy="250" r="74"/><circle cx="805" cy="585" r="64"/>
   </g>
 </svg>
