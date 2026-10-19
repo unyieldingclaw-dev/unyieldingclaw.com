@@ -3826,3 +3826,731 @@ nav a:focus-visible,
     transition: none;
   }
 }
+
+
+/* ==========================================================================
+   Personality Trail System
+   Every page gets one signature interaction and a few quiet discoveries.
+   ========================================================================== */
+
+/* Hard lock: Harness MODEL belongs in the center of the map. */
+.harness-map > .harness-core,
+.harness-map > button.harness-core {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Homepage evidence board: deliberate imperfection, not accidental crookedness. */
+.ai-proof-board .proof-module:nth-of-type(1) {
+  --proof-rotate: -0.9deg;
+  --proof-x: -3px;
+  --proof-y: 2px;
+}
+.ai-proof-board .proof-module:nth-of-type(2) {
+  --proof-rotate: 0.7deg;
+  --proof-x: 4px;
+  --proof-y: 0px;
+}
+.ai-proof-board .proof-module:nth-of-type(3) {
+  --proof-rotate: -0.45deg;
+  --proof-x: -1px;
+  --proof-y: 3px;
+}
+
+.ai-proof-board .proof-module {
+  transform:
+    translate3d(var(--proof-x, 0px), var(--proof-y, 0px), 0)
+    rotate(var(--proof-rotate, 0deg));
+  transform-origin: center;
+}
+
+.ai-proof-board .proof-module:hover,
+.ai-proof-board .proof-module:focus-visible {
+  transform:
+    translate3d(calc(var(--proof-x, 0px) + 5px), calc(var(--proof-y, 0px) - 5px), 0)
+    rotate(var(--proof-rotate, 0deg))
+    scale(1.012);
+}
+
+.ai-proof-board .proof-board-punch {
+  transform: translate3d(4px, -1px, 0) rotate(0.8deg);
+}
+
+/* Trail markers */
+.trail-marker {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(113,160,255,0.28);
+  border-radius: 50%;
+  background: rgba(7,24,42,0.72);
+  color: rgba(157,190,255,0.72);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.42;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.trail-marker:hover,
+.trail-marker:focus-visible {
+  opacity: 1;
+  color: #cfe0ff;
+  border-color: rgba(126,169,255,0.72);
+  transform: rotate(45deg) scale(1.08);
+}
+
+.trail-marker.is-found {
+  opacity: 0.82;
+  color: #66ddb9;
+  border-color: rgba(75,210,170,0.55);
+}
+
+.trail-marker--board {
+  position: absolute;
+  right: -1.25rem;
+  bottom: 1.25rem;
+  z-index: 6;
+}
+
+.trail-marker--console {
+  position: absolute;
+  right: -1rem;
+  bottom: -1rem;
+}
+
+.work-console {
+  position: relative;
+}
+
+.trail-marker--harness {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 4;
+}
+
+.trail-marker--workshop {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.85rem;
+  background: rgba(88,48,24,0.68);
+  border-color: rgba(120,68,36,0.28);
+  color: rgba(102,57,31,0.72);
+}
+
+.trail-marker--scouting {
+  align-self: start;
+  background: rgba(7,67,55,0.10);
+  border-color: rgba(22,133,107,0.28);
+  color: #16856b;
+}
+
+.trail-marker--contact {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+}
+
+.bridge-card {
+  position: relative;
+}
+
+/* Trail guide: stays invisible until the first marker is found. */
+.trail-guide[hidden] {
+  display: none !important;
+}
+
+.trail-guide {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 155;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.trail-guide__toggle {
+  min-width: 7.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.72rem;
+  border: 1px solid rgba(101,151,255,0.33);
+  border-radius: 999px;
+  background: rgba(5,19,34,0.92);
+  color: #d3e0ef;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.26);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.trail-guide__toggle > span {
+  color: #67d8b6;
+  font-size: 1rem;
+}
+
+.trail-guide__toggle strong {
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.trail-guide__toggle b {
+  color: #82a9ff;
+}
+
+.trail-guide__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.7rem);
+  width: min(20rem, calc(100vw - 2.4rem));
+  padding: 1rem;
+  border: 1px solid rgba(101,151,255,0.24);
+  border-radius: 0.85rem;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(47,111,237,0.18), transparent 10rem),
+    rgba(5,17,31,0.97);
+  color: #d8e4f0;
+  box-shadow: 0 28px 70px rgba(0,0,0,0.34);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.45rem) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.trail-guide.is-open .trail-guide__panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.trail-guide__kicker {
+  margin: 0;
+  color: #73a2ff;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.trail-guide__title {
+  display: block;
+  margin: 0.4rem 0 0.35rem;
+  color: #fff;
+}
+
+.trail-guide__copy,
+.trail-guide__footer {
+  color: #92a8bc;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.trail-guide ol {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.8rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trail-guide li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.32rem 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #7e92a4;
+  font-size: 0.68rem;
+}
+
+.trail-guide li.is-found {
+  color: #b8d9ce;
+}
+
+.trail-guide li b {
+  color: #526a7f;
+}
+
+.trail-guide li.is-found b {
+  color: #5cddb6;
+}
+
+/* Contact page: professional, but not dead inside. */
+.micro-joke {
+  margin-top: 1rem;
+  color: #88a8c4 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem !important;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+}
+
+/* Harness Matrix egg */
+.matrix-trigger {
+  border: 1px solid rgba(126,169,255,0.22);
+}
+
+.matrix-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  overflow: hidden;
+  background: #000805;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.matrix-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.matrix-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.matrix-overlay__message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  gap: 0.5rem;
+  width: min(44rem, calc(100% - 2rem));
+  padding: 1.4rem;
+  border: 1px solid rgba(83,255,138,0.25);
+  background: rgba(0,12,6,0.78);
+  text-align: center;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 80px rgba(40,255,100,0.08);
+}
+
+.matrix-overlay__message span,
+.matrix-overlay__message small {
+  color: #6ee59a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.matrix-overlay__message span {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.matrix-overlay__message strong {
+  color: #d5ffe2;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(1.5rem, 4vw, 3.6rem);
+  letter-spacing: -0.04em;
+}
+
+.matrix-overlay__message small {
+  font-size: 0.78rem;
+}
+
+.matrix-overlay__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 4;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(83,255,138,0.25);
+  background: rgba(0,10,5,0.82);
+  color: #83ffab;
+  font: 800 0.67rem ui-monospace, monospace;
+  cursor: pointer;
+}
+
+/* Workshop: a contained cinematic cut so the actual page never breaks. */
+.workshop-playground {
+  background:
+    radial-gradient(circle at 12% 5%, rgba(180,106,60,0.10), transparent 20rem),
+    linear-gradient(135deg, #e9ddcf, #efe7dd 58%, #dfe7ee);
+}
+
+.workshop-play-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(18rem,0.8fr);
+  gap: 1.2rem;
+}
+
+.saw-cut-stage,
+.sawdust-bench {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  border: 1px solid rgba(92,49,25,0.18);
+  border-radius: 0.9rem;
+  box-shadow: 0 20px 48px rgba(73,44,25,0.12);
+}
+
+.saw-cut-stage {
+  background: #412816;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.saw-cut-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.25rem;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,201,143,0.10), transparent 14rem),
+    #23170f;
+  color: #f3d4b5;
+  text-align: center;
+}
+
+.saw-cut-reveal span {
+  color: #d58e57;
+  font: 900 0.64rem ui-monospace, monospace;
+  letter-spacing: 0.11em;
+}
+
+.saw-cut-reveal strong {
+  font-family: Georgia, serif;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.saw-cut-reveal small {
+  color: #be9a7c;
+}
+
+.saw-cut-slab {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04), transparent 20%, rgba(70,35,15,0.08) 45%, transparent 72%),
+    linear-gradient(180deg, #b47745, #8c552f);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  transition: transform 750ms cubic-bezier(.2,.72,.25,1), opacity 520ms ease;
+}
+
+.saw-cut-slab--top {
+  top: 0;
+  height: 50%;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 1rem;
+}
+
+.saw-cut-slab--bottom {
+  bottom: 0;
+  height: 50%;
+  display: grid;
+  place-items: start center;
+  padding-top: 0.8rem;
+  transform-origin: top center;
+}
+
+.saw-cut-slab span {
+  color: rgba(62,31,16,0.62);
+  font-family: Georgia, serif;
+  font-size: clamp(1.7rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-shadow: 0 1px rgba(255,255,255,0.12);
+}
+
+.saw-cut-slab small {
+  color: rgba(64,33,18,0.64);
+  font: 900 0.65rem ui-monospace, monospace;
+  letter-spacing: 0.11em;
+}
+
+.saw-cut-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.34;
+  background:
+    repeating-linear-gradient(3deg, transparent 0 8px, rgba(62,30,14,0.16) 9px 10px, transparent 11px 21px),
+    repeating-linear-gradient(177deg, transparent 0 19px, rgba(255,225,190,0.10) 20px 21px, transparent 22px 38px);
+  pointer-events: none;
+}
+
+.saw-cut-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 1px);
+  z-index: 5;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(255,240,220,0.44) 0 12px, transparent 12px 22px);
+  opacity: 0.45;
+}
+
+.circular-saw {
+  position: absolute;
+  z-index: 8;
+  left: -8rem;
+  top: 50%;
+  width: 7rem;
+  height: 5rem;
+  transform: translateY(-63%);
+  pointer-events: none;
+}
+
+.circular-saw__body {
+  position: absolute;
+  left: 1.35rem;
+  top: 0.55rem;
+  width: 4.6rem;
+  height: 2.8rem;
+  border-radius: 1rem 1.4rem 0.65rem 0.6rem;
+  background: linear-gradient(145deg, #d6a12f, #765116);
+  box-shadow: 0 7px 16px rgba(0,0,0,0.26);
+}
+
+.circular-saw__handle {
+  position: absolute;
+  left: 2.5rem;
+  top: -0.1rem;
+  width: 2.1rem;
+  height: 1.7rem;
+  border: 0.46rem solid #44301b;
+  border-bottom: 0;
+  border-radius: 0.65rem 0.65rem 0 0;
+}
+
+.circular-saw__blade {
+  position: absolute;
+  left: 0.5rem;
+  bottom: -0.25rem;
+  width: 3.8rem;
+  height: 3.8rem;
+  border: 0.3rem dashed #c9d0d3;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #4f565a 0 12%, #abb4b8 13% 54%, #596166 55% 59%, transparent 60%);
+}
+
+.saw-cut-stage.is-cutting .circular-saw {
+  animation: saw-cross 1.35s linear forwards;
+}
+
+.saw-cut-stage.is-cutting .circular-saw__blade {
+  animation: saw-spin 0.11s linear infinite;
+}
+
+.saw-cut-stage.is-cut .saw-cut-slab--top {
+  transform: translateY(-105%);
+  opacity: 0.25;
+}
+
+.saw-cut-stage.is-cut .saw-cut-slab--bottom {
+  transform: translateY(26%) rotate(7deg);
+  opacity: 0;
+}
+
+.saw-cut-stage.is-cut .saw-cut-line {
+  opacity: 0;
+}
+
+.saw-cut-hint,
+.sawdust-bench__hint {
+  position: absolute;
+  z-index: 12;
+  right: 0.7rem;
+  bottom: 0.55rem;
+  color: rgba(255,255,255,0.62);
+  font: 800 0.6rem ui-monospace, monospace;
+  letter-spacing: 0.07em;
+}
+
+.sawdust-burst {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+}
+
+.sawdust-burst i {
+  position: absolute;
+  left: var(--x);
+  top: 50%;
+  width: var(--size);
+  height: calc(var(--size) * 0.55);
+  border-radius: 999px;
+  background: #e2b877;
+  opacity: 0;
+  animation: dust-fly 0.9s ease-out forwards;
+}
+
+.sawdust-bench {
+  background:
+    repeating-linear-gradient(2deg, transparent 0 13px, rgba(83,42,19,0.10) 14px 15px, transparent 16px 28px),
+    linear-gradient(145deg, #a76b3d, #744326);
+  touch-action: pan-y;
+}
+
+.sawdust-bench__engraving {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.3rem;
+  padding: 1.5rem;
+  color: #f3d2af;
+  text-align: center;
+}
+
+.sawdust-bench__engraving span {
+  color: #df9a60;
+  font: 900 0.62rem ui-monospace, monospace;
+  letter-spacing: 0.1em;
+}
+
+.sawdust-bench__engraving strong {
+  font-family: Georgia, serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+
+.sawdust-bench__engraving small {
+  color: #d3ad89;
+}
+
+.sawdust-bench canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+
+@keyframes saw-cross {
+  from { left: -8rem; }
+  to { left: calc(100% + 1rem); }
+}
+
+@keyframes saw-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dust-fly {
+  0% { opacity: 0.92; transform: translate(0,0) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--spin)); }
+}
+
+/* Tablet/mobile: keep the discovery, change the gesture. */
+@media (max-width: 900px) {
+  .ai-proof-board .proof-module:nth-of-type(1) { --proof-rotate: -0.55deg; --proof-x: -1px; }
+  .ai-proof-board .proof-module:nth-of-type(2) { --proof-rotate: 0.45deg; --proof-x: 2px; }
+  .ai-proof-board .proof-module:nth-of-type(3) { --proof-rotate: -0.25deg; --proof-x: -1px; }
+
+  .workshop-play-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .saw-cut-stage,
+  .sawdust-bench {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .trail-guide {
+    right: 0.7rem;
+    bottom: 0.7rem;
+  }
+
+  .trail-guide__toggle {
+    min-width: auto;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .trail-marker {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .trail-marker--board,
+  .trail-marker--console {
+    right: 0.4rem;
+    bottom: 0.4rem;
+  }
+
+  .saw-cut-stage {
+    min-height: 15rem;
+  }
+
+  .saw-cut-slab span {
+    font-size: clamp(1.5rem, 9vw, 2.35rem);
+  }
+
+  .circular-saw {
+    transform: translateY(-63%) scale(0.82);
+    transform-origin: center left;
+  }
+
+  .sawdust-bench {
+    min-height: 16rem;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .saw-cut-hint {
+    font-size: 0;
+  }
+
+  .saw-cut-hint::after {
+    content: "tap the board // yes, really";
+    font-size: 0.6rem;
+  }
+
+  .sawdust-bench__hint {
+    font-size: 0;
+  }
+
+  .sawdust-bench__hint::after {
+    content: "drag a finger through the sawdust";
+    font-size: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matrix-canvas,
+  .circular-saw,
+  .sawdust-burst {
+    display: none !important;
+  }
+
+  .saw-cut-stage.is-cut .saw-cut-slab--top {
+    transform: translateY(-100%);
+  }
+
+  .saw-cut-stage.is-cut .saw-cut-slab--bottom {
+    transform: translateY(25%);
+  }
+}
