@@ -97,7 +97,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       <p class="sr-only" data-shop-live role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="workshop-play-grid">
-        <div class="saw-cut-stage" data-saw-cut tabindex="0" role="button" aria-label="Hover here, yes really — run the circular saw easter egg">
+        <div class="saw-cut-stage" data-saw-cut>
           <div class="saw-cut-reveal">
             <span>OFFCUT REMOVED</span>
             <strong>Measure twice. Cut once.</strong>
@@ -320,7 +320,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             </svg>
           </div>
           <div class="sawdust-burst" data-saw-dust aria-hidden="true"></div>
-          <span class="saw-cut-hint">hover here // yes, really</span>
+          <button type="button" class="saw-cut-hint saw-cut-trigger" data-saw-trigger>run the saw // yes, really</button>
         </div>
 
         <div class="sawdust-bench" data-sawdust-bench>
@@ -395,6 +395,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       const cutStage = document.querySelector('[data-saw-cut]');
+      const cutTrigger = document.querySelector('[data-saw-trigger]');
       const shopLive = document.querySelector('[data-shop-live]');
       const dustBurst = document.querySelector('[data-saw-dust]');
       const bench = document.querySelector('[data-sawdust-bench]');
@@ -699,13 +700,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       cutStage?.addEventListener('pointerenter', () => {
         if (finePointer) runCut();
       });
-      cutStage?.addEventListener('click', runCut);
-      cutStage?.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          runCut();
-        }
-      });
+      cutTrigger?.addEventListener('click', runCut);
 
       const markCleanCoverage = (x, y, radius, rect) => {
         const cellWidth = rect.width / cleanGrid.columns;

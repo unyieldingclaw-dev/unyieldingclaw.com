@@ -8289,3 +8289,30 @@ html.motion-paused .trail-marker {
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+
+/* Accessible saw trigger: preserve the tiny shop-note look, use a real button. */
+.saw-cut-trigger {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.7rem;
+  border: 0;
+  background: transparent;
+  text-align: right;
+  cursor: pointer;
+}
+
+.saw-cut-trigger:hover,
+.saw-cut-trigger:focus-visible {
+  color: rgba(255,255,255,0.96);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .saw-cut-trigger {
+    font-size: 0.6rem;
+  }
+
+  .saw-cut-trigger::after {
+    content: none;
+  }
+}
