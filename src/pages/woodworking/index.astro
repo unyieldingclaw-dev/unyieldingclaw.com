@@ -331,7 +331,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <canvas data-sawdust-canvas aria-hidden="true"></canvas>
 
           <div class="sawdust-bench__wipe-cue" data-wipe-cue aria-hidden="true">
-            <svg viewBox="0 0 58 42" focusable="false">
+            <svg viewBox="0 0 58 42" focusable="false" aria-hidden="true">
               <path d="M5 12 20 4l29 7 4 23-20 5L8 34Z" fill="#d9c7ad" stroke="#6f5a43" stroke-width="2"/>
               <path d="m20 4 4 13 29-6M8 34l19-12 6 17M24 17l3 5m0 0 13-5" fill="none" stroke="#9d876c" stroke-width="2" stroke-linecap="round"/>
               <path d="M5 12 27 22" fill="none" stroke="#f3eadf" stroke-width="1.6" opacity=".8"/>
@@ -340,6 +340,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <i aria-hidden="true"></i>
           </div>
 
+          <button
+            type="button"
+            class="sawdust-bench__clear"
+            data-bench-clear
+            hidden
+          >Clear the bench without dragging</button>
           <div class="sawdust-bench__impact" data-bench-impact aria-hidden="true"></div>
         </div>
       </div>
@@ -392,6 +398,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const bench = document.querySelector('[data-sawdust-bench]');
       const canvas = document.querySelector('[data-sawdust-canvas]');
       const wipeCue = bench?.querySelector('[data-wipe-cue]');
+      const benchClear = bench?.querySelector('[data-bench-clear]');
       const benchImpact = bench?.querySelector('[data-bench-impact]');
 
       let cutting = false;
@@ -431,6 +438,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         benchDustFinished = false;
         benchRevealComplete = false;
         cleanGrid.cells.clear();
+        if (benchClear) benchClear.hidden = true;
       };
 
       const depositBenchDust = (progress, finalPass = false) => {
@@ -598,6 +606,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         if (finalPass) {
           benchDustFinished = true;
           bench.classList.add('is-buried');
+          if (benchClear) benchClear.hidden = false;
         }
       };
 
@@ -746,6 +755,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         bench.classList.remove('is-buried', 'is-cleaning');
         bench.classList.add('is-cleared');
+        if (benchClear) benchClear.hidden = true;
         window.unyieldingTrailDiscover?.('workshop-dust', 'SAWDUST TRAIL FIND');
 
         requestAnimationFrame(() => {
@@ -790,6 +800,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const cleaned = markCleanCoverage(x, y, radius, rect);
         if (cleaned >= cleanGrid.threshold) revealCleanBench();
       };
+
+      benchClear?.addEventListener('click', revealCleanBench);
 
       if (bench && canvas && ctx) {
         sizeBenchCanvas();
