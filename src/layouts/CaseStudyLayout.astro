@@ -13,6 +13,7 @@ interface Props {
   liveUrl?: string;
   tone?: 'blue' | 'emerald' | 'copper' | 'gold' | 'slate';
   visual?: 'pmb' | 'acr' | 'sidequest' | 'pitlogic' | 'tipsy' | 'bowling';
+  sections?: string[];
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   liveUrl,
   tone = 'blue',
   visual,
+  sections = [],
 } = Astro.props;
 
 const mark = title
@@ -85,12 +87,14 @@ const mark = title
 
   <article class={`case-body case-body--wow${visual ? ` case-body--visual case-body--${visual}` : ''}`}>
     <div class="shell case-content case-content--wow">
-      <aside class="case-rail" aria-label="How to read this case study">
-        <p class="case-rail__label">READ THE SYSTEM</p>
-        <div class="case-rail__item"><span>01</span><strong>Problem</strong></div>
-        <div class="case-rail__item"><span>02</span><strong>Decisions</strong></div>
-        <div class="case-rail__item"><span>03</span><strong>Constraints</strong></div>
-        <div class="case-rail__item"><span>04</span><strong>Evidence</strong></div>
+      <aside class="case-rail" aria-label="Case study sections">
+        <p class="case-rail__label">CASE NOTES</p>
+        {sections.map((section, index) => (
+          <div class="case-rail__item">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{section}</strong>
+          </div>
+        ))}
       </aside>
 
       <div class="case-flow">
@@ -102,11 +106,11 @@ const mark = title
   <section class="case-next">
     <div class="shell case-next__inner">
       <div>
-        <p class="eyebrow">Keep digging</p>
-        <h2>The interesting part is rarely the feature list.</h2>
+        <p class="eyebrow">More things I've built</p>
+        <h2>Different project, different mess.</h2>
       </div>
       <p>
-        The rest of the portfolio follows the same pattern: workflow first, explicit tradeoffs, bounded automation where AI is involved, and enough evidence to explain why the system behaves the way it does.
+        I am not trying to force every project into one architecture story. Each one has its own weird edges. The useful part is seeing what I chose to do about them.
       </p>
       <a class="button" href="/work/">Explore all work →</a>
     </div>
