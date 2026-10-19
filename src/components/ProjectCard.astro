@@ -8,7 +8,7 @@ interface Props {
   tags?: string[];
   tone?: 'blue' | 'emerald' | 'copper' | 'slate' | 'gold';
   linkLabel?: string;
-  visual?: 'pmb' | 'acr' | 'sidequest' | 'pitlogic' | 'tipsy' | 'bowling';
+  visual?: 'pmb' | 'acr' | 'harness' | 'sidequest' | 'pitlogic' | 'tipsy' | 'bowling';
 }
 
 const {
@@ -23,6 +23,17 @@ const {
   visual,
 } = Astro.props;
 
+const inferredVisual =
+  visual ??
+  (href.includes('/personal-memory-bank/') ? 'pmb' :
+   href.includes('/ai-code-review-agent/') ? 'acr' :
+   href.includes('/harness-engineering/') ? 'harness' :
+   href.includes('/side-quest-atlas/') ? 'sidequest' :
+   href.includes('/pitlogic/') ? 'pitlogic' :
+   href.includes('/tipsy-bunghole/') ? 'tipsy' :
+   href.includes('/bowling-tracker/') ? 'bowling' :
+   undefined);
+
 const mark = title
   .split(/\s+/)
   .filter(Boolean)
@@ -32,11 +43,11 @@ const mark = title
 ---
 
 <a
-  class={`project-card project-card--${tone}${visual ? ` project-card--visual project-card--${visual}` : ''}`}
+  class={`project-card project-card--${tone}${inferredVisual ? ` project-card--visual project-card--${inferredVisual}` : ''}`}
   href={href}
   aria-label={`${title}: ${linkLabel}`}
 >
-  {visual && <div class={`project-card__art project-card__art--${visual}`} aria-hidden="true"></div>}
+  {inferredVisual && <div class={`project-card__art project-card__art--${inferredVisual}`} aria-hidden="true"></div>}
   <div class="project-card__veil" aria-hidden="true"></div>
   <div class="project-card__mark" aria-hidden="true">{mark}</div>
   <div class="project-card__top">
