@@ -700,6 +700,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       cutStage?.addEventListener('pointerenter', () => {
         if (finePointer) runCut();
       });
+
+      // Desktop keeps the hover surprise. On touch devices the whole board is
+      // tappable, with the visible button as the obvious/accessibility-safe path.
+      cutStage?.addEventListener('click', (event) => {
+        if (finePointer) return;
+        if (event.target instanceof Element && event.target.closest('[data-saw-trigger]')) return;
+        runCut();
+      });
+
       cutTrigger?.addEventListener('click', runCut);
 
       const markCleanCoverage = (x, y, radius, rect) => {
