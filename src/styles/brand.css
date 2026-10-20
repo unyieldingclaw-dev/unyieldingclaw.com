@@ -814,3 +814,21 @@
 .workshop-process .eyebrow {
   color: #67432f;
 }
+
+/* Sawdust falls below the plaque, leaving the lettering clear. */
+.workshop-bench { position: relative; overflow: visible; }
+.workshop-bench.is-dusting { animation: workshop-plaque-rock 800ms ease-out both; }
+.plaque-dust { position: absolute; inset: auto 0 2px; height: 1px; pointer-events: none; z-index: 3; }
+.plaque-dust i { position: absolute; display: block; border-radius: 1px; opacity: 0; }
+@keyframes workshop-plaque-rock {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-4px) rotate(-0.7deg); }
+  52% { transform: translateY(-2px) rotate(0.55deg); }
+  76% { transform: translateY(-1px) rotate(-0.2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workshop-bench.is-dusting { animation: none; }
+  .plaque-dust { display: none; }
+}
+html.motion-paused .workshop-bench.is-dusting { animation: none; }
+html.motion-paused .plaque-dust { display: none; }

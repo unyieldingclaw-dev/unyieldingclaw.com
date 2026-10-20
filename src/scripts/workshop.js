@@ -1,11 +1,51 @@
 /**
- * Nolan's Workshop cutting-table sequence.
+ * Nolan's Workshop plaque, cutting-table, and bench interactions.
  * The boards move only when the visitor starts the demo; reduced-motion users
  * get the same reveal without the saw travel.
  */
 (() => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+
+  // A short shake sheds dust once per interaction; particles are removed after falling.
+  // Existing focusable plaque details also provide keyboard access to the same effect.
+  const plaque = document.querySelector('[data-workshop-plaque]');
+  const plaqueDust = plaque?.querySelector('[data-plaque-dust]');
+  const plaqueMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let plaqueBusy = false;
+  const shedPlaqueDust = () => {
+    if (!plaque || !plaqueDust || plaqueBusy || plaqueMotion.matches ||
+        document.documentElement.classList.contains('motion-paused')) return;
+    plaqueBusy = true;
+    plaque.classList.add('is-dusting');
+    for (let i = 0; i < 24; i += 1) {
+      const chip = document.createElement('i');
+      const size = 2 + (i % 4);
+      chip.style.cssText = `left:${5 + (i * 37 % 90)}%;width:${size}px;height:${Math.max(2, size - 2)}px;background:${i % 2 ? '#b48452' : '#87603c'}`;
+      plaqueDust.append(chip);
+      const drift = (i % 2 ? 1 : -1) * (8 + i % 7 * 5);
+      const fall = chip.animate([
+        { transform: 'translate(0, -3px) rotate(0deg)', opacity: 0 },
+        { opacity: 0.8, offset: 0.12 },
+        { transform: `translate(${drift}px, ${70 + i % 5 * 14}px) rotate(${90 + i * 17}deg)`, opacity: 0 }
+      ], { duration: 700 + i % 6 * 70, delay: i % 8 * 30, easing: 'cubic-bezier(.3,0,.8,.6)' });
+      fall.onfinish = () => chip.remove();
+      fall.oncancel = () => chip.remove();
+    }
+    window.setTimeout(() => {
+      plaque.classList.remove('is-dusting');
+      plaqueDust.replaceChildren();
+      plaqueBusy = false;
+    }, 1400);
+  };
+  plaque?.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') shedPlaqueDust();
+  });
+  plaque?.addEventListener('focusin', shedPlaqueDust);
+  plaque?.addEventListener('pointerup', (event) => {
+    if (event.pointerType !== 'mouse') shedPlaqueDust();
+  });
 
   const cutStage = document.querySelector('[data-saw-cut]');
   const cutTrigger = document.querySelector('[data-saw-trigger]');
