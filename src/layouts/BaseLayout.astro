@@ -14,7 +14,7 @@ const {
 
 const fullTitle = title === 'Eric Nolan | Unyielding Claw' ? title : `${title} | Eric Nolan`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
-const socialImageURL = new URL('/social-card-v2.jpg', Astro.site ?? Astro.url.origin);
+const socialImageURL = new URL('/social-card.png', Astro.site ?? Astro.url.origin);
 const pathname = Astro.url.pathname;
 
 const navItems = [
@@ -66,10 +66,10 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
-    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="A dark engineering workbench with modular systems, human review stations, information flows, and analytics graphs" />
+    <meta property="og:image:alt" content="Eric Nolan — Unyielding Claw" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -130,7 +130,7 @@ const personSchema = {
       </div>
       <div class="trail-complete__card">
         <div class="trail-badge" aria-hidden="true">
-          <img class="trail-badge__mark" src="/brand-mark.svg" width="68" height="68" alt="" aria-hidden="true" />
+          <span>UC</span>
           <b>EXPLORER</b>
         </div>
         <p>TRAIL GUIDE // RANK EARNED</p>
@@ -147,7 +147,7 @@ const personSchema = {
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-describedby="brand-egg-clue">
-          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW"><img src="/brand-mark.svg" width="46" height="46" alt="" aria-hidden="true" /></span>
+          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW">UC</span>
           <span class="brand-copy">
             <strong>Eric Nolan</strong>
             <small>Unyielding Claw</small>
