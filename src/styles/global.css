@@ -8551,3 +8551,34 @@ html.motion-paused .trail-marker {
     transform: none;
   }
 }
+
+
+/* Exposed offcut: fine, edge-weighted grain that leaves the message clear. */
+.saw-cut-reveal {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,201,143,0.11), transparent 14rem),
+    linear-gradient(135deg, #382619, #28190f 58%, #392619);
+}
+
+.saw-cut-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 54px 17px at 19% 27%, transparent 52%, rgba(232,181,136,0.16) 54% 56%, transparent 59%),
+    radial-gradient(ellipse 43px 13px at 82% 69%, transparent 52%, rgba(232,181,136,0.13) 54% 56%, transparent 59%),
+    repeating-linear-gradient(2deg, transparent 0 38px, rgba(255,223,190,0.045) 39px 40px, transparent 41px 86px),
+    linear-gradient(90deg, rgba(9,6,4,0.12), transparent 22% 78%, rgba(9,6,4,0.12));
+  opacity: 0.9;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 0 34%, black 76%);
+  mask-image: radial-gradient(ellipse at center, transparent 0 34%, black 76%);
+  pointer-events: none;
+}
+
+.saw-cut-reveal > span,
+.saw-cut-reveal > strong,
+.saw-cut-reveal > small {
+  position: relative;
+  z-index: 1;
+}
