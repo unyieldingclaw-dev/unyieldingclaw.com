@@ -8404,19 +8404,19 @@ html.motion-paused .trail-marker {
 /* Tactile Workshop finish + a compact, touch-friendly mobile navigation. */
 .workshop-bench {
   background:
-    url("/workshop-woodgrain.svg"),
-    linear-gradient(#d9b18a, #e6c8a9);
-  background-size: 100% 100%, auto;
-  background-blend-mode: multiply, normal;
+    linear-gradient(rgba(92,49,24,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,49,24,0.045) 1px, transparent 1px),
+    radial-gradient(ellipse at 18% 18%, rgba(255,250,239,0.3), transparent 42rem),
+    linear-gradient(135deg, #d6aa80, #e2c19e 54%, #cf9a6c);
+  background-size: 36px 36px, 36px 36px, auto, auto;
+  background-position: left top, left top, center, center;
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
 }
 
 .workshop-card {
-  background:
-    url("/workshop-woodgrain.svg"),
-    linear-gradient(135deg, rgba(255,250,241,0.90), rgba(239,220,199,0.86));
-  background-size: 100% 100%, auto;
-  background-blend-mode: multiply, normal;
+  background: linear-gradient(135deg, rgba(255,250,241,0.96), rgba(239,220,199,0.94));
   border-color: rgba(120,72,38,0.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.48);
 }
 
 .workshop-grid--wow .workshop-card {
@@ -8425,35 +8425,26 @@ html.motion-paused .trail-marker {
 
 .workshop-playground {
   background:
-    url("/workshop-woodgrain.svg"),
+    linear-gradient(rgba(92,49,24,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,49,24,0.04) 1px, transparent 1px),
     radial-gradient(circle at 12% 5%, rgba(180,106,60,0.12), transparent 20rem),
     linear-gradient(135deg, #ebdccb, #f1e6d8 58%, #e2e7e8);
-  background-size: 74rem auto, auto, auto;
-  background-position: center, center, center;
-  background-blend-mode: multiply, normal, normal;
+  background-size: 36px 36px, 36px 36px, auto, auto;
+  background-position: left top, left top, center, center;
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
 }
 
 .saw-cut-slab {
   background:
-    url("/workshop-woodgrain.svg"),
     linear-gradient(90deg, rgba(255,255,255,0.04), transparent 20%, rgba(70,35,15,0.08) 45%, transparent 72%),
     linear-gradient(180deg, #b47745, #8c552f);
-  background-size: 44rem auto, auto, auto;
-  background-position: center, center, center;
-  background-blend-mode: multiply, normal, normal;
 }
 
 .saw-cut-grain {
-  opacity: 0.55;
+  opacity: 0.24;
   background:
-    url("/workshop-woodgrain.svg"),
-    repeating-linear-gradient(3deg, transparent 0 8px, rgba(62,30,14,0.18) 9px 10px, transparent 11px 21px),
-    repeating-linear-gradient(177deg, transparent 0 19px, rgba(255,225,190,0.10) 20px 21px, transparent 22px 38px);
-  background-size: 40rem auto, auto, auto;
-  background-position: center, center, center;
-  background-blend-mode: multiply, normal, normal;
+    linear-gradient(90deg, transparent, rgba(255,224,190,0.12) 23%, transparent 41%, rgba(62,30,14,0.08) 68%, transparent);
 }
-
 @media (max-width: 720px) {
   .site-header {
     position: sticky;
@@ -8533,7 +8524,7 @@ html.motion-paused .trail-marker {
   }
 
   .workshop-playground {
-    background-size: 45rem auto, auto, auto;
+    background-size: 36px 36px, 36px 36px, 45rem auto, auto;
   }
 
   .saw-cut-stage,
