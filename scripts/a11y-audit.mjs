@@ -309,7 +309,9 @@ try {
       await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'networkidle' });
 
       const keyboardClue = page.locator('[data-miz-keyboard]');
-      await keyboardClue.scrollIntoViewIfNeeded();
+      // WebKit's actionability scroll stalls here before any tap. Scroll explicitly;
+      // keep the normal tap and visibility/focus assertions to test the real control.
+      await keyboardClue.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
       await keyboardClue.tap();
 
       const input = page.locator('[data-miz-input]');

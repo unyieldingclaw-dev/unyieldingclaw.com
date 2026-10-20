@@ -8,14 +8,18 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: transparent;
+  background: #0b1f33;
   box-shadow: none;
+  overflow: hidden;
 }
 
 .brand-mark img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 140%;
+  height: 140%;
+  max-width: none;
+  object-fit: cover;
+  transform: translateY(5%);
   filter: none;
 }
 
@@ -378,7 +382,7 @@
 
 .proof-board-punch {
   border-radius: 0.25rem;
-  background: #27352c;
+  background: #123a63;
 }
 
 .proof-board-punch span {
@@ -395,7 +399,7 @@
 
 .proof-ribbon {
   border-block-color: rgba(219, 211, 193, 0.14);
-  background: #2b3930;
+  background: #0b1f33;
   color: #ebe7dc;
   box-shadow: none;
 }
@@ -832,3 +836,6 @@
 }
 html.motion-paused .workshop-bench.is-dusting { animation: none; }
 html.motion-paused .plaque-dust { display: none; }
+
+/* The same approved artwork anchors the completion plaque and header. */
+.trail-badge__mark { border-radius: 50%; object-fit: cover; }
