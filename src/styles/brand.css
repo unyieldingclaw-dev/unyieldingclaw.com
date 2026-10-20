@@ -1,5 +1,4 @@
-/* Shared brand layer: same technical grid and trace language across pages;
-   the workshop keeps its warm paper palette and uses wood-toned traces. */
+/* Shared visual language: drafting marks for technical work, honest material on the Workshop. */
 .brand-mark {
   width: 2.9rem;
   height: 2.9rem;
@@ -17,7 +16,97 @@
   display: block;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 8px rgba(4, 17, 31, 0.2));
+  filter: drop-shadow(0 2px 5px rgba(20, 31, 25, 0.24));
+}
+
+.site-header {
+  border-bottom-color: rgba(66, 76, 67, 0.18);
+  background: rgba(244, 240, 231, 0.94);
+  backdrop-filter: blur(14px);
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.primary-nav a {
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.28rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.primary-nav a:hover,
+.primary-nav a[aria-current="page"] {
+  background: #e9e4d9;
+  color: var(--forest-deep);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-width: 5.5rem;
+  min-height: 2.8rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(48, 69, 55, 0.25);
+  border-radius: 0.35rem;
+  background: var(--surface);
+  color: var(--forest-deep);
+  font: 700 0.75rem/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle__icon {
+  position: relative;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.mobile-menu-toggle__icon::before,
+.mobile-menu-toggle__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 150ms ease;
+}
+
+.mobile-menu-toggle__icon::after {
+  transform: rotate(90deg);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .mobile-menu-toggle__icon::after {
+  transform: rotate(0deg);
+}
+
+:focus-visible {
+  outline: 2px solid #b4774e;
+  outline-offset: 3px;
+}
+
+/* A quiet, dark drafting table gives technical work a shared frame. */
+.hero,
+.subhero:not(.subhero--workshop),
+.case-hero {
+  color: #f3f0e8;
+  background-color: #1d2520;
+  background-image: linear-gradient(118deg, #1a211d 0%, #202822 58%, #262a24 100%);
+  border-bottom-color: rgba(224, 218, 203, 0.15);
+}
+
+.hero {
+  min-height: min(43rem, calc(100vh - 5rem));
+  padding-block: clamp(3.8rem, 7vw, 5.8rem);
 }
 
 .hero::before,
@@ -25,48 +114,692 @@
 .case-hero::before {
   background-image:
     url("/brand-circuit.svg"),
-    linear-gradient(rgba(125,168,255,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125,168,255,0.055) 1px, transparent 1px);
-  background-size:
-    min(78vw, 68rem) auto,
-    44px 44px,
-    44px 44px;
-  background-position:
-    right center,
-    left top,
-    left top;
+    linear-gradient(rgba(190, 191, 174, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(190, 191, 174, 0.035) 1px, transparent 1px);
+  background-size: min(72vw, 64rem) auto, 48px 48px, 48px 48px;
+  background-position: right center, left top, left top;
   background-repeat: no-repeat, repeat, repeat;
+  opacity: 0.76;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
 }
 
-/* Warm paper, a restrained drafting grid, and a few copper circuit traces keep the Workshop distinct. */
+.hero::after {
+  border-color: rgba(179, 124, 82, 0.16);
+  box-shadow:
+    0 0 0 4rem rgba(179, 124, 82, 0.018),
+    0 0 0 8rem rgba(179, 124, 82, 0.012);
+}
+
+.hero-grid--wow {
+  grid-template-columns: minmax(0, 1.12fr) minmax(22rem, 0.88fr);
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.hero h1,
+.subhero h1,
+.case-hero h1 {
+  max-width: 14ch;
+  color: #f4f0e7;
+  font-size: clamp(3rem, 5.5vw, 4.8rem);
+  font-weight: 720;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-shadow: none;
+}
+
+.hero h1 em,
+.subhero h1 em,
+.case-hero h1 em {
+  color: #d09a6b;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  filter: none;
+  font-style: normal;
+}
+
+.hero .eyebrow,
+.hero-kicker,
+.subhero-kicker,
+.case-hero .eyebrow {
+  color: #d4a57a;
+}
+
+.hero-kicker,
+.subhero-kicker {
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+}
+
+.hero .lede,
+.subhero .lede,
+.case-hero .lede {
+  color: #cbcbbf;
+  font-size: clamp(1rem, 1.25vw, 1.14rem);
+  line-height: 1.7;
+}
+
+.hero-badges {
+  gap: 0.35rem 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.hero-badges span,
+.hero-badges .badge-electric,
+.hero-badges .badge-emerald {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #c6c7bb;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.075em;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.subhero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.subhero-badges span {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #c6c7bb;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.subhero-badges span + span::before {
+  content: "/";
+  margin-right: 0.65rem;
+  color: #ce9365;
+}
+
+.subhero--workshop .subhero-badges span {
+  color: #6b5c4d;
+}
+
+.hero-badges span + span::before {
+  content: "/";
+  margin-right: 0.65rem;
+  color: #ce9365;
+}
+
+.hero-actions {
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  min-height: 2.9rem;
+  border-radius: 0.32rem;
+  box-shadow: none;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.hero .button:not(.secondary),
+.subhero:not(.subhero--workshop) .button:not(.secondary),
+.button-pop,
+.workshop-button {
+  border-color: #a9633d;
+  background: #a9633d;
+  color: #fffaf3;
+  box-shadow: none;
+}
+
+.hero .button:not(.secondary):hover,
+.subhero:not(.subhero--workshop) .button:not(.secondary):hover,
+.button-pop:hover,
+.workshop-button:hover {
+  border-color: #8b4c2f;
+  background: #8b4c2f;
+}
+
+.button-pop::after {
+  display: none;
+}
+
+.hero .button.secondary,
+.subhero:not(.subhero--workshop) .button.secondary {
+  border-color: rgba(232, 229, 216, 0.32);
+  background: transparent;
+  color: #f0eee6;
+}
+
+.hero .button.secondary:hover,
+.subhero:not(.subhero--workshop) .button.secondary:hover {
+  background: rgba(239, 234, 218, 0.08);
+}
+
+.hero-tech-line {
+  gap: 0.35rem 0.7rem;
+  margin-top: 1.2rem;
+}
+
+.hero-tech-line span {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #b9c1b6;
+  font-size: 0.7rem;
+}
+
+.hero-tech-line span + span::before {
+  content: "·";
+  margin-right: 0.7rem;
+  color: #d09a6b;
+}
+
+/* This field card makes the work scannable without a second glowing interface. */
+.ai-proof-board {
+  padding: clamp(1rem, 2vw, 1.4rem);
+  border: 1px solid rgba(40, 55, 43, 0.28);
+  border-radius: 0.45rem;
+  background: #f1ede3;
+  color: #232b25;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.22);
+  backdrop-filter: none;
+  transform: none;
+  transition: none;
+}
+
+.ai-proof-board::before {
+  inset: 0.48rem;
+  border: 1px solid rgba(166, 95, 54, 0.16);
+  border-radius: 0.2rem;
+}
+
+.proof-board-label,
+.proof-board-live {
+  color: #5b685c;
+}
+
+.proof-board-live {
+  letter-spacing: 0.08em;
+}
+
+.proof-board-live i {
+  background: #627b62;
+  box-shadow: none;
+  animation: none;
+}
+
+.proof-module,
+.proof-module--blue,
+.proof-module--emerald,
+.proof-module--copper {
+  border: 0;
+  border-top: 1px solid rgba(52, 67, 53, 0.17);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #232b25;
+  transition: background-color 150ms ease;
+}
+
+.proof-module:hover,
+.proof-module--emerald:hover,
+.proof-module--copper:hover {
+  transform: none;
+  border-color: rgba(52, 67, 53, 0.24);
+  background: rgba(166, 95, 54, 0.055);
+}
+
+.proof-module strong {
+  color: #222a24;
+}
+
+.proof-module p {
+  color: #586057;
+}
+
+.proof-module-index,
+.proof-module--emerald .proof-module-index,
+.proof-module--copper .proof-module-index {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.22rem;
+  background: #e3d7c5;
+  color: #8b5134;
+}
+
+.proof-board-punch {
+  border-radius: 0.25rem;
+  background: #27352c;
+}
+
+.proof-board-punch span {
+  color: #d5a67a;
+}
+
+.proof-board-punch strong {
+  color: #f5f0e5;
+}
+
+.proof-board-punch small {
+  color: #d1d1c3;
+}
+
+.proof-ribbon {
+  border-block-color: rgba(219, 211, 193, 0.14);
+  background: #2b3930;
+  color: #ebe7dc;
+  box-shadow: none;
+}
+
+.proof-track {
+  width: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  padding: 0.8rem 1rem;
+  white-space: normal;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  animation: none;
+}
+
+.proof-track b {
+  color: #d5a67a;
+}
+
+.section:not(.section--dark):not(.section--warm) {
+  background: #f5f2ea;
+}
+
+.section--projects {
+  background: #ebe7dc;
+}
+
+.section-heading h2 {
+  color: #223027;
+  font-weight: 700;
+}
+
+.section-intro {
+  color: #59645b;
+}
+
+.project-card:not(.project-card--visual) {
+  border-color: rgba(46, 65, 50, 0.18);
+  border-radius: 0.45rem;
+  background: #f9f6ed;
+  box-shadow: 0 12px 30px rgba(27, 39, 31, 0.07);
+  transform: none;
+  transform-style: flat;
+  will-change: auto;
+}
+
+.project-card:not(.project-card--visual):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(27, 39, 31, 0.1);
+}
+
+.project-card--visual {
+  border-radius: 0.45rem;
+  box-shadow: 0 14px 34px rgba(20, 29, 23, 0.18);
+  transform: none;
+  transform-style: flat;
+  will-change: auto;
+}
+
+.project-card--visual:hover,
+.project-card--visual:focus-visible {
+  transform: translateY(-2px);
+}
+
+.project-card--visual .project-card__art {
+  transform: scale(1.02);
+  transition: transform 220ms ease;
+}
+
+.project-card--visual:hover .project-card__art,
+.project-card--visual:focus-visible .project-card__art {
+  transform: scale(1.045);
+}
+
+.project-card__veil {
+  transition: opacity 180ms ease;
+}
+
+.workshop-button {
+  border-color: #9d623b;
+  background: #9d623b;
+  color: #fffaf3;
+}
+
+.workshop-secondary {
+  border-color: rgba(71, 54, 39, 0.28);
+  color: #3d342b;
+}
+
+.subhero--workshop {
+  color: #282921;
+  background: linear-gradient(135deg, #f1e6d6 0%, #f3eee1 58%, #e8ddcb 100%);
+  border-bottom-color: rgba(95, 65, 41, 0.18);
+}
+
 .subhero--workshop::before {
   background-image:
     url("/workshop-circuit.svg"),
-    linear-gradient(rgba(92,49,24,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(92,49,24,0.05) 1px, transparent 1px);
-  background-size:
-    min(78vw, 68rem) auto,
-    52px 52px,
-    52px 52px;
-  background-position:
-    right center,
-    left top,
-    left top;
-  background-repeat:
-    no-repeat,
-    repeat,
-    repeat;
+    linear-gradient(rgba(88, 69, 49, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 69, 49, 0.025) 1px, transparent 1px);
+  background-size: min(72vw, 64rem) auto, 52px 52px, 52px 52px;
+  background-position: right center, left top, left top;
+  opacity: 0.54;
 }
 
-
-/* Reuse the site mark in the trail-earned medallion; remove the old generic compass stamp. */
-.trail-badge::before {
-  content: none;
+.subhero--workshop h1 {
+  color: #2b2a24;
 }
 
-.trail-badge__mark {
-  width: 4.1rem;
-  height: 4.1rem;
-  margin-top: 0.2rem;
-  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.35));
+.subhero--workshop .subhero-kicker,
+.subhero--workshop .eyebrow {
+  color: #985a35;
+}
+
+.subhero--workshop .lede {
+  color: #5c554a;
+}
+
+.subhero--workshop .button.secondary {
+  border-color: rgba(63, 52, 39, 0.28);
+  background: transparent;
+  color: #433b31;
+}
+
+.subhero--workshop .button.secondary:hover {
+  background: rgba(67, 59, 49, 0.06);
+}
+
+.workshop-bench {
+  border-color: rgba(97, 64, 38, 0.22);
+  border-left: 3px solid #a9633d;
+  border-radius: 0.4rem;
+  background:
+    linear-gradient(rgba(92, 68, 45, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 68, 45, 0.025) 1px, transparent 1px),
+    #eee6d8;
+  background-size: 52px 52px, 52px 52px, auto;
+  box-shadow: 0 14px 32px rgba(75, 52, 34, 0.1);
+  transform: none;
+}
+
+.workshop-card {
+  border-color: rgba(120, 78, 46, 0.2);
+  border-radius: 0.4rem;
+  background: #f7f1e7;
+  box-shadow: 0 8px 20px rgba(75, 52, 34, 0.045);
+}
+
+.workshop-grid--wow .workshop-card {
+  border-top: 2px solid rgba(152, 92, 48, 0.58);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.workshop-grid--wow .workshop-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(75, 52, 34, 0.08);
+}
+
+.workshop-playground {
+  background:
+    linear-gradient(rgba(92, 68, 45, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 68, 45, 0.028) 1px, transparent 1px),
+    #eee9df;
+  background-size: 44px 44px, 44px 44px, auto;
+}
+
+.saw-cut-stage,
+.sawdust-bench {
+  border-color: rgba(92, 49, 25, 0.18);
+  border-radius: 0.55rem;
+  box-shadow: 0 16px 36px rgba(73, 44, 25, 0.1);
+}
+
+.saw-cut-grain {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: 0.24;
+  background: url("/workshop-board-grain.svg") center top / 100% 200% no-repeat;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.saw-cut-slab--bottom .saw-cut-grain {
+  background-position: center bottom;
+}
+
+.saw-cut-slab span,
+.saw-cut-slab small {
+  position: relative;
+  z-index: 1;
+}
+
+.saw-cut-slab {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 24%, rgba(70, 35, 15, 0.07) 53%, transparent 82%),
+    linear-gradient(180deg, #b47745, #8c552f);
+}
+
+.saw-cut-reveal {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 201, 143, 0.08), transparent 14rem),
+    linear-gradient(135deg, #382619, #28190f 58%, #392619);
+}
+
+.saw-cut-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/workshop-board-grain.svg") center / 100% 100% no-repeat;
+  opacity: 0.18;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 0 36%, black 76%);
+  mask-image: radial-gradient(ellipse at center, transparent 0 36%, black 76%);
+  pointer-events: none;
+}
+
+.saw-cut-reveal > span,
+.saw-cut-reveal > strong,
+.saw-cut-reveal > small {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.45rem 0.75rem;
+    min-height: 4.3rem;
+    padding-block: 0.45rem;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 0.6rem;
+  }
+
+  .brand-mark {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .brand-copy strong {
+    font-size: 0.95rem;
+  }
+
+  .brand-copy small {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+
+  .js .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .primary-nav {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    width: 100%;
+    margin: 0.1rem 0 0.55rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(56, 70, 57, 0.16);
+    border-radius: 0.4rem;
+    background: #f9f6ed;
+  }
+
+  .primary-nav[hidden] {
+    display: none !important;
+  }
+
+  .primary-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 2.9rem;
+    padding: 0.55rem 0.6rem;
+    border: 1px solid rgba(56, 70, 57, 0.1);
+    border-radius: 0.25rem;
+    line-height: 1.2;
+  }
+
+  .primary-nav a:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .hero,
+  .subhero:not(.subhero--workshop),
+  .subhero--workshop,
+  .case-hero {
+    min-height: auto;
+    padding-block: 2.7rem 2.5rem;
+  }
+
+  .hero-grid--wow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.7rem;
+  }
+
+  .hero h1,
+  .subhero h1,
+  .case-hero h1 {
+    max-width: 14ch;
+    font-size: clamp(2.65rem, 11vw, 3.8rem);
+    line-height: 1;
+  }
+
+  .hero-badges {
+    gap: 0.25rem 0.55rem;
+  }
+
+  .hero-tech-line {
+    margin-top: 0.9rem;
+  }
+
+  .hero-tech-line span:nth-of-type(n + 6) {
+    display: none;
+  }
+
+  .ai-proof-board {
+    gap: 0.55rem;
+    padding: 0.9rem;
+    border-radius: 0.35rem;
+  }
+
+  .proof-module {
+    gap: 0.65rem;
+    padding: 0.75rem 0.4rem;
+  }
+
+  .proof-track {
+    justify-content: flex-start;
+    gap: 0.4rem 0.75rem;
+    padding-inline: 0.65rem;
+    font-size: 0.59rem;
+  }
+
+  .proof-track b {
+    display: none;
+  }
+
+  .project-card--visual {
+    min-height: 18rem;
+    border-radius: 0.55rem;
+  }
+
+  .workshop-bench {
+    padding: 1.1rem 0.9rem;
+    border-radius: 0.45rem;
+    box-shadow: 0 12px 26px rgba(79, 45, 24, 0.12);
+  }
+
+  .workshop-card,
+  .workshop-grid--wow .workshop-card {
+    min-height: auto;
+    padding: 1.05rem;
+    border-radius: 0.4rem;
+  }
+
+  .workshop-card__number {
+    margin-bottom: 0.9rem;
+  }
+
+  .saw-cut-stage,
+  .sawdust-bench {
+    min-height: 19rem;
+    border-radius: 0.55rem;
+  }
+
+  .saw-cut-slab--top {
+    padding-bottom: 0.8rem;
+  }
+
+  .saw-cut-slab--bottom {
+    padding-top: 0.65rem;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .workshop-grid--wow .workshop-card:hover,
+  .project-card--visual:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .workshop-grid--wow .workshop-card,
+  .project-card--visual .project-card__art {
+    transition: none;
+  }
 }

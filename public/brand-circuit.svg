@@ -1,31 +1,29 @@
+<!-- Sparse workbench traces leave the headline clear and let the mark carry the identity. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
-  <g stroke="#9fc1ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".48">
-    <path d="M705 82h118v60h96v78h122"/>
-    <path d="M845 58v-25h126"/>
-    <path d="M754 252h108v-58h78v-70h148"/>
-    <path d="M886 284v66h92v88h156"/>
-    <path d="M744 454h112q34 0 34 34v50h136v80h170"/>
-    <path d="M956 496v-42h78v-58h116"/>
-    <path d="M838 660h98v-62h93v-56h126"/>
+  <g stroke="#9ba9a1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".28">
+    <path d="M742 102h112v54h92v68h137"/>
+    <path d="M820 280h93v-52h86v-72h132"/>
+    <path d="M760 446h100q28 0 28 28v42h124v70h151"/>
+    <path d="M907 604v-44h96v-64h132"/>
   </g>
-  <g stroke="#52d4b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".45">
-    <path d="M1010 118h96v-45h72"/>
-    <path d="M925 382h-66v-50h-102"/>
-    <path d="M1078 571v74h76"/>
+  <g stroke="#b8784e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".28">
+    <path d="M984 126h88v-38h86"/>
+    <path d="M876 364h-56v-44h-84"/>
+    <path d="M1042 576v62h72"/>
   </g>
-  <g fill="#0a2037" stroke="#9fc1ff" stroke-width="2" opacity=".68">
-    <circle cx="1041" cy="220" r="5.5"/>
-    <circle cx="886" cy="284" r="5.5"/>
-    <circle cx="978" cy="438" r="5.5"/>
-    <circle cx="1026" cy="618" r="5.5"/>
+  <g fill="#1d2520" stroke="#a8b4aa" stroke-width="1.7" opacity=".44">
+    <circle cx="946" cy="224" r="4.5"/>
+    <circle cx="913" cy="280" r="4.5"/>
+    <circle cx="916" cy="516" r="4.5"/>
+    <circle cx="1003" cy="604" r="4.5"/>
   </g>
-  <g fill="#0a2037" stroke="#52d4b2" stroke-width="2" opacity=".72">
-    <circle cx="1010" cy="118" r="5.2"/>
-    <circle cx="757" cy="332" r="5.2"/>
-    <circle cx="1154" cy="645" r="5.2"/>
+  <g fill="#1d2520" stroke="#c08459" stroke-width="1.5" opacity=".44">
+    <circle cx="984" cy="126" r="4.2"/>
+    <circle cx="820" cy="320" r="4.2"/>
+    <circle cx="1114" cy="638" r="4.2"/>
   </g>
-  <g stroke="#f1a665" stroke-width="1.4" opacity=".38">
-    <path d="M834 720h280"/>
-    <path d="M858 720v-22m38 22v-36m38 36v-29m38 29v-49m38 49v-33m38 33v-58"/>
+  <g stroke="#b8784e" stroke-width="1.2" opacity=".25">
+    <path d="M850 690h242"/>
+    <path d="M872 690v-16m38 16v-25m38 25v-18m38 18v-34m38 34v-23m38 23v-40"/>
   </g>
 </svg>

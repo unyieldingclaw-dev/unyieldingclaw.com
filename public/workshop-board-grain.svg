@@ -1,24 +1,27 @@
+<!-- Fine, partial growth lines keep the center clear for type and group a few knots near the edges. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
   <g fill="none" stroke-linecap="round">
-    <path d="M-70 64c150-22 242 16 392 4s240-27 392-5 271 20 420-3 210-12 290 2" stroke="#4f2d1a" stroke-opacity=".22" stroke-width="5"/>
-    <path d="M-60 93c142-18 242 17 386 5s251-25 406-4 266 17 413-4 205-11 279 2" stroke="#f2d2ae" stroke-opacity=".2" stroke-width="2.5"/>
-    <path d="M-82 191c160 14 246-17 396-4s247 25 396 8 258-26 407-6 212 14 290 2" stroke="#59351f" stroke-opacity=".18" stroke-width="4"/>
-    <path d="M-74 219c155 12 243-15 390-2s248 22 398 6 260-22 408-4 209 12 287 1" stroke="#f0cba1" stroke-opacity=".18" stroke-width="2"/>
-    <path d="M-68 424c151-23 240 10 390-2s249-23 398-3 258 23 407 2 213-12 292 1" stroke="#4f2d1a" stroke-opacity=".19" stroke-width="4.5"/>
-    <path d="M-72 452c147-19 239 12 386 0s250-20 401-1 259 19 407 0 210-10 291 2" stroke="#f3d4b0" stroke-opacity=".18" stroke-width="2"/>
-    <path d="M-70 605c153 17 243-14 393-1s248 24 398 7 261-24 411-4 208 13 290 1" stroke="#56321c" stroke-opacity=".17" stroke-width="4"/>
-    <path d="M-68 633c147 16 240-11 386 2s250 21 401 4 260-20 409-2 207 12 291 0" stroke="#f4d7b6" stroke-opacity=".17" stroke-width="2"/>
+    <path d="M-28 104c112-8 188 5 274-1s141-9 218 0" stroke="#4d321f" stroke-opacity=".2" stroke-width="1.6"/>
+    <path d="M22 122c91-5 151 3 229-1s143-6 201 0" stroke="#f2d4b1" stroke-opacity=".22" stroke-width="1.1"/>
+    <path d="M585 82c96 7 174-3 252 1s155 9 260 0 151-5 168 1" stroke="#50331f" stroke-opacity=".18" stroke-width="1.5"/>
+    <path d="M738 101c87 4 145-2 215 1s123 6 190 0" stroke="#f1d1aa" stroke-opacity=".2" stroke-width="1"/>
+    <path d="M-24 302c134 5 205-7 305-2 63 3 102 8 176 3" stroke="#563620" stroke-opacity=".19" stroke-width="1.4"/>
+    <path d="M64 320c93 2 142-6 229-2 45 2 88 5 126 2" stroke="#f2d7b8" stroke-opacity=".2" stroke-width="1"/>
+    <path d="M485 278c121-8 206 4 307-1s156-8 230-1" stroke="#50331f" stroke-opacity=".18" stroke-width="1.5"/>
+    <path d="M689 296c83-4 149 3 222-1s100-5 144-1" stroke="#f0d0a9" stroke-opacity=".18" stroke-width="1"/>
+    <path d="M-34 520c143-9 232 4 325-1s135-7 197-2" stroke="#4d321f" stroke-opacity=".19" stroke-width="1.5"/>
+    <path d="M54 540c102-6 154 3 239-1s133-5 179-1" stroke="#f1d4b1" stroke-opacity=".2" stroke-width="1"/>
+    <path d="M708 486c89 5 143-2 226 1s141 8 267 0" stroke="#563620" stroke-opacity=".2" stroke-width="1.5"/>
+    <path d="M827 506c91 2 151-4 217-1s106 4 157 0" stroke="#f1d2ac" stroke-opacity=".2" stroke-width="1"/>
   </g>
   <g fill="none" stroke-linecap="round">
-    <g transform="translate(188 151) rotate(-4)">
-      <ellipse rx="44" ry="17" stroke="#56321c" stroke-opacity=".18" stroke-width="3"/>
-      <ellipse rx="30" ry="11" stroke="#f3d4b0" stroke-opacity=".16" stroke-width="2"/>
-      <ellipse rx="16" ry="6" stroke="#56321c" stroke-opacity=".17" stroke-width="2"/>
+    <g transform="translate(226 185) rotate(-3)">
+      <ellipse rx="27" ry="9" stroke="#563620" stroke-opacity=".18" stroke-width="1.4"/>
+      <ellipse rx="16" ry="5" stroke="#f1d2ac" stroke-opacity=".18" stroke-width="1"/>
     </g>
-    <g transform="translate(980 522) rotate(5)">
-      <ellipse rx="48" ry="18" stroke="#56321c" stroke-opacity=".17" stroke-width="3"/>
-      <ellipse rx="34" ry="12" stroke="#f3d4b0" stroke-opacity=".15" stroke-width="2"/>
-      <ellipse rx="20" ry="7" stroke="#56321c" stroke-opacity=".16" stroke-width="2"/>
+    <g transform="translate(982 405) rotate(4)">
+      <ellipse rx="31" ry="10" stroke="#563620" stroke-opacity=".17" stroke-width="1.4"/>
+      <ellipse rx="18" ry="5.5" stroke="#f1d2ac" stroke-opacity=".17" stroke-width="1"/>
     </g>
   </g>
 </svg>

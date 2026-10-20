@@ -5,7 +5,8 @@ export default defineConfig({
   site: 'https://unyieldingclaw.com',
   output: 'static',
   build: {
-    inlineStylesheets: 'always',
+    // Shared CSS stays cacheable across the generated pages.
+    inlineStylesheets: 'auto',
   },
   integrations: [
     sitemap({
