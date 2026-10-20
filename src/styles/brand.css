@@ -1,0 +1,55 @@
+/* Shared brand layer: same technical grid and trace language across pages;
+   the workshop keeps its warm paper palette and uses wood-toned traces. */
+.brand-mark {
+  width: 2.9rem;
+  height: 2.9rem;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(4, 17, 31, 0.2));
+}
+
+.hero::before,
+.subhero:not(.subhero--workshop)::before,
+.case-hero::before {
+  background-image:
+    url("/brand-circuit.svg"),
+    linear-gradient(rgba(125,168,255,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125,168,255,0.055) 1px, transparent 1px);
+  background-size:
+    min(78vw, 68rem) auto,
+    44px 44px,
+    44px 44px;
+  background-position:
+    right center,
+    left top,
+    left top;
+  background-repeat: no-repeat, repeat, repeat;
+}
+
+.subhero--workshop::before {
+  background-image:
+    url("/workshop-circuit.svg"),
+    linear-gradient(rgba(92,49,24,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,49,24,0.055) 1px, transparent 1px);
+  background-size:
+    min(78vw, 68rem) auto,
+    46px 46px,
+    46px 46px;
+  background-position:
+    right center,
+    left top,
+    left top;
+  background-repeat: no-repeat, repeat, repeat;
+}
