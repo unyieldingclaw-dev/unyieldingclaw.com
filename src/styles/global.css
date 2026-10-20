@@ -8582,3 +8582,20 @@ html.motion-paused .trail-marker {
   position: relative;
   z-index: 1;
 }
+
+/* Localize visible grain to the animated boards and exposed offcut. */
+.saw-cut-grain {
+  opacity: 0.4;
+  background: url("/workshop-board-grain.svg") center top / 100% 200% no-repeat;
+  mix-blend-mode: multiply;
+}
+
+.saw-cut-slab--bottom .saw-cut-grain {
+  background-position: center bottom;
+}
+
+.saw-cut-reveal::before {
+  background: url("/workshop-board-grain.svg") center / 100% 100% no-repeat;
+  opacity: 0.48;
+  mix-blend-mode: soft-light;
+}
