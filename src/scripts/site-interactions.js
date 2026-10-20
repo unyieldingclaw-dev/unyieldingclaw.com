@@ -46,7 +46,7 @@
     const expanded = mobileNav.matches && open;
     primaryNav.hidden = mobileNav.matches && !expanded;
     menuToggle.setAttribute('aria-expanded', String(expanded));
-    menuToggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+    menuToggle.setAttribute('aria-label', expanded ? 'Close' : 'Menu');
     const label = menuToggle.querySelector('[data-menu-label]');
     if (label) label.textContent = expanded ? 'Close' : 'Menu';
     document.body.classList.toggle('nav-open', expanded);

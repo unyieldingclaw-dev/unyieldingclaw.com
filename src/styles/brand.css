@@ -803,3 +803,9 @@
     transition: none;
   }
 }
+
+
+/* Body eyebrows use dark copper so the small, tracked labels stay readable on paper. */
+.section:not(.section--dark) .eyebrow {
+  color: #67432f;
+}
