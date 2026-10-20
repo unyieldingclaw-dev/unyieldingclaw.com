@@ -14,8 +14,16 @@ const {
 
 const fullTitle = title === 'Eric Nolan | Unyielding Claw' ? title : `${title} | Eric Nolan`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
-const socialImageURL = new URL('/social-card-v2.jpg', Astro.site ?? Astro.url.origin);
 const pathname = Astro.url.pathname;
+const isWorkshopPage = pathname.startsWith('/woodworking');
+const socialImageURL = new URL(
+  isWorkshopPage ? '/social-card-nolans-workshop.jpg' : '/social-card-unyielding-claw.jpg',
+  Astro.site ?? Astro.url.origin,
+);
+const socialImageAlt = isWorkshopPage
+  ? "Nolan's Workshop sawblade emblem on a warm woodgrain and circuit-board background"
+  : "Unyielding Claw sawblade emblem on a dark technical circuit-board background";
+const themeColor = isWorkshopPage ? '#985a35' : '#0b1f33';
 
 const navItems = [
   { href: '/work/', label: 'Work' },
@@ -54,7 +62,7 @@ const personSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0b1f33" />
+    <meta name="theme-color" content={themeColor} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -67,9 +75,9 @@ const personSchema = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="A dark engineering workbench with modular systems, human review stations, information flows, and analytics graphs" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:image:alt" content={socialImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
