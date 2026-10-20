@@ -11,6 +11,7 @@
   background: #0b1f33;
   box-shadow: none;
   overflow: hidden;
+  position: relative;
 }
 
 .brand-mark img {
@@ -19,7 +20,10 @@
   height: 140%;
   max-width: none;
   object-fit: cover;
-  transform: translateY(5%);
+  position: absolute;
+  left: -20%;
+  top: -15%;
+  transform: none;
   filter: none;
 }
 
