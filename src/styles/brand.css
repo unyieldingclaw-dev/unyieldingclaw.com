@@ -53,3 +53,16 @@
     left top;
   background-repeat: no-repeat, repeat, repeat;
 }
+
+
+/* Reuse the site mark in the trail-earned medallion; remove the old generic compass stamp. */
+.trail-badge::before {
+  content: none;
+}
+
+.trail-badge__mark {
+  width: 4.1rem;
+  height: 4.1rem;
+  margin-top: 0.2rem;
+  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.35));
+}
