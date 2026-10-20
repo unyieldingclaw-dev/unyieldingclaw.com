@@ -38,20 +38,29 @@
   background-repeat: no-repeat, repeat, repeat;
 }
 
+/* Woodgrain joins the paper grid and copper traces on the Workshop page. */
 .subhero--workshop::before {
   background-image:
+    url("/workshop-woodgrain.svg"),
     url("/workshop-circuit.svg"),
-    linear-gradient(rgba(92,49,24,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(92,49,24,0.055) 1px, transparent 1px);
+    linear-gradient(rgba(92,49,24,0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,49,24,0.075) 1px, transparent 1px);
   background-size:
+    100% 100%,
     min(78vw, 68rem) auto,
     46px 46px,
     46px 46px;
   background-position:
+    center,
     right center,
     left top,
     left top;
-  background-repeat: no-repeat, repeat, repeat;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    repeat,
+    repeat;
+  background-blend-mode: multiply, normal, normal, normal;
 }
 
 
