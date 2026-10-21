@@ -857,7 +857,7 @@
     linear-gradient(to top, rgba(118,72,36,.45), transparent 78%);
   opacity: 0;
   transform: scaleX(.25) scaleY(.35);
-  transform-origin: center bottom;
+  transform-origin: 36% bottom;
   z-index: 1;
 }
 .workshop-bench.is-dusting .plaque-dust::after {
@@ -884,7 +884,7 @@
 }
 @keyframes plaque-vac-roll {
   0%, 42% { right: -14rem; opacity: 0; }
-  52%, 78% { right: -1rem; opacity: 1; }
+  52%, 78% { right: 7rem; opacity: 1; }
   90% { right: -14rem; opacity: 1; }
   100% { right: -14rem; opacity: 0; }
 }
@@ -897,7 +897,7 @@
 @keyframes plaque-dust-settle {
   0%, 33% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
   52%, 57% { opacity: .78; transform: scaleX(1) scaleY(1); }
-  78%, 100% { opacity: 0; transform: translateX(38%) scaleX(0) scaleY(.45); }
+  78%, 100% { opacity: 0; transform: scaleX(0) scaleY(.45); }
 }
 @keyframes workshop-plaque-rock {
   0%, 100% { transform: translateY(0) rotate(0); }

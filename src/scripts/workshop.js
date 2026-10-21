@@ -47,13 +47,15 @@
       });
     }
 
-    // Once the chips land, the dust bank remains for the brush to clear.
+    // Once the chips land, the dust bank remains for the vacuum to clear.
     window.setTimeout(() => plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove()), 2500);
     // A few loose flecks converge on the nozzle while the canister is parked.
     window.setTimeout(() => {
       const width = plaqueDust.clientWidth;
       const height = plaqueDust.clientHeight;
-      const nozzleX = width - 166;
+      const vacRect = plaqueDust.querySelector('.plaque-vac')?.getBoundingClientRect();
+      const dustRect = plaqueDust.getBoundingClientRect();
+      const nozzleX = vacRect ? vacRect.left - dustRect.left + vacRect.width * (8 / 220) : width * .36;
       for (let i = 0; i < 18; i += 1) {
         const fleck = document.createElement('i');
         const startX = width * (0.07 + (i * 29 % 87) / 100);
