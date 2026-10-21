@@ -87,6 +87,7 @@ const personSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body>
+    <div class="cursor-spotlight" aria-hidden="true"></div>
     <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="egg-toast" role="status" aria-live="polite"></div>
     <div class="miz-takeover" data-miz-takeover role="status" aria-live="assertive" aria-atomic="true" aria-hidden="true">
@@ -154,7 +155,7 @@ const personSchema = {
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-describedby="brand-egg-clue">
-          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW"><img src="/social-card-unyielding-claw.jpg" width="52" height="52" alt="" aria-hidden="true" /></span>
+          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW" aria-hidden="true"><svg viewBox="0 0 52 52" focusable="false"><circle class="blade-rim" cx="26" cy="26" r="21"/><circle class="blade-face" cx="26" cy="26" r="16.5"/><path class="blade-tooth" d="M26 2v7 M26 43v7 M2 26h7 M43 26h7 M9 9l5 5 M38 38l5 5 M43 9l-5 5 M14 38l-5 5"/><path class="claw" d="M19 17c-3 7-3 14 0 20 M26 15c-2 7-2 15 0 22 M33 17c-1 6-1 14 1 19"/></svg></span>
           <span class="brand-copy">
             <strong>Eric Nolan</strong>
             <small>Unyielding Claw</small>

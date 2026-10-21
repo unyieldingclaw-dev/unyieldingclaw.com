@@ -529,4 +529,300 @@
     revealTargets.forEach((el) => el.classList.add('is-revealed'));
   }
 
+  // Fine pointers animate card surfaces and the drafting spotlight; touch stays still.
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!finePointer) return;
+
+  const spotlight = document.querySelector('.cursor-spotlight');
+  let spotlightFrame;
+
+  if (spotlight) {
+    const moveSpotlight = (event) => {
+      cancelAnimationFrame(spotlightFrame);
+      spotlightFrame = requestAnimationFrame(() => {
+        spotlight.style.setProperty('--cursor-x', event.clientX + 'px');
+        spotlight.style.setProperty('--cursor-y', event.clientY + 'px');
+        spotlight.classList.add('is-active');
+      });
+    };
+
+    document.addEventListener('pointermove', moveSpotlight, { passive: true });
+    document.addEventListener('pointerleave', () => spotlight.classList.remove('is-active'));
+    window.addEventListener('blur', () => spotlight.classList.remove('is-active'));
+  }
+
+  document.querySelectorAll('.harness-question').forEach((card, index) => {
+    let frame;
+    const baseDirection = index % 2 === 0 ? -1 : 1;
+
+    const resetHarnessQuestion = () => {
+      cancelAnimationFrame(frame);
+      card.style.setProperty('--hq-x', '0px');
+      card.style.setProperty('--hq-y', '0px');
+      card.style.setProperty('--hq-r', '0deg');
+      card.style.setProperty('--hq-s', '1');
+      card.classList.remove('is-harness-moving');
+    };
+
+    const kickHarnessQuestion = () => {
+      const x = baseDirection * (5 + Math.random() * 7);
+      const y = -5 - Math.random() * 8;
+      const r = -baseDirection * (0.55 + Math.random() * 1.15);
+      const scale = 1.012 + Math.random() * 0.014;
+
+      card.style.setProperty('--hq-x', x.toFixed(1) + 'px');
+      card.style.setProperty('--hq-y', y.toFixed(1) + 'px');
+      card.style.setProperty('--hq-r', r.toFixed(2) + 'deg');
+      card.style.setProperty('--hq-s', scale.toFixed(3));
+      card.classList.add('is-harness-moving');
+    };
+
+    card.addEventListener('pointerenter', kickHarnessQuestion);
+
+    card.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+        const x = (px - 0.5) * 16 + baseDirection * 3;
+        const y = (py - 0.5) * 10 - 6;
+        const r = (px - 0.5) * 2.2 - baseDirection * 0.45;
+
+        card.style.setProperty('--hq-x', x.toFixed(1) + 'px');
+        card.style.setProperty('--hq-y', y.toFixed(1) + 'px');
+        card.style.setProperty('--hq-r', r.toFixed(2) + 'deg');
+      });
+    });
+
+    card.addEventListener('pointerleave', resetHarnessQuestion);
+    card.addEventListener('focusin', kickHarnessQuestion);
+    card.addEventListener('focusout', resetHarnessQuestion);
+  });
+
+  // Shared physical motion for ordinary card surfaces. Specialized
+  // interactions (project cards, Harness nodes/questions, case-study panels,
+  // Workshop benches) keep their own behavior.
+  const liveCardSelector = [
+    '.principle-grid--punch .principle',
+    '.range-card',
+    '.bridge-card',
+    '.rule-card',
+    '.workshop-grid--wow .workshop-card',
+    '.process-strip > div',
+    '.career-timeline article',
+    '.about-stack__card',
+    '.contact-action',
+    '.contact-topic-grid article',
+    '.feature-note',
+    '.identity-card',
+    '.work-console',
+    '.scouting-callout',
+    '.personal-tile'
+  ].join(', ');
+  {
+    document.querySelectorAll(liveCardSelector).forEach((card, index) => {
+      // Avoid double-wiring anything that also belongs to a specialized system.
+      if (
+        card.matches(
+          '.project-card, .harness-question, .harness-node, .harness-core, [data-case-signal], .case-flow > section'
+        )
+      ) return;
+
+      card.classList.add('uc-live-card');
+
+      let frame;
+      const direction = index % 2 === 0 ? -1 : 1;
+      const personality = (index % 4) + 1;
+
+      const resetLiveCard = () => {
+        cancelAnimationFrame(frame);
+        card.style.setProperty('--live-x', '0px');
+        card.style.setProperty('--live-y', '0px');
+        card.style.setProperty('--live-r', '0deg');
+        card.style.setProperty('--live-s', '1');
+        card.style.setProperty('--live-glow-x', '50%');
+        card.style.setProperty('--live-glow-y', '50%');
+        card.classList.remove('is-live-moving');
+      };
+
+      const wakeLiveCard = () => {
+        const kickX = direction * (5 + personality * 1.8);
+        const kickY = -5 - personality * 1.2;
+        const kickR = -direction * (0.35 + personality * 0.16);
+        const kickS = 1.01 + personality * 0.003;
+
+        card.style.setProperty('--live-x', kickX.toFixed(1) + 'px');
+        card.style.setProperty('--live-y', kickY.toFixed(1) + 'px');
+        card.style.setProperty('--live-r', kickR.toFixed(2) + 'deg');
+        card.style.setProperty('--live-s', kickS.toFixed(3));
+        card.classList.add('is-live-moving');
+      };
+
+      card.addEventListener('pointerenter', wakeLiveCard);
+
+      card.addEventListener('pointermove', (event) => {
+        cancelAnimationFrame(frame);
+
+        frame = requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+          const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+          const travelX = 14 + personality * 1.5;
+          const travelY = 10 + personality;
+          const rotate = 1.4 + personality * 0.18;
+
+          const x = (px - 0.5) * travelX + direction * 2.5;
+          const y = (py - 0.5) * travelY - 5;
+          const r = (px - 0.5) * rotate - direction * 0.28;
+          const scale = 1.014 + (1 - Math.abs(px - 0.5) * 2) * 0.008;
+
+          card.style.setProperty('--live-x', x.toFixed(1) + 'px');
+          card.style.setProperty('--live-y', y.toFixed(1) + 'px');
+          card.style.setProperty('--live-r', r.toFixed(2) + 'deg');
+          card.style.setProperty('--live-s', scale.toFixed(3));
+          card.style.setProperty('--live-glow-x', (px * 100).toFixed(1) + '%');
+          card.style.setProperty('--live-glow-y', (py * 100).toFixed(1) + '%');
+        });
+      });
+
+      card.addEventListener('pointerleave', resetLiveCard);
+      card.addEventListener('focusin', wakeLiveCard);
+      card.addEventListener('focusout', resetLiveCard);
+    });
+  }
+
+  const tiltCards = document.querySelectorAll('.project-card');
+
+  tiltCards.forEach((card) => {
+    let frame;
+
+    const reset = () => {
+      cancelAnimationFrame(frame);
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+      card.style.setProperty('--glow-x', '50%');
+      card.style.setProperty('--glow-y', '50%');
+      card.style.setProperty('--art-x', '0px');
+      card.style.setProperty('--art-y', '0px');
+      card.classList.remove('is-tilting');
+    };
+
+    card.addEventListener('pointerenter', () => card.classList.add('is-tilting'));
+
+    card.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const px = x / rect.width;
+        const py = y / rect.height;
+        const rotateY = (px - 0.5) * 14;
+        const rotateX = (0.5 - py) * 10;
+        const artX = (0.5 - px) * 22;
+        const artY = (0.5 - py) * 16;
+
+        card.style.setProperty('--tilt-x', rotateX.toFixed(2) + 'deg');
+        card.style.setProperty('--tilt-y', rotateY.toFixed(2) + 'deg');
+        card.style.setProperty('--glow-x', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--glow-y', (py * 100).toFixed(1) + '%');
+        card.style.setProperty('--art-x', artX.toFixed(1) + 'px');
+        card.style.setProperty('--art-y', artY.toFixed(1) + 'px');
+      });
+    });
+
+    card.addEventListener('pointerleave', reset);
+    card.addEventListener('blur', reset, true);
+  });
+
+  document.querySelectorAll('[data-case-signal]').forEach((panel) => {
+    let frame;
+
+    const resetPanel = () => {
+      cancelAnimationFrame(frame);
+      panel.style.setProperty('--signal-x', '0px');
+      panel.style.setProperty('--signal-y', '0px');
+      panel.style.setProperty('--signal-rx', '0deg');
+      panel.style.setProperty('--signal-ry', '0deg');
+      panel.classList.remove('is-alive');
+    };
+
+    panel.addEventListener('pointerenter', () => panel.classList.add('is-alive'));
+    panel.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = panel.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+
+        panel.style.setProperty('--signal-x', ((px - 0.5) * 10).toFixed(1) + 'px');
+        panel.style.setProperty('--signal-y', ((py - 0.5) * 8).toFixed(1) + 'px');
+        panel.style.setProperty('--signal-rx', ((0.5 - py) * 5).toFixed(2) + 'deg');
+        panel.style.setProperty('--signal-ry', ((px - 0.5) * 7).toFixed(2) + 'deg');
+      });
+    });
+    panel.addEventListener('pointerleave', resetPanel);
+  });
+
+  document.querySelectorAll('.case-flow > section').forEach((panel, index) => {
+    let frame;
+    panel.style.setProperty('--case-index', String(index));
+
+    const resetCasePanel = () => {
+      cancelAnimationFrame(frame);
+      panel.style.setProperty('--case-move-x', '0px');
+      panel.style.setProperty('--case-move-y', '0px');
+      panel.style.setProperty('--case-rx', '0deg');
+      panel.style.setProperty('--case-ry', '0deg');
+      panel.classList.remove('is-case-moving');
+    };
+
+    panel.addEventListener('pointerenter', () => panel.classList.add('is-case-moving'));
+    panel.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = panel.getBoundingClientRect();
+        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        const direction = index % 2 === 0 ? 1 : -1;
+
+        panel.style.setProperty('--case-move-x', (((px - 0.5) * 14) + direction * 2).toFixed(1) + 'px');
+        panel.style.setProperty('--case-move-y', (((py - 0.5) * 10) - 5).toFixed(1) + 'px');
+        panel.style.setProperty('--case-rx', ((0.5 - py) * 5.5).toFixed(2) + 'deg');
+        panel.style.setProperty('--case-ry', (((px - 0.5) * 7.5) + direction * 0.35).toFixed(2) + 'deg');
+      });
+    });
+    panel.addEventListener('pointerleave', resetCasePanel);
+  });
+
+  const hero = document.querySelector('.hero');
+  const heroPanel = document.querySelector('.ai-proof-board, .hero-panel');
+
+  if (hero && heroPanel) {
+    let heroFrame;
+
+    hero.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(heroFrame);
+      heroFrame = requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+        hero.style.setProperty('--hero-x', (px * 100).toFixed(1) + '%');
+        hero.style.setProperty('--hero-y', (py * 100).toFixed(1) + '%');
+        heroPanel.style.setProperty('--panel-x', ((px - 0.5) * 7).toFixed(2) + 'px');
+        heroPanel.style.setProperty('--panel-y', ((py - 0.5) * 7).toFixed(2) + 'px');
+      });
+    });
+
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--hero-x', '78%');
+      hero.style.setProperty('--hero-y', '18%');
+      heroPanel.style.setProperty('--panel-x', '0px');
+      heroPanel.style.setProperty('--panel-y', '0px');
+    });
+  }
 })();

@@ -19,17 +19,17 @@
         document.documentElement.classList.contains('motion-paused')) return;
     plaqueBusy = true;
     plaque.classList.add('is-dusting');
-    for (let i = 0; i < 24; i += 1) {
+    for (let i = 0; i < 56; i += 1) {
       const chip = document.createElement('i');
-      const size = 2 + (i % 4);
-      chip.style.cssText = `left:${5 + (i * 37 % 90)}%;width:${size}px;height:${Math.max(2, size - 2)}px;background:${i % 2 ? '#b48452' : '#87603c'}`;
+      const size = 3 + (i % 5);
+      chip.style.cssText = `left:${3 + (i * 37 % 94)}%;width:${size}px;height:${Math.max(2, size - 2)}px;background:${i % 3 ? '#c99a5d' : '#f1cb91'}`;
       plaqueDust.append(chip);
-      const drift = (i % 2 ? 1 : -1) * (8 + i % 7 * 5);
+      const drift = (i % 2 ? 1 : -1) * (12 + i % 7 * 6);
       const fall = chip.animate([
         { transform: 'translate(0, -3px) rotate(0deg)', opacity: 0 },
-        { opacity: 0.8, offset: 0.12 },
-        { transform: `translate(${drift}px, ${70 + i % 5 * 14}px) rotate(${90 + i * 17}deg)`, opacity: 0 }
-      ], { duration: 700 + i % 6 * 70, delay: i % 8 * 30, easing: 'cubic-bezier(.3,0,.8,.6)' });
+        { opacity: 1, offset: 0.12 },
+        { transform: `translate(${drift}px, ${105 + i % 6 * 17}px) rotate(${90 + i * 17}deg)`, opacity: 0 }
+      ], { duration: 950 + i % 6 * 85, delay: i % 8 * 30, easing: 'cubic-bezier(.3,0,.8,.6)' });
       fall.onfinish = () => chip.remove();
       fall.oncancel = () => chip.remove();
     }
@@ -37,7 +37,7 @@
       plaque.classList.remove('is-dusting');
       plaqueDust.replaceChildren();
       plaqueBusy = false;
-    }, 1400);
+    }, 1650);
   };
   plaque?.addEventListener('pointerenter', (event) => {
     if (event.pointerType === 'mouse') shedPlaqueDust();
