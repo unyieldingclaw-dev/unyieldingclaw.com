@@ -17,7 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 const pathname = Astro.url.pathname;
 const isWorkshopPage = pathname.startsWith('/woodworking');
 const socialImageURL = new URL(
-  isWorkshopPage ? '/social-card-nolans-workshop.jpg' : '/social-card-unyielding-claw.jpg',
+  isWorkshopPage ? '/social-card-nolans-workshop.jpg?v=3' : '/social-card-unyielding-claw.jpg?v=3',
   Astro.site ?? Astro.url.origin,
 );
 const socialImageAlt = isWorkshopPage
@@ -67,7 +67,7 @@ const personSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
@@ -75,8 +75,8 @@ const personSchema = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1000" />
-    <meta property="og:image:height" content="1000" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={socialImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -155,7 +155,7 @@ const personSchema = {
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-describedby="brand-egg-clue">
-          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW" aria-hidden="true"><img src="/brand-mark.svg" alt="" width="100" height="100" /></span>
+          <span class="brand-mark egg-mark" data-egg="SACHEM // UNYIELDING CLAW" aria-hidden="true"><img src="/brand-mark.svg?v=3" alt="" width="100" height="100" /></span>
           <span class="brand-copy">
             <strong>Eric Nolan</strong>
             <small>Unyielding Claw</small>

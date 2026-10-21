@@ -1,28 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <defs>
-    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f1f3f4"/>
-      <stop offset=".48" stop-color="#b5bec7"/>
-      <stop offset="1" stop-color="#8996a1"/>
-    </linearGradient>
-  </defs>
-  <circle cx="24" cy="24" r="19.4" fill="url(#steel)" stroke="#10243b" stroke-width="1.1"/>
-  <g fill="url(#steel)" stroke="#10243b" stroke-width=".55">
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(30 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(60 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(90 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(120 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(150 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(180 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(210 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(240 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(270 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(300 24 24)"/>
-    <path d="M21.25 1.4h5.5l1.15 6.1h-7.8z" transform="rotate(330 24 24)"/>
-  </g>
-  <circle cx="24" cy="24" r="18" fill="none" stroke="#172b41" stroke-width=".9"/>
-  <circle cx="24" cy="24" r="15.3" fill="#f5f1e8" stroke="#172b41" stroke-width="1.2"/>
-  <circle cx="24" cy="24" r="13.2" fill="none" stroke="#ad683f" stroke-width=".65"/>
-  <path d="M23 13.2h11.8A11.8 11.8 0 0 1 23 36.8V13.2Z" fill="#f5f1e8" stroke="#10243b" stroke-width="2.35" stroke-linejoin="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Saw blade with circuit traces"><defs><linearGradient id="steel" x2="1" y2="1"><stop stop-color="#f4f8ff"/><stop offset=".48" stop-color="#9caec5"/><stop offset=".75" stop-color="#e8eff8"/><stop offset="1" stop-color="#718ba8"/></linearGradient></defs>
+<path d="M95.000,50.000 L98.635,55.972 L89.265,57.632 Q86.340,61.110 91.575,67.221 L91.575,67.221 L92.647,74.129 L83.355,72.077 Q79.322,74.171 81.820,81.820 L81.820,81.820 L80.167,88.613 L72.368,83.162 Q67.840,83.552 67.221,91.575 L67.221,91.575 L63.095,97.218 L57.975,89.197 Q53.642,87.825 50.000,95.000 L50.000,95.000 L44.028,98.635 L42.368,89.265 Q38.890,86.340 32.779,91.575 L32.779,91.575 L25.871,92.647 L27.923,83.355 Q25.829,79.322 18.180,81.820 L18.180,81.820 L11.387,80.167 L16.838,72.368 Q16.448,67.840 8.425,67.221 L8.425,67.221 L2.782,63.095 L10.803,57.975 Q12.175,53.642 5.000,50.000 L5.000,50.000 L1.365,44.028 L10.735,42.368 Q13.660,38.890 8.425,32.779 L8.425,32.779 L7.353,25.871 L16.645,27.923 Q20.678,25.829 18.180,18.180 L18.180,18.180 L19.833,11.387 L27.632,16.838 Q32.160,16.448 32.779,8.425 L32.779,8.425 L36.905,2.782 L42.025,10.803 Q46.358,12.175 50.000,5.000 L50.000,5.000 L55.972,1.365 L57.632,10.735 Q61.110,13.660 67.221,8.425 L67.221,8.425 L74.129,7.353 L72.077,16.645 Q74.171,20.678 81.820,18.180 L81.820,18.180 L88.613,19.833 L83.162,27.632 Q83.552,32.160 91.575,32.779 L91.575,32.779 L97.218,36.905 L89.197,42.025 Q87.825,46.358 95.000,50.000Z" fill="url(#steel)"/>
+<circle cx="50" cy="50" r="33" fill="#0b1f33" stroke="#3e76cb" stroke-width="1.5"/>
+<g fill="none" stroke="#77acff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M50 29V71M33 35V45L41 53V65M67 35V45L59 53V65"/>
+</g><g fill="#0b1f33" stroke="#c5ddff" stroke-width="2.6">
+<circle cx="50" cy="29" r="3.4"/><circle cx="50" cy="71" r="3.4"/>
+<circle cx="33" cy="35" r="3.4"/><circle cx="41" cy="65" r="3.4"/>
+<circle cx="67" cy="35" r="3.4"/><circle cx="59" cy="65" r="3.4"/></g></svg>

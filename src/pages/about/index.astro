@@ -27,7 +27,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <aside class="about-stack" aria-label="Career and identity snapshot">
+      <figure class="builder-portrait">
+        <img src="/eric-nolan.jpg" alt="Eric Nolan" width="800" height="800" fetchpriority="high" />
+        <figcaption><strong>Eric Nolan</strong><span>Technical product leader. Hands-on builder.</span></figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <section class="section about-identity" aria-label="Career and identity snapshot">
+    <div class="shell">
+      <aside class="about-stack about-stack--horizontal" aria-label="Career and identity snapshot">
         <div class="about-stack__card about-stack__card--ai">
           <span>NOW</span>
           <strong>Technical Product + AI Development</strong>
@@ -45,7 +54,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </div>
       </aside>
     </div>
-  </header>
+  </section>
 
   <section class="section about-career">
     <div class="shell career-grid">

@@ -1659,3 +1659,16 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 
 /* Use the approved saw emblem at header size without cropping its teeth. */
 .brand-mark img { position: static; width: 92%; height: 92%; max-width: 100%; object-fit: contain; }
+
+/* A shared, centered emblem and a portrait sized for the source image. */
+.brand { align-items: center; }
+.brand-mark img { inset: auto; display: block; margin: auto; }
+.builder-portrait { margin: 0; width: min(100%, 340px); justify-self: center; padding: 12px; background: #fbfdff; border: 1px solid #cdd8e5; border-radius: 16px; box-shadow: 0 18px 45px rgba(11,31,51,.12); }
+.builder-portrait img { display:block; width:100%; height:auto; border-radius:8px; }
+.builder-portrait figcaption { display:grid; gap:5px; padding:16px 6px 6px; color:#143454; }
+.builder-portrait figcaption strong {font-size:1.15rem;}
+.builder-portrait figcaption span {font-size:.88rem; color:#4b6074;}
+.about-identity { padding-block:2rem; }
+.about-stack--horizontal { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.about-stack--horizontal .about-stack__card { transform:none; }
+@media(max-width:760px){ .about-stack--horizontal {grid-template-columns:1fr;} .builder-portrait {width:min(100%,300px);} }
