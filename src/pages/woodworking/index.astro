@@ -28,7 +28,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
 
       <aside class="workshop-bench" data-workshop-plaque aria-label="Workshop build philosophy">
-        <span class="plaque-dust" data-plaque-dust aria-hidden="true"></span>
+        <span class="plaque-dust" data-plaque-dust aria-hidden="true"><svg class="plaque-brush" viewBox="0 0 180 70" focusable="false" aria-hidden="true">
+          <defs>
+            <linearGradient id="plaque-wood" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#c88f53"/><stop offset=".48" stop-color="#a86b38"/><stop offset="1" stop-color="#75421f"/></linearGradient>
+            <linearGradient id="plaque-metal" x1="0" x2="1"><stop stop-color="#746c5d"/><stop offset=".5" stop-color="#e1d3b8"/><stop offset="1" stop-color="#6d675f"/></linearGradient>
+          </defs>
+          <path d="M8 31 Q5 28 9 25 Q13 22 23 24 L100 27 L110 22 L113 43 L99 40 L22 38 Q11 39 8 35Z" fill="url(#plaque-wood)" stroke="#683b20" stroke-width="1.5"/>
+          <ellipse cx="19" cy="31" rx="3" ry="2.3" fill="#5d351d" stroke="#d2a06b" stroke-width=".8"/>
+          <path d="M28 28 Q61 31 94 29 M31 35 Q62 33 93 37" fill="none" stroke="#e1ad70" stroke-width=".8" opacity=".55"/>
+          <path d="M100 26 L110 22 L116 42 L101 41Z" fill="url(#plaque-metal)" stroke="#695d4c" stroke-width="1"/>
+          <path d="M109 23 Q133 18 165 23 L172 26 L171 41 Q135 46 111 42Z" fill="url(#plaque-wood)" stroke="#673d22" stroke-width="1.5"/>
+          <path d="M116 29 Q137 27 165 29 M117 34 Q142 36 166 32" fill="none" stroke="#e6b777" stroke-width=".9" opacity=".55"/>
+          <path d="M112 42 Q111 50 107 60 M118 43 Q117 50 115 63 M124 44 Q123 52 122 64 M130 44 Q130 54 129 63 M136 44 Q137 52 137 64 M142 44 Q144 53 144 64 M148 43 Q151 54 151 63 M154 43 Q157 51 159 61 M160 42 Q165 51 166 59 M167 41 Q172 49 174 57" fill="none" stroke="#6d4b31" stroke-width="4.3" stroke-linecap="round"/>
+          <path d="M114 43 Q113 53 110 61 M121 44 Q119 53 118 65 M127 44 Q127 54 125 65 M133 44 L133 64 M139 44 Q141 54 141 65 M146 44 Q148 53 148 64 M152 43 Q156 53 156 63 M163 42 Q168 52 170 59" fill="none" stroke="#c59b69" stroke-width="1.4" stroke-linecap="round"/>
+        </svg></span>
         <div class="bench-rule bench-rule--top"></div>
         <div class="bench-stamp egg-mark egg-mark--workshop" data-egg="NO FANTASY SHOP REQUIRED" tabindex="0" role="note" aria-label="Hidden note: No fantasy shop required.">NOLAN'S<br/>WORKSHOP</div>
         <button class="trail-marker trail-marker--workshop" type="button" data-trail-marker="workshop-trail" aria-label="Hidden trail marker: Sawdust Trail">◇</button>

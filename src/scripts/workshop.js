@@ -8,37 +8,54 @@
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 
-  // A short shake sheds dust once per interaction; particles are removed after falling.
-  // Existing focusable plaque details also provide keyboard access to the same effect.
+  // Dust drops from the plaque's top edge, crosses the lettering, then settles
+  // along the bottom rule. Keep the particles sparse enough to read through.
   const plaque = document.querySelector('[data-workshop-plaque]');
   const plaqueDust = plaque?.querySelector('[data-plaque-dust]');
-  const plaqueMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let plaqueBusy = false;
+
   const shedPlaqueDust = () => {
-    if (!plaque || !plaqueDust || plaqueBusy || plaqueMotion.matches ||
+    if (!plaque || !plaqueDust || plaqueBusy || reduceMotion ||
         document.documentElement.classList.contains('motion-paused')) return;
+
     plaqueBusy = true;
+    plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove());
+    plaque.classList.remove('is-dusting');
+    // Restart the dust bank animation on each new pass.
+    void plaque.offsetWidth;
     plaque.classList.add('is-dusting');
+
+    const travel = Math.max(80, plaqueDust.clientHeight - 15);
     for (let i = 0; i < 56; i += 1) {
       const chip = document.createElement('i');
       const size = 3 + (i % 5);
-      chip.style.cssText = `left:${3 + (i * 37 % 94)}%;width:${size}px;height:${Math.max(2, size - 2)}px;background:${i % 3 ? '#c99a5d' : '#f1cb91'}`;
+      const left = 4 + (i * 37 % 91);
+      const drift = (i % 2 ? 1 : -1) * (7 + i % 5 * 4);
+      chip.style.cssText = `left:${left}%;width:${size}px;height:${Math.max(2, size - 2)}px;background:${i % 3 ? '#a87545' : '#d4a367'}`;
       plaqueDust.append(chip);
-      const drift = (i % 2 ? 1 : -1) * (12 + i % 7 * 6);
-      const fall = chip.animate([
-        { transform: 'translate(0, -3px) rotate(0deg)', opacity: 0 },
-        { opacity: 1, offset: 0.12 },
-        { transform: `translate(${drift}px, ${105 + i % 6 * 17}px) rotate(${90 + i * 17}deg)`, opacity: 0 }
-      ], { duration: 950 + i % 6 * 85, delay: i % 8 * 30, easing: 'cubic-bezier(.3,0,.8,.6)' });
-      fall.onfinish = () => chip.remove();
-      fall.oncancel = () => chip.remove();
+
+      chip.animate([
+        { transform: 'translate3d(0, -12px, 0) rotate(0deg)', opacity: 0 },
+        { transform: 'translate3d(0, 12px, 0) rotate(20deg)', opacity: 0.82, offset: 0.12 },
+        { transform: `translate3d(${drift}px, ${travel * 0.72}px, 0) rotate(${110 + i * 13}deg)`, opacity: 0.72, offset: 0.72 },
+        { transform: `translate3d(${drift * 1.35}px, ${travel - size}px, 0) rotate(${140 + i * 17}deg)`, opacity: 0.74 }
+      ], {
+        duration: 1450 + i % 7 * 65,
+        delay: i % 11 * 42,
+        easing: 'cubic-bezier(.25,.08,.64,.94)',
+        fill: 'forwards'
+      });
     }
+
+    // Once the chips land, the dust bank remains for the brush to clear.
+    window.setTimeout(() => plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove()), 2500);
     window.setTimeout(() => {
       plaque.classList.remove('is-dusting');
-      plaqueDust.replaceChildren();
+      plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove());
       plaqueBusy = false;
-    }, 1650);
+    }, 4300);
   };
+
   plaque?.addEventListener('pointerenter', (event) => {
     if (event.pointerType === 'mouse') shedPlaqueDust();
   });

@@ -823,11 +823,71 @@
   color: #67432f;
 }
 
-/* Sawdust falls below the plaque, leaving the lettering clear. */
+/* A thin rain of sawdust crosses the plaque and gathers at its lower rule. */
 .workshop-bench { position: relative; overflow: visible; }
 .workshop-bench.is-dusting { animation: workshop-plaque-rock 800ms ease-out both; }
-.plaque-dust { position: absolute; inset: auto 0 2px; height: 1px; pointer-events: none; z-index: 3; }
-.plaque-dust i { position: absolute; display: block; border-radius: 1px; opacity: 0; }
+.plaque-dust {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 12;
+}
+.plaque-dust i {
+  position: absolute;
+  top: 0;
+  display: block;
+  border-radius: 45% 55% 40% 60%;
+  opacity: 0;
+  box-shadow: 0 1px 2px rgba(64,35,12,.38);
+  z-index: 0;
+}
+.plaque-dust::after {
+  content: "";
+  position: absolute;
+  right: 4%;
+  bottom: 7px;
+  left: 4%;
+  height: 13px;
+  border-radius: 50% 50% 35% 35%;
+  background:
+    radial-gradient(ellipse at 24% 80%, rgba(114,72,38,.56), transparent 31%),
+    radial-gradient(ellipse at 69% 90%, rgba(143,92,49,.5), transparent 38%),
+    linear-gradient(to top, rgba(118,72,36,.45), transparent 78%);
+  opacity: 0;
+  transform: scaleX(.25) scaleY(.35);
+  transform-origin: center bottom;
+  z-index: 1;
+}
+.workshop-bench.is-dusting .plaque-dust::after {
+  animation: plaque-dust-settle 4200ms ease-out both;
+}
+.plaque-brush {
+  position: absolute;
+  bottom: 1px;
+  left: -10rem;
+  width: 9rem;
+  height: 3.5rem;
+  overflow: visible;
+  opacity: 0;
+  filter: drop-shadow(0 3px 3px rgba(58,37,20,.28));
+  z-index: 2;
+}
+.workshop-bench.is-dusting .plaque-brush {
+  animation: plaque-brush-sweep 4200ms ease-in-out both;
+}
+@keyframes plaque-brush-sweep {
+  0%, 60% { left: -10rem; opacity: 0; transform: rotate(-8deg); }
+  63% { opacity: 1; }
+  91% { left: calc(100% - 6rem); opacity: 1; transform: rotate(2deg); }
+  100% { left: calc(100% + 1rem); opacity: 0; transform: rotate(3deg); }
+}
+@keyframes plaque-dust-settle {
+  0%, 35% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
+  55%, 64% { opacity: .78; transform: scaleX(1) scaleY(1); }
+  96%, 100% { opacity: 0; transform: translateX(115%) scaleX(.45) scaleY(.7); }
+}
 @keyframes workshop-plaque-rock {
   0%, 100% { transform: translateY(0) rotate(0); }
   25% { transform: translateY(-4px) rotate(-0.7deg); }
@@ -1581,7 +1641,5 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 .project-card--emerald .project-card__mark { color:rgba(47,111,237,.075); }
 .project-card--visual:hover,.project-card--visual.is-tilting,.project-card--visual:focus-visible { transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) translateY(-9px) scale(1.012); }
 .workshop-bench { overflow:visible; }
-.plaque-dust { z-index:12; }
-.plaque-dust i { box-shadow:0 1px 2px rgba(64,35,12,.38),0 0 3px rgba(255,234,189,.65); }
 @media (max-width:760px) { .brand-mark { width:2.75rem; height:2.75rem; } .ai-proof-board { transform:rotate(.5deg); } .project-card { transform:none !important; } .project-card--visual .project-card__art { transform:none !important; } }
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce) { .cursor-spotlight { display:none; } .ai-proof-board { transform:none; transition:none; } .project-card { transform:none !important; } .project-card--visual .project-card__art { transform:none !important; } }
