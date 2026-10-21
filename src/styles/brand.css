@@ -861,32 +861,43 @@
   z-index: 1;
 }
 .workshop-bench.is-dusting .plaque-dust::after {
-  animation: plaque-dust-settle 4200ms ease-out both;
+  animation: plaque-dust-settle 5500ms ease-out both;
 }
-.plaque-brush {
+.plaque-vac {
   position: absolute;
-  bottom: 1px;
-  left: -10rem;
-  width: 9rem;
-  height: 3.5rem;
+  right: -14rem;
+  bottom: -.35rem;
+  width: 12.4rem;
+  height: 6.8rem;
   overflow: visible;
   opacity: 0;
-  filter: drop-shadow(0 3px 3px rgba(58,37,20,.28));
   z-index: 2;
+  filter: drop-shadow(0 4px 4px rgba(37,32,26,.28));
 }
-.workshop-bench.is-dusting .plaque-brush {
-  animation: plaque-brush-sweep 4200ms ease-in-out both;
+.workshop-bench.is-dusting .plaque-vac {
+  animation: plaque-vac-roll 5500ms ease-in-out both;
 }
-@keyframes plaque-brush-sweep {
-  0%, 60% { left: -10rem; opacity: 0; transform: rotate(-8deg); }
-  63% { opacity: 1; }
-  91% { left: calc(100% - 6rem); opacity: 1; transform: rotate(2deg); }
-  100% { left: calc(100% + 1rem); opacity: 0; transform: rotate(3deg); }
+.workshop-bench.is-dusting .plaque-vac__wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: plaque-vac-wheel 5500ms linear both;
 }
+@keyframes plaque-vac-roll {
+  0%, 42% { right: -14rem; opacity: 0; }
+  52%, 78% { right: -1rem; opacity: 1; }
+  90% { right: -14rem; opacity: 1; }
+  100% { right: -14rem; opacity: 0; }
+}
+@keyframes plaque-vac-wheel {
+  0%, 42% { transform: rotate(0deg); }
+  52%, 78% { transform: rotate(720deg); }
+  90%, 100% { transform: rotate(1080deg); }
+}
+.plaque-dust i.plaque-dust__suction { z-index: 1; }
 @keyframes plaque-dust-settle {
-  0%, 35% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
-  55%, 64% { opacity: .78; transform: scaleX(1) scaleY(1); }
-  96%, 100% { opacity: 0; transform: translateX(115%) scaleX(.45) scaleY(.7); }
+  0%, 33% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
+  52%, 57% { opacity: .78; transform: scaleX(1) scaleY(1); }
+  78%, 100% { opacity: 0; transform: translateX(38%) scaleX(0) scaleY(.45); }
 }
 @keyframes workshop-plaque-rock {
   0%, 100% { transform: translateY(0) rotate(0); }

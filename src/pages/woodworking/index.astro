@@ -28,19 +28,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
 
       <aside class="workshop-bench" data-workshop-plaque aria-label="Workshop build philosophy">
-        <span class="plaque-dust" data-plaque-dust aria-hidden="true"><svg class="plaque-brush" viewBox="0 0 180 70" focusable="false" aria-hidden="true">
+        <span class="plaque-dust" data-plaque-dust aria-hidden="true"><svg class="plaque-vac" viewBox="0 0 220 120" focusable="false" aria-hidden="true">
           <defs>
-            <linearGradient id="plaque-wood" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#c88f53"/><stop offset=".48" stop-color="#a86b38"/><stop offset="1" stop-color="#75421f"/></linearGradient>
-            <linearGradient id="plaque-metal" x1="0" x2="1"><stop stop-color="#746c5d"/><stop offset=".5" stop-color="#e1d3b8"/><stop offset="1" stop-color="#6d675f"/></linearGradient>
+            <linearGradient id="vac-tank" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#687078"/><stop offset=".25" stop-color="#a5adb0"/><stop offset=".67" stop-color="#757e84"/><stop offset="1" stop-color="#414b52"/></linearGradient>
+            <linearGradient id="vac-top" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#555a5b"/><stop offset="1" stop-color="#202729"/></linearGradient>
           </defs>
-          <path d="M8 31 Q5 28 9 25 Q13 22 23 24 L100 27 L110 22 L113 43 L99 40 L22 38 Q11 39 8 35Z" fill="url(#plaque-wood)" stroke="#683b20" stroke-width="1.5"/>
-          <ellipse cx="19" cy="31" rx="3" ry="2.3" fill="#5d351d" stroke="#d2a06b" stroke-width=".8"/>
-          <path d="M28 28 Q61 31 94 29 M31 35 Q62 33 93 37" fill="none" stroke="#e1ad70" stroke-width=".8" opacity=".55"/>
-          <path d="M100 26 L110 22 L116 42 L101 41Z" fill="url(#plaque-metal)" stroke="#695d4c" stroke-width="1"/>
-          <path d="M109 23 Q133 18 165 23 L172 26 L171 41 Q135 46 111 42Z" fill="url(#plaque-wood)" stroke="#673d22" stroke-width="1.5"/>
-          <path d="M116 29 Q137 27 165 29 M117 34 Q142 36 166 32" fill="none" stroke="#e6b777" stroke-width=".9" opacity=".55"/>
-          <path d="M112 42 Q111 50 107 60 M118 43 Q117 50 115 63 M124 44 Q123 52 122 64 M130 44 Q130 54 129 63 M136 44 Q137 52 137 64 M142 44 Q144 53 144 64 M148 43 Q151 54 151 63 M154 43 Q157 51 159 61 M160 42 Q165 51 166 59 M167 41 Q172 49 174 57" fill="none" stroke="#6d4b31" stroke-width="4.3" stroke-linecap="round"/>
-          <path d="M114 43 Q113 53 110 61 M121 44 Q119 53 118 65 M127 44 Q127 54 125 65 M133 44 L133 64 M139 44 Q141 54 141 65 M146 44 Q148 53 148 64 M152 43 Q156 53 156 63 M163 42 Q168 52 170 59" fill="none" stroke="#c59b69" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M44 84 C54 80 59 64 69 59 C83 51 93 59 102 61 C111 63 117 55 120 49" fill="none" stroke="#111b20" stroke-width="15" stroke-linecap="round"/>
+          <path d="M44 84 C54 80 59 64 69 59 C83 51 93 59 102 61 C111 63 117 55 120 49" fill="none" stroke="#667076" stroke-width="1.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+          <path d="M6 85 Q22 80 45 79 L51 87 Q26 90 5 91Z" fill="#353d3e" stroke="#151a1b" stroke-width="2"/>
+          <path d="M7 85 L42 83" stroke="#7e8580" stroke-width="1.2" opacity=".7"/>
+          <path d="M119 44 L191 44 L187 91 Q185 103 173 104 L137 104 Q124 102 123 91Z" fill="url(#vac-tank)" stroke="#313b3f" stroke-width="2.5"/>
+          <path d="M126 55 L184 55 M130 93 Q151 99 177 93" fill="none" stroke="#d3d5cd" stroke-width="1.5" opacity=".45"/>
+          <path d="M119 43 Q121 34 130 32 L182 32 Q190 34 192 43 L190 50 L120 50Z" fill="url(#vac-top)" stroke="#1f272b" stroke-width="2"/>
+          <path d="M130 32 L134 22 Q140 18 148 19 L171 19 Q178 19 181 24 L184 32" fill="none" stroke="#282d2d" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M137 39 L176 39 M139 43 L174 43" stroke="#8e989a" stroke-width="1.5" opacity=".65"/>
+          <rect x="135" y="58" width="45" height="10" rx="2" fill="#ae7142" stroke="#734a2d" stroke-width="1"/>
+          <path d="M140 63 H174" stroke="#efd0a7" stroke-width="1" opacity=".8"/>
+          <path d="M117 53 Q108 56 109 62 L118 68" fill="none" stroke="#303a3c" stroke-width="6"/>
+          <path d="M128 101 L184 101" stroke="#2b3031" stroke-width="6" stroke-linecap="round"/>
+          <g class="plaque-vac__wheel"><circle cx="136" cy="106" r="9" fill="#202526" stroke="#657072" stroke-width="2"/><path d="M136 99v14 M129 106h14" stroke="#767d7d" stroke-width="1.4"/><circle cx="136" cy="106" r="2" fill="#a8aaa4"/></g>
+          <g class="plaque-vac__wheel"><circle cx="177" cy="106" r="9" fill="#202526" stroke="#657072" stroke-width="2"/><path d="M177 99v14 M170 106h14" stroke="#767d7d" stroke-width="1.4"/><circle cx="177" cy="106" r="2" fill="#a8aaa4"/></g>
         </svg></span>
         <div class="bench-rule bench-rule--top"></div>
         <div class="bench-stamp egg-mark egg-mark--workshop" data-egg="NO FANTASY SHOP REQUIRED" tabindex="0" role="note" aria-label="Hidden note: No fantasy shop required.">NOLAN'S<br/>WORKSHOP</div>

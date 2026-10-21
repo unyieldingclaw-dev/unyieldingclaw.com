@@ -49,11 +49,29 @@
 
     // Once the chips land, the dust bank remains for the brush to clear.
     window.setTimeout(() => plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove()), 2500);
+    // A few loose flecks converge on the nozzle while the canister is parked.
+    window.setTimeout(() => {
+      const width = plaqueDust.clientWidth;
+      const height = plaqueDust.clientHeight;
+      const nozzleX = width - 166;
+      for (let i = 0; i < 18; i += 1) {
+        const fleck = document.createElement('i');
+        const startX = width * (0.07 + (i * 29 % 87) / 100);
+        const size = 2 + i % 3;
+        fleck.className = 'plaque-dust__suction';
+        fleck.style.cssText = `left:${startX}px;top:${height - 11 - i % 4 * 3}px;width:${size}px;height:${size}px;background:#ad7847`;
+        plaqueDust.append(fleck);
+        fleck.animate([
+          { transform: 'translate3d(0,0,0)', opacity: .8 },
+          { transform: `translate3d(${nozzleX - startX}px,-22px,0)`, opacity: 0 }
+        ], { duration: 580 + i % 4 * 110, delay: i % 6 * 65, easing: 'ease-in', fill: 'forwards' });
+      }
+    }, 3000);
     window.setTimeout(() => {
       plaque.classList.remove('is-dusting');
       plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove());
       plaqueBusy = false;
-    }, 4300);
+    }, 5600);
   };
 
   plaque?.addEventListener('pointerenter', (event) => {
