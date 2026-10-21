@@ -1670,5 +1670,14 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 .builder-portrait figcaption span {font-size:.88rem; color:#4b6074;}
 .about-identity { padding-block:2rem; }
 .about-stack--horizontal { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
-.about-stack--horizontal .about-stack__card { transform:none; }
+/* These cards sit on the light page, outside the dark hero. */
+.about-stack--horizontal .about-stack__card {
+  transform: none;
+  background: #ffffff;
+  border-color: #cdd8e5;
+  box-shadow: 0 8px 24px rgba(11,31,51,.08);
+}
+.about-stack--horizontal .about-stack__card span { color: #2456b8; }
+.about-stack--horizontal .about-stack__card strong { color: #143454; }
+.about-stack--horizontal .about-stack__card small { color: #4b6074; }
 @media(max-width:760px){ .about-stack--horizontal {grid-template-columns:1fr;} .builder-portrait {width:min(100%,300px);} }
