@@ -68,7 +68,7 @@
           { transform: `translate3d(${nozzleX - startX}px,-22px,0)`, opacity: 0 }
         ], { duration: 580 + i % 4 * 110, delay: i % 6 * 65, easing: 'ease-in', fill: 'forwards' });
       }
-    }, 3000);
+    }, 3800);
     window.setTimeout(() => {
       plaque.classList.remove('is-dusting');
       plaqueDust.querySelectorAll('i').forEach((chip) => chip.remove());

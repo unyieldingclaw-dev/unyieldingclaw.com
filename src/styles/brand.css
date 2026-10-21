@@ -847,14 +847,16 @@
   content: "";
   position: absolute;
   right: 4%;
-  bottom: 7px;
+  bottom: 6px;
   left: 4%;
-  height: 13px;
-  border-radius: 50% 50% 35% 35%;
+  height: 24px;
+  border-radius: 44% 39% 14% 12% / 75% 72% 15% 14%;
   background:
-    radial-gradient(ellipse at 24% 80%, rgba(114,72,38,.56), transparent 31%),
-    radial-gradient(ellipse at 69% 90%, rgba(143,92,49,.5), transparent 38%),
-    linear-gradient(to top, rgba(118,72,36,.45), transparent 78%);
+    radial-gradient(ellipse 18% 65% at 18% 100%, rgba(117,72,37,.56) 0 75%, transparent 80%),
+    radial-gradient(ellipse 23% 85% at 43% 100%, rgba(151,99,53,.55) 0 72%, transparent 78%),
+    radial-gradient(ellipse 21% 75% at 70% 100%, rgba(123,75,39,.53) 0 74%, transparent 80%),
+    radial-gradient(ellipse 16% 60% at 91% 100%, rgba(164,111,62,.48) 0 70%, transparent 78%),
+    linear-gradient(to top, rgba(111,68,36,.60), rgba(168,113,62,.38) 58%, transparent 88%);
   opacity: 0;
   transform: scaleX(.25) scaleY(.35);
   transform-origin: 36% bottom;
@@ -883,21 +885,21 @@
   animation: plaque-vac-wheel 5500ms linear both;
 }
 @keyframes plaque-vac-roll {
-  0%, 42% { right: -14rem; opacity: 0; }
-  52%, 78% { right: 7rem; opacity: 1; }
-  90% { right: -14rem; opacity: 1; }
+  0%, 55% { right: -14rem; opacity: 0; }
+  66%, 88% { right: 7rem; opacity: 1; }
+  94% { right: -14rem; opacity: 1; }
   100% { right: -14rem; opacity: 0; }
 }
 @keyframes plaque-vac-wheel {
-  0%, 42% { transform: rotate(0deg); }
-  52%, 78% { transform: rotate(720deg); }
-  90%, 100% { transform: rotate(1080deg); }
+  0%, 55% { transform: rotate(0deg); }
+  66%, 88% { transform: rotate(720deg); }
+  94%, 100% { transform: rotate(1080deg); }
 }
 .plaque-dust i.plaque-dust__suction { z-index: 1; }
 @keyframes plaque-dust-settle {
-  0%, 33% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
-  52%, 57% { opacity: .78; transform: scaleX(1) scaleY(1); }
-  78%, 100% { opacity: 0; transform: scaleX(0) scaleY(.45); }
+  0%, 12% { opacity: 0; transform: scaleX(.25) scaleY(.35); }
+  35%, 68% { opacity: .94; transform: scaleX(1) scaleY(1); }
+  90%, 100% { opacity: 0; transform: scaleX(0) scaleY(.45); }
 }
 @keyframes workshop-plaque-rock {
   0%, 100% { transform: translateY(0) rotate(0); }
@@ -1654,3 +1656,6 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 .workshop-bench { overflow:visible; }
 @media (max-width:760px) { .brand-mark { width:2.75rem; height:2.75rem; } .ai-proof-board { transform:rotate(.5deg); } .project-card { transform:none !important; } .project-card--visual .project-card__art { transform:none !important; } }
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce) { .cursor-spotlight { display:none; } .ai-proof-board { transform:none; transition:none; } .project-card { transform:none !important; } .project-card--visual .project-card__art { transform:none !important; } }
+
+/* Use the approved saw emblem at header size without cropping its teeth. */
+.brand-mark img { position: static; width: 92%; height: 92%; max-width: 100%; object-fit: contain; }
