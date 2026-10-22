@@ -1681,3 +1681,28 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 .about-stack--horizontal .about-stack__card strong { color: #143454; }
 .about-stack--horizontal .about-stack__card small { color: #4b6074; }
 @media(max-width:760px){ .about-stack--horizontal {grid-template-columns:1fr;} .builder-portrait {width:min(100%,300px);} }
+
+/* The matching artwork lives within each hero's existing visual panel. */
+.hero-brand-plaque,
+.workshop-bench .bench-stamp {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: .55rem;
+}
+.hero-brand-plaque {
+  border: 1px solid rgba(125,168,255,.3);
+  background: #091b31;
+}
+.workshop-bench .bench-stamp {
+  margin: .4rem 0;
+  border: 1px solid rgba(97,64,38,.25);
+  box-shadow: 0 8px 18px rgba(75,52,34,.1);
+  transform: none;
+}
+.hero-brand-plaque img,
+.workshop-bench .bench-stamp img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
