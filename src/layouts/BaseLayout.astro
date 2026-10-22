@@ -17,7 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 const pathname = Astro.url.pathname;
 const isWorkshopPage = pathname.startsWith('/woodworking');
 const socialImageURL = new URL(
-  isWorkshopPage ? '/social-card-nolans-workshop.jpg?v=3' : '/social-card-unyielding-claw.jpg?v=3',
+  isWorkshopPage ? '/social-card-nolans-workshop-wide.jpg?v=4' : '/social-card-unyielding-claw-wide-v4.jpg?v=4',
   Astro.site ?? Astro.url.origin,
 );
 const socialImageAlt = isWorkshopPage
@@ -75,14 +75,15 @@ const personSchema = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="1733" />
+    <meta property="og:image:height" content={isWorkshopPage ? "908" : "907"} />
     <meta property="og:image:alt" content={socialImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
 
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
@@ -138,7 +139,7 @@ const personSchema = {
       </div>
       <div class="trail-complete__card">
         <div class="trail-badge" aria-hidden="true">
-          <img class="trail-badge__mark" src="/social-card-unyielding-claw.jpg" width="68" height="68" alt="" aria-hidden="true" />
+          <img class="trail-badge__mark" src="/brand-mark.svg?v=3" width="68" height="68" alt="" aria-hidden="true" />
           <b>EXPLORER</b>
         </div>
         <p>TRAIL GUIDE // RANK EARNED</p>
