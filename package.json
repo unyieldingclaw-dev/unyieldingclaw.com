@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "a11y": "node scripts/a11y-audit.mjs"
+    "a11y": "node scripts/a11y-audit.mjs",
+    "a11y:nvda": "playwright test --config=playwright.nvda.config.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
@@ -19,6 +20,10 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
-    "playwright": "1.64.1"
+    "playwright": "1.64.1",
+    "@guidepup/guidepup": "0.36.4",
+    "@guidepup/playwright": "0.19.1",
+    "@guidepup/setup": "0.29.3",
+    "@playwright/test": "1.64.1"
   }
 }
