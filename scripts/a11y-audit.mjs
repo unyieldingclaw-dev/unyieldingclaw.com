@@ -188,6 +188,34 @@ try {
     const page = await context.newPage();
     await page.goto(new URL('/woodworking/', baseURL).toString(), { waitUntil: 'networkidle' });
 
+    // Selecting a project must update the large image; its expanded view
+    // should show that same asset and return keyboard focus when dismissed.
+    await page.locator('[data-gallery-project="1"]').click();
+    const selectedPhoto = page.locator('[data-gallery-photo][aria-pressed="true"]');
+    const selectedSource = await selectedPhoto.getAttribute('data-src');
+    const mainSource = await page.locator('[data-gallery-image]').getAttribute('src');
+    if (!selectedSource || mainSource !== selectedSource) {
+      fail('Workshop gallery: project selection did not update the large image');
+    }
+
+    const expand = page.locator('[data-gallery-expand]');
+    await expand.focus();
+    await page.keyboard.press('Enter');
+    const dialog = page.locator('[data-gallery-dialog]');
+    if (!(await dialog.evaluate((el) => el.open))) {
+      fail('Workshop gallery: Enter did not open the expanded photo');
+    }
+    if (await page.locator('[data-gallery-dialog-image]').getAttribute('src') !== selectedSource) {
+      fail('Workshop gallery: expanded photo differs from the selected image');
+    }
+    await page.keyboard.press('Escape');
+    if (await dialog.evaluate((el) => el.open)) {
+      fail('Workshop gallery: Escape did not close the expanded photo');
+    }
+    if (!(await expand.evaluate((el) => document.activeElement === el))) {
+      fail('Workshop gallery: focus did not return to the expand control');
+    }
+
     const saw = page.locator('[data-saw-cut]');
     const sawTrigger = page.locator('[data-saw-trigger]');
     await sawTrigger.focus();

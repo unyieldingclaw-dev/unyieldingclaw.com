@@ -1,5 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+// Keep project order and captions together so the dial and photo rail stay in sync.
+const galleryProjects = [
+  {
+    name: 'Dart cabinet',
+    label: '01 / DART CABINET',
+    photos: [
+      { src: '/workshop-gallery/dart-cabinet-open.webp', alt: 'Open handmade dart cabinet against a textured blue backdrop', title: 'A birthday build with Dad', detail: 'For my 50th birthday, my wife wanted to buy me a complete Bullshooter setup. I chose to build a cabinet around a GranBoard 3s instead, so I could play people around the world. My father helped with the early stages and the large cuts; that made the finished system even more special.' },
+      { src: '/workshop-gallery/dart-cabinet-layout.webp', alt: 'Dart cabinet laid on its back, showing the cabinet construction', title: 'The cuts and the happy accident', detail: 'The freeform angled cuts on the cabinet-grade plywood sides were the toughest part. Watco Redwood Danish Oil turned out far redder than the store sample. A coat of black walnut stain brought it back to a finish I love. Next time, I test on scrap first.' },
+      { src: '/workshop-gallery/dart-cabinet-glow.webp', alt: 'Finished dart cabinet lit with its warm red glow at night', title: 'The real glow', detail: 'A phone-controlled Govee RGBIC strip creates the backlighting, while a Viper Shadow Buster lights the board. The cabinet also houses a 32-inch Hisense monitor behind 3/16-inch plexiglass and a Vizio 2.1 soundbar below. A Viper Laser Oche mounts underneath.' },
+    ],
+  },
+  {
+    name: 'LOVE signs',
+    label: '02 / LOVE SIGNS',
+    photos: [
+      { src: '/workshop-gallery/love-boards.webp', alt: 'Pine LOVE signs with dog paw cutouts, black letters, and torch-darkened grain on a blue backdrop', title: 'For the dog people', detail: 'I made these pine signs for dog-loving family and friends. I lit a clear trim-router base with salvaged LED strips to see the cuts. After a bit bearing failed on a shallow pass, I used a 1/8-inch spiral bit with replaceable painter’s tape as a guide through the tight corners. Flat black letters, beveled edges, a light torch pass to bring out the grain, clear coat, hanging hardware, and my branding iron finished each one.', sourceUrl: 'https://makeawoodsign.com/' },
+    ],
+  },
+  {
+    name: 'Whirligigs',
+    label: '03 / WHIRLIGIGS',
+    photos: [
+      { src: '/workshop-gallery/ucm-mule.webp', alt: 'Hand-painted University of Central Missouri mule whirligig against a blue backdrop', title: 'A graduation gift, one generation later', detail: 'My grandfather made me an MU Tiger whirligig for my graduation. For my son’s UCM graduation, I carefully took that Tiger apart and used its pieces as a model for this mule. My mother refined my sketches and painted the mule, just as she had painted the Tiger. My son had no idea I was making it; the look on his face was priceless.', buildNotes: 'I made thin-board templates from my mother’s stiff-paper patterns with the band saw, cut the parts in pine, then used the wooden templates to guide cleanup at the router table. I improvised with local Ace hardware when I could not match my grandfather’s. The bottom mounting hole wandered on the first try, so I filled it and got help holding the piece for another attempt. Cutting the diagonal groove in the half-inch leg block was another challenge: the hand saw did not work, and the piece was too small for me to feel comfortable using the table saw. My DeWalt oscillating tool did the job.' },
+      { src: '/workshop-gallery/mu-tiger-balanced-v2.webp', alt: 'Yellow and black MU Tiger whirligig made by the builder’s grandfather', title: 'Where the idea began', detail: 'My grandfather made this MU Tiger whirligig when I graduated from MU, and my mother painted it. I carefully took it apart years later and used its pieces as a physical reference for the mule I made for my son.' },
+    ],
+  },
+];
 ---
 
 <!-- workshop-v2 -->
@@ -103,6 +130,71 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <p>Routing, joinery, finishing, material choices, mistakes, revisions, and the occasional “that should probably work” prototype.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section class="section workshop-gallery" id="built-in-the-shop" aria-labelledby="shop-gallery-heading" data-shop-gallery>
+    <div class="shell">
+      <div class="section-heading section-heading--punch">
+        <div>
+          <p class="eyebrow">Built in the shop</p>
+          <h2 id="shop-gallery-heading">The work, up close.</h2>
+        </div>
+        <p class="section-intro">Turn through the projects, then choose a detail. The photos lead; the stories explain why they matter.</p>
+      </div>
+      <div class="shop-gallery__layout">
+        <div class="shop-gallery__viewer">
+          <div class="shop-gallery__image-wrap">
+            <img data-gallery-image src={galleryProjects[0].photos[0].src} alt={galleryProjects[0].photos[0].alt} width="1448" height="1086" decoding="async" />
+            <button class="shop-gallery__expand" type="button" data-gallery-expand aria-label={`Expand photo: ${galleryProjects[0].photos[0].title}`}><span>Expand photo ↗</span></button>
+          </div>
+          <div class="shop-gallery__caption" aria-live="polite" aria-atomic="true">
+            <span data-gallery-label>{galleryProjects[0].label}</span>
+            <h3 data-gallery-title>{galleryProjects[0].photos[0].title}</h3>
+            <p data-gallery-detail>{galleryProjects[0].photos[0].detail}</p>
+            <details class="shop-gallery__notes" data-gallery-notes hidden><summary>Build notes</summary><p data-gallery-notes-text></p></details>
+            <a class="shop-gallery__source" data-gallery-source href="https://makeawoodsign.com/" hidden>Template and video inspiration: Make a Wood Sign ↗</a>
+          </div>
+        </div>
+        <div class="shop-gallery__controls">
+          <p class="shop-gallery__overline">SELECT A PROJECT</p>
+          <div class="shop-gallery__dial" role="group" aria-label="Workshop projects">
+            <div class="shop-gallery__blade" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false" aria-hidden="true"><polygon points="50.0,8.0 52.6,1.1 58.5,1.7 63.7,10.3 68.2,12.2 73.5,7.0 78.6,10.2 79.6,20.2 82.8,23.8 89.9,21.5 93.0,26.6 89.6,35.9 90.9,40.7 98.3,41.6 98.9,47.6 91.8,54.5 90.9,59.3 97.1,63.4 95.2,69.0 85.7,72.2 82.8,76.2 86.7,82.5 82.4,86.7 72.5,85.5 68.2,87.8 68.9,95.2 63.3,97.2 54.9,91.7 50.0,92.0 47.4,98.9 41.5,98.3 36.3,89.7 31.8,87.8 26.5,93.0 21.4,89.8 20.4,79.8 17.2,76.2 10.1,78.5 7.0,73.4 10.4,64.1 9.1,59.3 1.7,58.4 1.1,52.4 8.2,45.5 9.1,40.7 2.9,36.6 4.8,31.0 14.3,27.8 17.2,23.8 13.3,17.5 17.6,13.3 27.5,14.5 31.8,12.2 31.1,4.8 36.7,2.8 45.1,8.3" fill="#8294a5" stroke="#233b53" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="50" r="32" fill="#d9e4ec" stroke="#395c7e" stroke-width="3"/><circle cx="50" cy="50" r="17" fill="#b0c3d5" stroke="#5c7793" stroke-width="2"/><circle cx="50" cy="50" r="8" fill="#2456b8"/></svg></div>
+            {galleryProjects.map((project, index) => (
+              <button class="shop-gallery__project" type="button" data-gallery-project={index} aria-pressed={index === 0 ? 'true' : 'false'}>
+                <span>{project.label.split(' / ')[0]}</span>{project.name}
+              </button>
+            ))}
+          </div>
+          <p class="shop-gallery__overline" data-gallery-overline>DETAILS / {galleryProjects[0].name.toUpperCase()}</p>
+          <div class="shop-gallery__thumbs" role="group" aria-label="Photos in selected project">
+            {galleryProjects.flatMap((project, projectIndex) => project.photos.map((photo, photoIndex) => (
+              <button
+                class="shop-gallery__thumb"
+                type="button"
+                data-gallery-photo
+                data-project={projectIndex}
+                data-src={photo.src}
+                data-alt={photo.alt}
+                data-title={photo.title}
+                data-detail={photo.detail}
+                data-build-notes={photo.buildNotes ?? ''}
+                data-label={project.label}
+                data-source-url={photo.sourceUrl ?? ''}
+                aria-label={`${project.name}: ${photo.title}`}
+                aria-pressed={projectIndex === 0 && photoIndex === 0 ? 'true' : 'false'}
+                hidden={projectIndex !== 0}
+              ><img src={photo.src} alt="" width="96" height="72" loading="lazy" decoding="async" /><span>{photo.title}</span></button>
+            )))}
+          </div>
+          <p class="shop-gallery__hint">Use the project selector or tap a photo. The blade marks your place.</p>
+        </div>
+      </div>
+      <dialog class="shop-gallery__dialog" data-gallery-dialog aria-label="Expanded workshop photo">
+        <button class="shop-gallery__close" type="button" data-gallery-close aria-label="Close expanded photo">Close ×</button>
+        <img data-gallery-dialog-image src={galleryProjects[0].photos[0].src} alt={galleryProjects[0].photos[0].alt} width="1448" height="1086" />
+        <p data-gallery-dialog-title>{galleryProjects[0].photos[0].title}</p>
+      </dialog>
     </div>
   </section>
 
@@ -413,4 +505,5 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </section>
 
   <script src="../../scripts/workshop.js"></script>
+  <script src="../../scripts/workshop-gallery.js"></script>
 </BaseLayout>
