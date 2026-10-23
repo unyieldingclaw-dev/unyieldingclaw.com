@@ -12,7 +12,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  # A slow PR browser audit must not hold up a production deploy.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
