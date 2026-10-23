@@ -191,6 +191,12 @@ try {
     // Selecting a project must update the large image; its expanded view
     // should show that same asset and return keyboard focus when dismissed.
     await page.locator('[data-gallery-project="1"]').click();
+    const lovePhotos = page.locator('[data-gallery-photo][data-project="1"]');
+    if (await lovePhotos.count() < 3) {
+      fail('Workshop gallery: LOVE signs should include the group, stacked, and maker-mark views');
+    } else {
+      await lovePhotos.nth(2).click();
+    }
     const selectedPhoto = page.locator('[data-gallery-photo][aria-pressed="true"]');
     const selectedSource = await selectedPhoto.getAttribute('data-src');
     const mainSource = await page.locator('[data-gallery-image]').getAttribute('src');

@@ -15,7 +15,9 @@ const galleryProjects = [
     name: 'LOVE signs',
     label: '02 / LOVE SIGNS',
     photos: [
+      { src: '/workshop-gallery/love-signs-stack.webp', alt: 'A stack of handmade pine LOVE dog-paw signs showing the carved letters, beveled edges, and varied torch-darkened grain on a textured blue backdrop', title: 'Grain on every sign', detail: 'The stacked view shows how the torch brought out a different grain pattern on each pine board. I beveled the edges, kept the routed letters and paw prints black, and finished the pieces with clear coat.' },
       { src: '/workshop-gallery/love-boards.webp', alt: 'Pine LOVE signs with dog paw cutouts, black letters, and torch-darkened grain on a blue backdrop', title: 'For the dog people', detail: 'I made these pine signs for dog-loving family and friends. I lit a clear trim-router base with salvaged LED strips to see the cuts. After a bit bearing failed on a shallow pass, I used a 1/8-inch spiral bit with replaceable painter’s tape as a guide through the tight corners. Flat black letters, beveled edges, a light torch pass to bring out the grain, clear coat, hanging hardware, and my branding iron finished each one.', sourceUrl: 'https://makeawoodsign.com/' },
+      { src: '/workshop-gallery/love-signs-brand.webp', alt: 'Close view of the burned NOLAN maker’s mark and natural pine grain on one of the LOVE signs', title: 'The maker’s mark', detail: 'A close look at the original NOLAN branding iron mark I put on the signs. I now have an iron that reads Nolan’s Workshop.' },
     ],
   },
   {
@@ -161,8 +163,11 @@ const galleryProjects = [
           <div class="shop-gallery__dial" role="group" aria-label="Workshop projects">
             <div class="shop-gallery__blade" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false" aria-hidden="true"><polygon points="50.0,8.0 52.6,1.1 58.5,1.7 63.7,10.3 68.2,12.2 73.5,7.0 78.6,10.2 79.6,20.2 82.8,23.8 89.9,21.5 93.0,26.6 89.6,35.9 90.9,40.7 98.3,41.6 98.9,47.6 91.8,54.5 90.9,59.3 97.1,63.4 95.2,69.0 85.7,72.2 82.8,76.2 86.7,82.5 82.4,86.7 72.5,85.5 68.2,87.8 68.9,95.2 63.3,97.2 54.9,91.7 50.0,92.0 47.4,98.9 41.5,98.3 36.3,89.7 31.8,87.8 26.5,93.0 21.4,89.8 20.4,79.8 17.2,76.2 10.1,78.5 7.0,73.4 10.4,64.1 9.1,59.3 1.7,58.4 1.1,52.4 8.2,45.5 9.1,40.7 2.9,36.6 4.8,31.0 14.3,27.8 17.2,23.8 13.3,17.5 17.6,13.3 27.5,14.5 31.8,12.2 31.1,4.8 36.7,2.8 45.1,8.3" fill="#8294a5" stroke="#233b53" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="50" r="32" fill="#d9e4ec" stroke="#395c7e" stroke-width="3"/><circle cx="50" cy="50" r="17" fill="#b0c3d5" stroke="#5c7793" stroke-width="2"/><circle cx="50" cy="50" r="8" fill="#2456b8"/></svg></div>
             {galleryProjects.map((project, index) => (
-              <button class="shop-gallery__project" type="button" data-gallery-project={index} aria-pressed={index === 0 ? 'true' : 'false'}>
-                <span>{project.label.split(' / ')[0]}</span>{project.name}
+              <button class="shop-gallery__project" type="button" data-gallery-project={index} data-project-name={project.name} aria-pressed={index === 0 ? 'true' : 'false'}>
+                <span>{project.label.split(' / ')[0]}</span>
+                {project.name === 'LOVE signs' ? (
+                  <b class="shop-gallery__love-word">L<span class="sr-only">O</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="4.4" cy="8.6" r="2"/><circle cx="9.1" cy="5.5" r="2.1"/><circle cx="14.9" cy="5.5" r="2.1"/><circle cx="19.6" cy="8.6" r="2"/><path d="M12 10.5c-2.2 0-3 1.9-4.5 3.1-1.1.9-2.5 2-2.5 3.5 0 1.5 1.1 2.6 2.6 2.6 1.7 0 2.7-.9 4.4-.9s2.7.9 4.4.9c1.5 0 2.6-1.1 2.6-2.6 0-1.5-1.4-2.6-2.5-3.5-1.5-1.2-2.3-3.1-4.5-3.1Z"/></svg>VE signs</b>
+                ) : project.name}
               </button>
             ))}
           </div>

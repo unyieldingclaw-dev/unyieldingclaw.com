@@ -16,11 +16,17 @@ document.querySelectorAll('[data-shop-gallery]').forEach((gallery) => {
   const dialogImage = gallery.querySelector('[data-gallery-dialog-image]');
   const dialogTitle = gallery.querySelector('[data-gallery-dialog-title]');
 
+  function setProjectHeading(target, prefix, projectIndex, fallback) {
+    const loveWord = projects[projectIndex].querySelector('.shop-gallery__love-word');
+    target.replaceChildren(prefix, loveWord ? loveWord.cloneNode(true) : fallback);
+  }
+
   function selectPhoto(photo) {
     image.src = photo.dataset.src;
     image.alt = photo.dataset.alt;
     expand.setAttribute('aria-label', `Expand photo: ${photo.dataset.title}`);
-    label.textContent = photo.dataset.label;
+    const projectIndex = Number(photo.dataset.project);
+    setProjectHeading(label, `${photo.dataset.label.split(' / ')[0]} / `, projectIndex, photo.dataset.label.split(' / ')[1]);
     title.textContent = photo.dataset.title;
     detail.textContent = photo.dataset.detail;
     notes.open = false;
@@ -35,7 +41,7 @@ document.querySelectorAll('[data-shop-gallery]').forEach((gallery) => {
     projects.forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === index)));
     photos.forEach((button) => { button.hidden = Number(button.dataset.project) !== index; });
     dial.style.setProperty('--dial-turn', `${index * 120}deg`);
-    overline.textContent = `DETAILS / ${projects[index].textContent.trim().replace(/^\d+\s*/, '').toUpperCase()}`;
+    setProjectHeading(overline, 'DETAILS / ', index, projects[index].dataset.projectName.toUpperCase());
     selectPhoto(photos.find((button) => Number(button.dataset.project) === index));
   }
 
