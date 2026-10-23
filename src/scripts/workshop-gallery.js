@@ -42,7 +42,7 @@ document.querySelectorAll('[data-shop-gallery]').forEach((gallery) => {
   projects.forEach((button, index) => button.addEventListener('click', () => selectProject(index)));
   photos.forEach((button) => button.addEventListener('click', () => selectPhoto(button)));
   expand.addEventListener('click', () => {
-    dialogImage.src = image.src;
+    dialogImage.src = image.getAttribute('src');
     dialogImage.alt = image.alt;
     dialogTitle.textContent = title.textContent;
     dialog.showModal();
