@@ -15,6 +15,8 @@ document.querySelectorAll('[data-shop-gallery]').forEach((gallery) => {
   const dialog = gallery.querySelector('[data-gallery-dialog]');
   const dialogImage = gallery.querySelector('[data-gallery-dialog-image]');
   const dialogTitle = gallery.querySelector('[data-gallery-dialog-title]');
+  let selectedProject = 0;
+  let bladeTurn = 0;
 
   function setProjectHeading(target, prefix, projectIndex, fallback) {
     const loveWord = projects[projectIndex].querySelector('.shop-gallery__love-word');
@@ -40,7 +42,12 @@ document.querySelectorAll('[data-shop-gallery]').forEach((gallery) => {
   function selectProject(index) {
     projects.forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === index)));
     photos.forEach((button) => { button.hidden = Number(button.dataset.project) !== index; });
-    dial.style.setProperty('--dial-turn', `${index * 120}deg`);
+    // Each project change advances the teeth in their cutting direction.
+    if (index !== selectedProject) {
+      bladeTurn -= 120;
+      dial.style.setProperty('--dial-turn', `${bladeTurn}deg`);
+      selectedProject = index;
+    }
     setProjectHeading(overline, 'DETAILS / ', index, projects[index].dataset.projectName.toUpperCase());
     selectPhoto(photos.find((button) => Number(button.dataset.project) === index));
   }

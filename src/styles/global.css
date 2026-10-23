@@ -4270,7 +4270,7 @@ nav a:focus-visible,
 }
 
 @keyframes saw-spin {
-  to { transform: rotate(360deg); }
+  to { transform: rotate(-360deg); }
 }
 
 @keyframes dust-fly {
