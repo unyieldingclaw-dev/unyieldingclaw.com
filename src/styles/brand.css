@@ -1032,8 +1032,8 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 }
 
 .proof-module--copper:hover {
-  border-color: rgba(222,140,84,0.37);
-  background: rgba(180,106,60,0.10);
+  border-color: rgba(91,140,255,0.38);
+  background: rgba(47,111,237,0.10);
 }
 
 .proof-module-index {
@@ -1054,8 +1054,8 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 }
 
 .proof-module--copper .proof-module-index {
-  color: #efa778;
-  background: rgba(180,106,60,0.16);
+  color: #a9c8ff;
+  background: rgba(47,111,237,0.16);
 }
 
 .proof-module strong {
