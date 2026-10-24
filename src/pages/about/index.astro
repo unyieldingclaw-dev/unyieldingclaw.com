@@ -126,8 +126,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <section class="section section--scouting">
     <div class="shell scouting-grid">
       <div class="scouting-emblem">
-        <div class="scouting-mark egg-mark egg-mark--scouting" data-egg="UNYIELDING CLAW // SACHEM" data-trail-hover="about-uc" tabindex="0" role="note" aria-label="Unyielding Claw sawblade mark. Hidden Trail detail.">
+        <div class="scouting-mark egg-mark egg-mark--scouting" data-egg="UNYIELDING CLAW // SACHEM" data-trail-hover="about-uc" tabindex="0" role="note" aria-label="Sawblade with a fleur-de-lis at its center. Hidden Trail detail.">
           <img src="/brand-mark.svg?v=3" width="176" height="176" alt="" aria-hidden="true" />
+          <svg class="scouting-mark__fleur" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <circle cx="32" cy="32" r="31" fill="#0b1f33" stroke="#6e9fe6" stroke-width="1.5" />
+            <g fill="#dceaff" stroke="#91b8f0" stroke-width=".8" stroke-linejoin="round">
+              <path d="M32 9C25 18 25 27 32 35c7-8 7-17 0-26Z" />
+              <path d="M28 39c-3-10-8-15-13-14-6 1-8 7-5 12 2 4 7 6 11 4-4-2-5-5-3-8 3-3 7 0 8 6Z" />
+              <path d="M36 39c3-10 8-15 13-14 6 1 8 7 5 12-2 4-7 6-11 4 4-2 5-5 3-8-3-3-7 0-8 6Z" />
+              <path d="M26 38h12l-2 15-4 4-4-4-2-15Z" />
+            </g>
+            <path d="M23 41h18M26 47h12" fill="none" stroke="#91b8f0" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
         </div>
         <span class="scouting-emblem__caption">UNYIELDING CLAW // THE ORIGIN</span>
         <button class="trail-marker trail-marker--scouting" type="button" data-trail-marker="about-origin" aria-label="Hidden trail marker: Origin Story">◇</button>
