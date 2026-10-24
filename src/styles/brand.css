@@ -1997,6 +1997,72 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 .contact-fit .contact-topic-grid strong { color: #18365c; }
 .contact-fit .contact-topic-grid p { color: #455a75; }
 
+/* Keep the origin story in one row and give the established sawblade mark room to read. */
+.section--scouting {
+  background:
+    radial-gradient(circle at 12% 28%, rgba(47, 111, 237, .12), transparent 22rem),
+    linear-gradient(135deg, #e7effb, #f1f5fc 60%, #e6edfa) !important;
+}
+.scouting-grid {
+  grid-template-columns: minmax(11rem, .36fr) minmax(0, 1fr) minmax(15rem, .58fr);
+  align-items: center;
+}
+.scouting-emblem {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: .9rem;
+  align-self: center;
+}
+.scouting-emblem .scouting-mark {
+  width: clamp(9rem, 14vw, 12rem);
+  height: clamp(9rem, 14vw, 12rem);
+  padding: .75rem;
+  border: 1px solid rgba(47, 111, 237, .28);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #315a9a, #10294e 75%);
+  box-shadow: 0 18px 40px rgba(18, 48, 94, .2);
+}
+.scouting-emblem .scouting-mark img { display: block; width: 100%; height: 100%; }
+.scouting-emblem__caption {
+  color: #214f9c;
+  font: 800 .62rem ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .12em;
+  text-align: center;
+}
+.scouting-emblem .trail-marker--scouting {
+  position: absolute;
+  right: .2rem;
+  top: .2rem;
+  color: #214f9c;
+  border-color: rgba(47, 111, 237, .27);
+  background: #e8f1ff;
+}
+.section--scouting .scouting-callout {
+  border-color: rgba(47, 111, 237, .2);
+  background: rgba(255, 255, 255, .72);
+}
+.section--scouting .scouting-callout span { color: #214f9c; }
+.section--scouting .scouting-callout strong { color: #223c60; }
+
+/* Technical-page primary actions use the brand blue; Workshop keeps its wood accent. */
+.hero .button:not(.secondary),
+.subhero:not(.subhero--workshop) .button:not(.secondary) {
+  border-color: #2f6fed;
+  background: #2f6fed;
+  color: #fff;
+}
+.hero .button:not(.secondary):hover,
+.subhero:not(.subhero--workshop) .button:not(.secondary):hover {
+  border-color: #2054bc;
+  background: #2054bc;
+}
+
+@media (max-width: 900px) {
+  .scouting-grid { grid-template-columns: minmax(0, 1fr); }
+  .scouting-emblem { justify-self: start; }
+}
+
 @media (max-width: 720px) {
   .harness-map__connections { display: none; }
   .harness-map__legend { position: static; margin-top: .5rem; }
