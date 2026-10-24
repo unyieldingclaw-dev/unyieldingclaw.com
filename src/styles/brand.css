@@ -1769,3 +1769,126 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 @media (prefers-reduced-motion: reduce) {
   .shop-gallery__blade, .shop-gallery__project { transition: none; }
 }
+
+/* Work reads as an evidence console, with blue traces instead of another logo. */
+.subhero--work .work-console {
+  border-color: rgba(142, 180, 255, 0.3);
+  background:
+    linear-gradient(rgba(121, 163, 229, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(121, 163, 229, 0.055) 1px, transparent 1px),
+    linear-gradient(145deg, #173b64, #0d243e 80%);
+  background-size: 28px 28px, 28px 28px, auto;
+}
+
+.subhero--work .work-console__top,
+.subhero--work .work-console__metric strong {
+  color: #bbd4f5;
+}
+
+.subhero--work .work-console__top i {
+  background: #8eb4ff;
+  box-shadow: 0 0 0 0.38rem rgba(142, 180, 255, 0.1);
+}
+
+.subhero--work .work-console__metric {
+  position: relative;
+  padding-left: 1.45rem;
+  border-color: rgba(142, 180, 255, 0.17);
+  background: rgba(9, 28, 50, 0.72);
+}
+
+.subhero--work .work-console__metric::before {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  bottom: 0.85rem;
+  left: 0.62rem;
+  width: 3px;
+  border-radius: 2px;
+  background: #7fa9f1;
+}
+
+.subhero--work .work-console__metric:nth-child(3)::before { background: #a5c7ff; }
+.subhero--work .work-console__metric:nth-child(4)::before { background: #d5e4ff; }
+.subhero--work .work-console__metric span { color: #d3e0ef; }
+.subhero--work .work-console__footer {
+  background: linear-gradient(90deg, rgba(47, 111, 237, 0.28), rgba(47, 111, 237, 0.08));
+  color: #bfd5ff;
+}
+
+/* The existing map stays the hero. Quiet links make its relationships legible. */
+.subhero--harness .harness-map {
+  border-color: rgba(142, 180, 255, 0.3);
+  background: radial-gradient(circle at 50% 50%, rgba(47, 111, 237, 0.2), transparent 12rem), #0c243f;
+}
+
+.subhero--harness .harness-map::before,
+.subhero--harness .harness-map::after { border-color: rgba(142, 180, 255, 0.2); }
+
+.harness-map__connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.harness-map__connections path {
+  fill: none;
+  stroke: rgba(142, 180, 255, 0.45);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 9;
+  vector-effect: non-scaling-stroke;
+  animation: map-flow 24s linear infinite;
+}
+
+@keyframes map-flow { to { stroke-dashoffset: -104; } }
+
+.subhero--harness .harness-node {
+  border-color: rgba(142, 180, 255, 0.26);
+  background: rgba(15, 39, 66, 0.94);
+}
+
+.subhero--harness .harness-node span { color: #ecf3ff; }
+.subhero--harness .harness-node small { color: #b4c8df; }
+
+/* Contact uses its own code and mail symbols, with the same blue material. */
+.subhero--contact .contact-action {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(142, 180, 255, 0.3);
+  background:
+    linear-gradient(90deg, transparent 68%, rgba(142, 180, 255, 0.055) 68%, rgba(142, 180, 255, 0.055) 69%, transparent 69%),
+    linear-gradient(135deg, #173b64, #0d243e);
+}
+
+.subhero--contact .contact-action--email {
+  background:
+    linear-gradient(90deg, transparent 68%, rgba(142, 180, 255, 0.055) 68%, rgba(142, 180, 255, 0.055) 69%, transparent 69%),
+    linear-gradient(135deg, #123253, #0b2038);
+}
+
+.contact-action__symbol {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.05rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  fill: none;
+  stroke: #8eb4ff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.74;
+}
+
+.subhero--contact .contact-action span { color: #c0d4f2; }
+.subhero--contact .contact-action small { color: #b5c9e1; }
+
+@media (max-width: 720px) {
+  .harness-map__connections { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .harness-map__connections path { animation: none; }
+}

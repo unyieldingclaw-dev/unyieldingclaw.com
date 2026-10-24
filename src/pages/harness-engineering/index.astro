@@ -32,6 +32,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         data-trail-hover="harness-sag"
         aria-label="Harness Engineering system map. Context, memory, tools, orchestration, governance, evaluation, and runtime surround the model."
       >
+        <svg class="harness-map__connections" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M50 50 L50 10 M50 50 L23 25 M50 50 L77 25 M50 50 L22 50 M50 50 L78 50 M50 50 L23 75 M50 50 L77 75" />
+        </svg>
         <button class="harness-core egg-mark egg-mark--dark matrix-trigger" type="button" data-matrix-trigger data-egg="PROMPTING ≠ ARCHITECTURE" aria-label="Model node. Open the Matrix easter egg." aria-describedby="model-egg-clue">MODEL</button>
         <span class="sr-only" id="model-egg-clue">Hidden note: prompting is not architecture.</span>
         <div class="harness-node node-context"><span>CONTEXT</span><small>authority · freshness</small></div>
