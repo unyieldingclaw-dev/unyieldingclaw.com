@@ -2045,6 +2045,14 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 }
 .section--scouting .scouting-callout span { color: #214f9c; }
 .section--scouting .scouting-callout strong { color: #223c60; }
+.about-builder .bridge-card {
+  border-color: rgba(142, 180, 255, .32);
+  background: linear-gradient(135deg, #173b64, #0d243e);
+  color: #fff;
+  box-shadow: 0 18px 42px rgba(13, 36, 62, .18);
+}
+.about-builder .bridge-card > span { color: #c0d8fa; }
+.about-builder .bridge-card > small { color: #d3e2f5; }
 .scouting-award {
   display: grid;
   gap: .35rem;
