@@ -1944,16 +1944,58 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
   align-items: center;
   gap: 1rem;
   min-height: 2.15rem;
-  color: #c9a17f;
+  color: #b9d1f5;
   font: 800 .6rem ui-monospace, SFMono-Regular, Consolas, monospace;
   letter-spacing: .14em;
 }
 .contact-panel__junction::before,
-.contact-panel__junction::after { content: ""; flex: 1; height: 1px; background: rgba(201, 161, 127, .42); }
+.contact-panel__junction::after { content: ""; flex: 1; height: 1px; background: rgba(142, 180, 255, .42); }
 .contact-panel__junction span { display: block; }
 .subhero--contact .contact-action--github { border-left: 3px solid #8eb4ff; }
-.subhero--contact .contact-action--email { border-left: 3px solid #c88f63; }
-.subhero--contact .contact-action--email .contact-action__symbol { stroke: #d6a577; }
+.subhero--contact .contact-action--email { border-left: 3px solid #a5c7ff; }
+.subhero--contact .contact-action--email .contact-action__symbol { stroke: #a5c7ff; }
+
+/* Four clear conversation routes, with a quiet circuit detail that stays clear of the copy. */
+.contact-fit .contact-topic-grid article {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(40, 91, 175, .2);
+  background: linear-gradient(145deg, #fff, #f1f6ff);
+  box-shadow: 0 12px 30px rgba(16, 43, 85, .08);
+}
+.contact-fit .contact-topic-grid article::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: #2f6fed;
+}
+.contact-fit .contact-topic-grid article::after {
+  content: "";
+  position: absolute;
+  top: 1.55rem;
+  right: 1.4rem;
+  width: 5rem;
+  height: 2.6rem;
+  opacity: .6;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, #3975d6 0 3px, transparent 4px) right 0 top 0 / 8px 8px no-repeat,
+    linear-gradient(#89afe8, #89afe8) right 4px top 4px / 2.1rem 1px no-repeat,
+    linear-gradient(#89afe8, #89afe8) left 1.25rem top 4px / 1px 1.45rem no-repeat,
+    linear-gradient(#89afe8, #89afe8) left 1.25rem bottom .95rem / 1.25rem 1px no-repeat;
+}
+.contact-fit .contact-topic-grid span {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: .4rem;
+  background: #e5efff;
+  color: #174da5;
+}
+.contact-fit .contact-topic-grid strong { color: #18365c; }
+.contact-fit .contact-topic-grid p { color: #455a75; }
 
 @media (max-width: 720px) {
   .harness-map__connections { display: none; }
