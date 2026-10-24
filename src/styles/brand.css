@@ -1805,7 +1805,7 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
   left: 16%;
   right: 16%;
   height: 1px;
-  background: linear-gradient(90deg, #8eb4ff, #8eb4ff 65%, #c88f63);
+  background: linear-gradient(90deg, #8eb4ff, #8eb4ff 65%, #a5c7ff);
 }
 
 .work-console__path span { position: relative; display: grid; justify-items: center; gap: .35rem; }
@@ -1820,7 +1820,7 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
   color: #dceaff;
   font: 800 .64rem ui-monospace, SFMono-Regular, Consolas, monospace;
 }
-.work-console__path span:last-child b { border-color: #c88f63; color: #f1c8a9; }
+.work-console__path span:last-child b { border-color: #a5c7ff; color: #dceaff; }
 .work-console__path small {
   color: #b5cbe5;
   font: 700 .57rem ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -1846,7 +1846,7 @@ body { background:radial-gradient(circle at 88% 8%,rgba(47,111,237,.065),transpa
 }
 
 .subhero--work .work-console__metric:nth-child(4)::before { background: #a5c7ff; }
-.subhero--work .work-console__metric:nth-child(5)::before { background: #c88f63; }
+.subhero--work .work-console__metric:nth-child(5)::before { background: #a5c7ff; }
 .subhero--work .work-console__metric span { color: #d3e0ef; }
 .subhero--work .work-console__footer {
   background: linear-gradient(90deg, rgba(47, 111, 237, 0.28), rgba(47, 111, 237, 0.08));
