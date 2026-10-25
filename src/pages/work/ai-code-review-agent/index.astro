@@ -4,13 +4,13 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="AI Code Review Agent"
-  description="Case study: local multi-agent code review with specialist isolation, structured findings, and privacy-conscious inference."
+  description="Local diff review with isolated specialist agents, sanitized input, structured findings, and confidence-aware orchestration."
   eyebrow="Developer tooling · Local AI"
-  lede="Code review benefits from more than one set of eyes. It does not benefit from fifteen copies of the same opinion. ACR separates the lenses, keeps normal review local, and makes the noisy part somebody's problem on purpose."
+  lede="Code review benefits from more than one set of eyes. It does not benefit from fifteen copies of the same opinion. ACR gives each specialist one job, then makes the orchestrator deal with the overlap and noise."
   status="Active"
   access="Open source · MIT"
   tags={['Ollama', 'Multi-agent review', 'Security', 'Verification']}
-  sections={['The problem', 'The system', 'The design constraint', 'What I care about here']}
+  sections={['The problem', 'How a review runs', 'The specialist lenses', 'Keeping the output useful', 'Where it fits']}
   tone="emerald"
   visual="acr"
   repoUrl="https://github.com/unyieldingclaw-dev/ai-code-review-agent"
@@ -18,35 +18,38 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   <section>
     <h2>The problem</h2>
     <p>
-      “Review this diff” sounds simple until security, correctness, performance, tests, migrations, dependencies, and production behavior all start talking at once. One broad prompt tends to flatten those concerns together—and one bad assumption can color the whole review.
+      “Review this diff” sounds simple until security, correctness, performance, dependencies, tests, migrations, and production behavior all start talking at once. A single broad prompt tends to flatten those concerns together. One bad assumption can color the whole review, while a dozen weak findings bury the one worth fixing.
     </p>
   </section>
 
   <section>
-    <h2>The system</h2>
+    <h2>How a review runs</h2>
     <p>
-      The reviewer runs locally and sends a sanitized diff to isolated specialist agents. Each reviewer sees the code change through one lens, then an orchestrator deduplicates, cross-references, and applies confidence-aware severity handling.
+      The CLI reads a staged or selected git diff, sanitizes it, and gives specialist agents the change plus their own instructions. They do not see one another's conclusions. Ollama runs the normal inference locally, so a standard review does not require sending source to a cloud model. The orchestrator then deduplicates and cross-references findings into one report.
     </p>
-    <ul>
-      <li>Local Ollama inference keeps normal review runs off cloud APIs.</li>
-      <li>Specialists are isolated so one agent's framing does not automatically bias the others.</li>
-      <li>Security, correctness, dependencies, migrations, observability, integration risk, test coverage, and other domains have explicit ownership.</li>
-      <li>Generated tests are opt-in; normal review does not quietly write to the codebase.</li>
-      <li>The same review engine is available through CLI, MCP, and editor integration.</li>
-    </ul>
+    <p>
+      A normal run does not write generated tests. Test suggestions require an explicit option, and writing tests to disk is a separate opt-in action. That boundary matters in a tool whose default job is to inspect code.
+    </p>
+  </section>
+
+  <section>
+    <h2>The specialist lenses</h2>
+    <p>
+      The repository covers security and secrets, correctness, performance, design, dependencies and licenses, breaking changes, adversarial inputs, integration boundaries, coverage, error handling, observability, migration safety, and complexity. Migration review is skipped when the diff contains no migration files. Focused profiles let me run a smaller review when the full swarm would be wasteful.
+    </p>
   </section>
 
   <section class="case-callout">
-    <h2>The design constraint</h2>
+    <h2>Keeping the output useful</h2>
     <p>
-      More agents are not automatically better. The project only earns its complexity if independent lenses produce materially better findings without creating an unmanageable pile of low-confidence noise. The orchestrator exists to reduce that cost, not to make the architecture look sophisticated.
+      More agents only earn their cost when the result gets sharper. The orchestrator gates severity by confidence, caps the final finding set, and tries to prevent the same issue from appearing as several independent alarms. A finding still needs a developer to verify the evidence. The system should make uncertainty visible, not launder it into authority.
     </p>
   </section>
 
   <section>
-    <h2>What I care about here</h2>
+    <h2>Where it fits</h2>
     <p>
-      The model is not the interesting part by itself. I care about whether the reviewers stay independent, whether secrets stay out of the prompt, whether weak findings look weak, whether a failure is obvious, and whether the tool fits into a developer's day without demanding a new religion.
+      The review engine is available through the CLI, an MCP tool for Cursor, a source-built editor extension, and a Claude Code command. The local model and installation are real requirements, including the disk space for the default model. I care about whether this fits into the existing review loop, exposes failure clearly, and leaves the developer in charge of the decision.
     </p>
   </section>
 </CaseStudyLayout>

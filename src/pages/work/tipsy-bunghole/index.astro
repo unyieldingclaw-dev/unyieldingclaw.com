@@ -4,51 +4,59 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="Tipsy Bunghole"
-  description="Case study: a private whiskey-club application for blind tasting events, shared history, roles, and institutional memory."
+  description="A private whiskey-club product for blind tasting, event operations, bottle history, and durable club memory."
   eyebrow="Live event workflow · Club memory"
-  lede="A whiskey night should feel like a whiskey night, not a database migration. Tipsy Bunghole keeps years of bottles, votes, guesses, winners, lore, and club history from living in one person's head—without making everybody babysit an app while they are trying to drink whiskey."
+  lede="A whiskey night should feel like a whiskey night, not a database migration. Tipsy Bunghole gives the club a dependable record of bottles, votes, guesses, and stories without making people babysit an app while they are together."
   status="Active development"
   access="Private repository · Club-only data"
   tags={['React', 'Supabase', 'Role workflows', 'Event state']}
-  sections={['The problem', 'Architecture follows the club', 'The hardest requirement is social, not technical', 'Why it stays private']}
+  sections={['The problem', 'A night in the app', 'Architecture follows the club', 'Testing the awkward moments', 'Why it stays private']}
   tone="copper"
   visual="tipsy"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      We had fifteen years of “somebody remembers that, right?” What had we tasted? Who won? Which bottle got crushed in the vote? What did people guess? The answers existed, but not in one dependable place.
+      Years of tastings produced bottle history, winners, guesses, and club lore, but much of it lived in one person's memory or scattered posts. A club should be able to answer “Have we run this bottle before?” without calling its unofficial archivist.
     </p>
     <p>
-      The other problem was live use. Setup, serving, voting, guessing, reveal, comments, results—every extra tap is competing with friends, conversation, and a glass of whiskey. The app has to know when to get out of the way.
+      Live use creates a second constraint. Setup, check-in, serving, voting, reveal, and results have to fit around conversation and a glass of whiskey. Every unnecessary screen is time taken from the event.
+    </p>
+  </section>
+
+  <section>
+    <h2>A night in the app</h2>
+    <p>
+      The Host sets up an event and its rounds. A Steward assigns blind A/B codes and starts the tasting without casting a vote. Participants record their own votes, guesses, descriptors, and notes on their phones. The reveal comes after voting, and results are computed from those recorded choices. A bottle can then be traced from someone's collection through the event and into its tasting history.
+    </p>
+    <p>
+      The product also has a bottle catalog, personal collections, wishlists, past events, and exportable records. A quick memory from a night and curated club Lore are separate concepts: a good quote does not become institutional history just because someone entered it.
     </p>
   </section>
 
   <section>
     <h2>Architecture follows the club</h2>
-    <p>
-      One of the governing rules is simple: <strong>the app models the club; the club does not change to fit the app.</strong>
-    </p>
+    <p><strong>The app models the club; the club does not change to fit the app.</strong> That rule shapes the implementation:</p>
     <ul>
-      <li>Participant, Steward, and Host roles receive different responsibilities and interfaces.</li>
-      <li>Blind sample codes protect the reveal workflow.</li>
-      <li>Results are generated from recorded votes rather than manually “voted into” existence afterward.</li>
-      <li>Memories and curated Lore are separate so casual recollections do not silently become permanent club history.</li>
-      <li>The Steward path stays deliberately minimal because the person serving whiskey should not need to become the event's system administrator.</li>
+      <li>Participant, Steward, and Host see the work each actually needs to do; access is invite-only.</li>
+      <li>Pre-reveal bottle identity is restricted by database policy as well as hidden in the participant interface.</li>
+      <li>Event and round states govern when votes and notes are accepted, when bottles may be revealed, and when history becomes final.</li>
+      <li>Standard rounds do not invent an overall event champion where the club has no such rule.</li>
+      <li>The Steward view stays small enough to use while serving, including readiness and vote counts.</li>
     </ul>
   </section>
 
   <section class="case-callout">
-    <h2>The hardest requirement is social, not technical</h2>
+    <h2>Testing the awkward moments</h2>
     <p>
-      A live event has almost no patience for software friction. If the steward has to stop pouring to figure out a screen, I lost. If somebody misses a vote, the night still has to continue. Role clarity and recovery matter more here than another clever feature ever will.
+      A local QA campaign used separate Host, Steward, Member, and Guest sign-ins through a complete three-round event. It caught a pre-reveal data leak, a missing Guest voting path, stale counts across browsers, late writes after reveal, and a bottle lifecycle that failed to advance. The fixes were tested in a separate QA database; the test record explicitly does not claim a production deployment. That is the kind of evidence I want before a live club night depends on the flow.
     </p>
   </section>
 
   <section>
     <h2>Why it stays private</h2>
     <p>
-      The repository and production data contain club-specific logic, member history, private collections, event details, and social context. The public value is in the product reasoning and workflow design—not in exposing the people or their data.
+      Members, collections, event details, and club stories are not portfolio material. The public case study can explain the role design, state transitions, privacy boundary, and failure recovery without exposing the people the software serves.
     </p>
   </section>
 </CaseStudyLayout>

@@ -4,48 +4,54 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="Personal Memory Bank"
-  description="Case study: persistent, governed project context for AI-assisted software development."
+  description="Governed project context for AI coding assistants, with five files, authority rules, diagnostics, provenance, hooks, and CI."
   eyebrow="AI engineering · Developer workflow"
-  lede="AI coding assistants can remember a lot and still forget the one decision that made yesterday's code make sense. PMB is my attempt to make project memory useful without letting stale notes become accidental law."
+  lede="AI coding assistants can remember a lot and still forget the one decision that made yesterday's code make sense. PMB keeps a small project memory useful without letting stale notes become accidental law."
   status="Active"
   access="Open source · MIT"
   tags={['Context engineering', 'Governance', 'CLI', 'CI']}
-  sections={['The problem', 'The product decision', 'A small failure that shaped the design', 'Why I keep working on it']}
+  sections={['The problem', 'Five files with different jobs', 'Trust requires maintenance', 'A failure that changed the tool', 'Why I keep working on it']}
   visual="pmb"
   repoUrl="https://github.com/unyieldingclaw-dev/personal-memory-bank"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      AI coding sessions have a funny failure mode: the model can understand a complicated file and still miss why the team made a decision yesterday. Dumping more notes into the prompt does not fix that. Old context ages, instructions collide, task state drifts, and eventually the “memory” starts confidently remembering the wrong thing.
+      AI coding sessions can understand a complicated file and still miss why the team chose that design. Repeating the entire project story at every start is tedious. Dumping a growing pile of notes into the prompt creates a different problem: old assumptions, conflicting instructions, and task state that sounds current long after it has changed.
     </p>
   </section>
 
   <section>
-    <h2>The product decision</h2>
+    <h2>Five files with different jobs</h2>
     <p>
-      Keep the memory model intentionally small, then govern it. PMB organizes project context into a compact set of files with explicit roles and an authority hierarchy rather than letting an assistant treat every remembered statement as equally current or equally binding.
+      PMB keeps a compact memory bank: a project brief for durable intent, system patterns for architecture, technical context for the stack, active context for current work, and progress for what has happened. They are not five interchangeable notebooks. The brief has higher authority than a volatile task note; conflicts should be surfaced rather than silently reconciled.
     </p>
+    <p>
+      The <code>mb</code> CLI scaffolds a project, checks status, queries tagged context, diagnoses problems, and upgrades governance templates. It is meant to reduce the cost of keeping the memory accurate, not merely create more files for the assistant to read.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trust requires maintenance</h2>
     <ul>
-      <li>Stable project intent is separated from volatile working context.</li>
-      <li>Freshness and provenance make stale assumptions visible.</li>
-      <li>CLI diagnostics check the system instead of relying on a model to declare itself healthy.</li>
-      <li>Hooks and CI handle structural rules that do not need probabilistic judgment.</li>
-      <li>Semantic review is separated into focused review roles rather than folded into the same execution path.</li>
+      <li>Freshness metadata and provenance record when a file was reviewed and whether content has been compacted through an AI summary.</li>
+      <li><code>mb doctor</code> checks structural health, drift, integrity, and the size of the context loaded at startup.</li>
+      <li>Hooks enforce local command rules; CI catches repository-wide invariants. Semantic review has its own focused roles.</li>
+      <li>Task contracts and review workflows give the assistant explicit scope and a place to challenge its own conclusions.</li>
     </ul>
   </section>
 
   <section class="case-callout">
-    <h2>A small failure that shaped the design</h2>
+    <h2>A failure that changed the tool</h2>
     <p>
-      A deprecated command once reported success while no longer performing the check its caller expected. The durable fix was not better wording—it was making moved commands exit non-zero so automation could not confuse a redirect with successful validation. That is the kind of operational edge case PMB is built around.
+      A deprecated validation command once printed a helpful redirect and exited successfully. A caller read that zero exit code as “validation passed,” though no validation had run. Moved commands now exit non-zero. It is a small fix with a larger lesson: clear prose does not repair a broken automation contract.
     </p>
   </section>
 
   <section>
     <h2>Why I keep working on it</h2>
     <p>
-      I am not trying to give an assistant a giant scrapbook. I want the small amount it remembers to be worth trusting. Most of the interesting work ends up in ownership, stale-state detection, handoffs, conflict resolution, and deciding when a boring deterministic check should win over a model's opinion.
+      I do not want an assistant with a giant scrapbook. I want the small amount it carries into a session to be worth trusting. Ownership, stale-state detection, handoffs, conflict resolution, and deterministic checks are the real engineering work here. The model can help reason about a decision; it should not be the only witness that the system is healthy.
     </p>
   </section>
 </CaseStudyLayout>

@@ -4,48 +4,61 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="Side Quest Atlas"
-  description="Case study: private group travel memory capture built around low-friction entry, shared history, and clear data boundaries."
+  description="A private travel memory app: fast capture, shared group history, deliberate place and visit modeling, and group-level access controls."
   eyebrow="Product design · Travel memory"
-  lede="Trips are very good at creating memories and terrible at filing them. Side Quest Atlas lets us save the useful bit while it is fresh, then fill in the story later when nobody is standing on a sidewalk waiting for me to finish typing."
+  lede="Trips are very good at creating memories and terrible at filing them. Side Quest Atlas is for saving a place or moment while it is fresh, then filling in the story when nobody is standing on a sidewalk waiting for me to finish typing."
   status="In development"
   access="Private repository · Public-safe case study"
-  tags={['Flutter', 'Supabase', 'RLS', 'Domain modeling']}
-  sections={['The problem', 'The product principle', 'What I left out on purpose', 'Why the code stays private']}
+  tags={['Flutter', 'Supabase', 'Group privacy', 'Domain modeling']}
+  sections={['The problem', 'Capture now, enrich later', 'The model underneath', 'What is built and what is next', 'The boundaries']}
   tone="gold"
   visual="sidequest"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      A trip gets scattered across camera rolls, map history, saved places, text messages, and people's memories. Trying to record everything in the moment kills the experience; waiting until later means the details disappear.
+      A trip gets scattered across camera rolls, map history, saved places, text messages, and the people who were there. Recording every detail in the moment kills the experience. Waiting until everyone gets home loses the little things that made a stop memorable.
+    </p>
+    <p>
+      This is a small-group memory product, not a travel marketplace. The useful question is, “Where did we go, what happened there, and would we go back?” That keeps the design centered on retrieval and shared history rather than another feed to maintain.
     </p>
   </section>
 
   <section>
-    <h2>The product principle</h2>
+    <h2>Capture now, enrich later</h2>
     <p>
-      <strong>Capture now, enrich later.</strong> The core workflow is intentionally low-friction: save the place or moment while it is fresh, then add photos, notes, context, and shared memories asynchronously.
+      The product target is a quick place search and visit save, with notes, ratings, tags, and media references added later. The design aims for a capture that takes seconds, not a form that holds up the group. A visit carries its own capture state so an unfinished memory can be found and enriched without pretending it is complete.
     </p>
+    <p>
+      Adventures give visits a trip context. The place stays reusable; the visit records this group's experience on this date. That distinction matters when we return to the same restaurant years later and have a very different story to tell.
+    </p>
+  </section>
+
+  <section>
+    <h2>The model underneath</h2>
     <ul>
-      <li>Private travel groups own their shared history.</li>
-      <li>Places and visits are separate concepts so repeat visits do not overwrite the past.</li>
-      <li>Wishlists remain distinct from visit history rather than being destructively converted.</li>
-      <li>Quests are derived from actual visits instead of storing counters that can drift.</li>
-      <li>Row-level security is part of the product model because one group's memories should never leak into another's.</li>
+      <li>A place represents one real-world location. Groups share that place record, while each group's visits and memories remain separate.</li>
+      <li>Wishlists and completed visits are separate records, so making a visit does not erase why a place was saved in the first place.</li>
+      <li>Quest progress is designed to be calculated from visits, not maintained as a counter that can drift.</li>
+      <li>Supabase Auth and row-level security enforce the private-group boundary at the data layer. The repository's foundation includes group membership and policy work; the interface does not substitute for that boundary.</li>
+      <li>Category-specific details fit the visit instead of requiring a different table and workflow for every restaurant, brewery, or hotel.</li>
     </ul>
   </section>
 
   <section class="case-callout">
-    <h2>What I left out on purpose</h2>
+    <h2>What is built and what is next</h2>
     <p>
-      No public review feed. No follower graph. No recommendation engine because “travel app” apparently comes with a checklist. This is for a small group keeping its own history, not for accidentally inventing another social network.
+      The repository has the group, authentication, and data foundation, plus Adventure work that gives a real trip a place in the app. The fast capture and enrichment loop is still being developed and validated. An Adventure-scoped wishlist is in review; a map view, broader search, and quests remain later work. The distinction matters because the value of this product has to be proven in the capture loop.
     </p>
   </section>
 
   <section>
-    <h2>Why the code stays private</h2>
+    <h2>The boundaries</h2>
     <p>
-      The app is built around personal and family travel. The interesting part for a portfolio is how the product works and why I made the choices I did—not somebody's vacation history.
+      No public reviews, followers, booking flow, navigation, or predictive recommendation engine. “Favorites” can eventually be a useful filter over places the group rated highly and said it would revisit. It does not need to guess what strangers might like. Offline synchronization and native media storage are also outside the first version's scope.
+    </p>
+    <p>
+      The repository stays private because the product is built around personal and family travel. The public story is the capture problem, the model, and the tradeoffs—not anybody's itinerary or photos.
     </p>
   </section>
 </CaseStudyLayout>

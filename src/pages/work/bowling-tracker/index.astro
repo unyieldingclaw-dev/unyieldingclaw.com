@@ -4,46 +4,55 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="Bowling Tracker"
-  description="Case study: a private bowling product for sessions, equipment, oil patterns, drills, leagues, and analytics."
+  description="A private mobile bowling tracker for quick scoring, equipment and pattern context, practice drills, and evidence-based analytics."
   eyebrow="Sports product · Personal analytics"
   lede="A final score tells me what I shot. It does not tell me why. Bowling Tracker keeps the useful context—ball, lane, pattern, practice, league, adjustments—without turning every trip to the lanes into a data-entry job."
   status="Active development"
   access="Private repository · Public-safe case study"
   tags={['Flutter', 'Offline sync', 'Analytics', 'Domain rules']}
-  sections={['The problem', 'Domain decisions that matter', 'Narrow does not mean shallow', 'Why it stays private']}
+  sections={['The problem', 'Capture without slowing the game', 'Rules before dashboards', 'What the history can answer', 'Why it stays private']}
   tone="slate"
   visual="bowling"
 >
   <section>
     <h2>The problem</h2>
     <p>
-      A score tells you what happened, but not necessarily why. Useful bowling history needs to preserve enough context to compare performance across balls, alleys, patterns, leagues, tournaments, practice sessions, and time—while still allowing fast entry during play.
+      A score sheet records the outcome but leaves out the conditions. To learn whether a change helped, I need to know which ball I used, what lane and oil pattern I saw, whether I was practicing or competing, and which leaves kept showing up. The app has to collect that evidence while I am bowling, not demand a spreadsheet afterward.
     </p>
   </section>
 
   <section>
-    <h2>Domain decisions that matter</h2>
+    <h2>Capture without slowing the game</h2>
+    <p>
+      The Flutter app supports a fast score-entry path and more detailed pin-level entry when I want it. The domain model runs from session to series to game to delivery. Ball attribution belongs to the delivery, because switching equipment mid-game should not make the analysis guess. A local Drift/SQLite store handles the lane-side experience; synchronization can catch up when connectivity returns.
+    </p>
+    <p>
+      Equipment has a lifecycle instead of a delete button that erases history. A retired ball still explains old sessions. Maintenance entries record cleaning, polishing, resurfacing, and other changes so a performance shift has context.
+    </p>
+  </section>
+
+  <section>
+    <h2>Rules before dashboards</h2>
     <ul>
-      <li>Derived statistics are computed from source events rather than stored beside them and allowed to drift.</li>
-      <li>Completed competitive/practice games feed analytics; social sessions can remain in history without contaminating performance metrics.</li>
-      <li>Ball attribution lives at the delivery level so equipment analysis has evidence behind it.</li>
-      <li>Retired equipment is preserved rather than deleted, because historical sessions still need to explain themselves.</li>
-      <li>“House pattern” is treated as a grouping, not invented as a fake oil-pattern entity.</li>
-      <li>An offline local store and later synchronization support the real environment. Bowling centers are not exactly famous for enterprise-grade Wi-Fi.</li>
+      <li>Scoring and handicap rules live in domain services rather than being reconstructed by each screen.</li>
+      <li>Statistics are calculated from completed games; a social session can stay in history without skewing competitive averages.</li>
+      <li>Derived averages and records come from source events rather than stored totals that can drift from the throws.</li>
+      <li>A house pattern is a useful grouping, not a fabricated named oil pattern.</li>
+      <li>Spare drills track attempts and per-leave conversion, turning practice into something more useful than “felt better today.”</li>
     </ul>
   </section>
 
   <section class="case-callout">
-    <h2>Narrow does not mean shallow</h2>
+    <h2>What the history can answer</h2>
     <p>
-      I do not want a generic sports platform with a bowling skin. Once the session model is sound, drills, leave conversion, ball maintenance, trends, league detail, and equipment analysis can grow naturally from bowling data instead of from a giant feature checklist.
+      The repository includes session history, personal records, rolling averages, per-ball and oil-category views, monthly trends, alley comparisons, leave conversion, and a pin-leave heat map. Those views share the same underlying deliveries and completed-game rules. A chart is worth keeping only if it helps me choose a ball, target a drill, or understand a change.
     </p>
   </section>
 
   <section>
     <h2>Why it stays private</h2>
     <p>
-      The repository is not needed to demonstrate the product judgment. A public-safe case study can show the domain model, rules, offline strategy, and analytics philosophy while personal performance records and user-specific data remain private.
+      This is a mobile-first product still under development. The public case study describes the scoring model, offline strategy, and product decisions without publishing the repository or anyone's personal performance records.
     </p>
   </section>
 </CaseStudyLayout>

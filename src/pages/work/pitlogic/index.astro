@@ -4,13 +4,13 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="PitLogic"
-  description="Case study: client-side BBQ telemetry, alerts, history, and cook analytics."
+  description="A client-side BBQ companion with live probe telemetry, actionable alarms, cook history, and portable data."
   eyebrow="Product engineering · Telemetry"
-  lede="A long cook produces a ridiculous amount of temperature data. I do not need more graphs just because graphs are available; I need to know what is happening, whether dinner is in trouble, and what happened the last time I cooked this cut."
+  lede="A long cook produces a ridiculous amount of temperature data. I do not need more graphs just because graphs are available. I need to know whether the pit is cooling off, dinner is in trouble, and what happened the last time I cooked this cut."
   status="Active"
   access="Open source · MIT"
   tags={['React', 'PWA', 'Telemetry', 'Analytics']}
-  sections={['The problem', 'The product shape', 'The backend I did not build', 'What I like about this one']}
+  sections={['The problem', 'From probe to decision', 'Useful after the cook', 'The backend I did not build', 'Operating conditions']}
   tone="copper"
   visual="pitlogic"
   repoUrl="https://github.com/unyieldingclaw-dev/pitlogic"
@@ -19,35 +19,41 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   <section>
     <h2>The problem</h2>
     <p>
-      Long cooks create lots of data but still leave the cook answering practical questions: Is the pit cooling off? Is the meat entering a stall? Am I likely to finish on time? What happened the last time I cooked this cut?
+      Long cooks create plenty of readings and still leave the cook guessing: Is the smoker dipping below its safe working range? Is the meat entering a stall? Is the finish moving away from dinner time? Data is only useful here if it changes what I do next.
     </p>
   </section>
 
   <section>
-    <h2>The product shape</h2>
+    <h2>From probe to decision</h2>
     <p>
-      The application stays client-side instead of introducing accounts and a backend that the use case does not require. It combines active-cook monitoring with history and analytics, while keeping the data portable.
+      PitLogic can connect directly to a ThermoWorks RFX Gateway through ThermaConnect MQTT over WebSocket, discover probes, and show live cook cards with climb rates, estimated finish, and stall probability. Target-temperature notifications, a repeatable low-pit alarm, and stall coaching make a change visible before I have to stare at a chart for ten minutes.
     </p>
-    <ul>
-      <li>Live ThermoWorks RFX data arrives through MQTT over WebSocket.</li>
-      <li>Target and low-pit alarms surface actionable conditions instead of just drawing graphs.</li>
-      <li>Stall detection and finish-time estimates turn telemetry into decisions.</li>
-      <li>Cook history, comparisons, recipes, and JSON backup make the data useful after the cook ends.</li>
-      <li>PWA and accessibility work keep the product usable on the devices and in the situations where it actually gets used.</li>
-    </ul>
+    <p>
+      The active dashboard is paired with temperature charts and a mop timer. Alarms can be adjusted during a cook, because the plan at hour one is not always the plan at hour nine.
+    </p>
+  </section>
+
+  <section>
+    <h2>Useful after the cook</h2>
+    <p>
+      Cook history, comparisons, recipes, and analytics make the next cook better. The app can import recipes from a Plan to Eat CSV and export or restore a JSON backup. A cook share card gives me a concise record without turning the entire history into a public account.
+    </p>
+    <p>
+      The charts include average curves and quality comparisons, but they are supporting evidence. The point is to remember which setup worked for a cut and notice when the current cook is departing from it.
+    </p>
   </section>
 
   <section class="case-callout">
     <h2>The backend I did not build</h2>
     <p>
-      There is no backend because I could not find a good reason to make people create an account to watch a brisket. Local storage, export/import, and direct device integration do the job with less infrastructure and fewer ways for Saturday dinner to depend on my cloud bill.
+      There is no PitLogic server or account system. Cook data lives in the browser's local storage, with explicit export and import for portability. The live device connection still talks to the configured telemetry service; “client-side” is an architecture choice, not a claim that the browser never uses a network. This gives me fewer moving parts for a Saturday cook.
     </p>
   </section>
 
   <section>
-    <h2>What I like about this one</h2>
+    <h2>Operating conditions</h2>
     <p>
-      PitLogic is refreshingly not an AI project. It is live data, alarms, forecasting, accessibility, testing, deployment, and knowing when to stop building infrastructure. Sometimes the right architecture is the one that lets me get back to the smoker.
+      It is an installable PWA that can reopen offline after its first load. Keyboard navigation, semantic controls, browser notifications, and mobile use matter when hands are busy and the screen is outdoors. PitLogic is a practical software project: live data, testable rules, and a clear stopping point for infrastructure.
     </p>
   </section>
 </CaseStudyLayout>
