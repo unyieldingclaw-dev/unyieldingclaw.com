@@ -1,0 +1,48 @@
+name: Real screen reader audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nvda-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nvda:
+    name: NVDA on Windows
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install chromium
+
+      - name: Configure screen reader automation
+        run: npx @guidepup/setup setup --ci
+
+      - name: Install NVDA assets
+        run: npx @guidepup/setup install
+
+      - name: Build site
+        run: npm run build
+
+      - name: Run real NVDA audit
+        run: npm run a11y:nvda
+
