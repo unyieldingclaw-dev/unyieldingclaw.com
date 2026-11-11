@@ -98,6 +98,69 @@ try {
   }
 
   {
+    // Accessibility-tree audit: catches content that is visually hidden but still
+    // exposed to screen readers, and verifies that interactive states appear only
+    // when they should.
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.addInitScript(() => {
+      localStorage.removeItem('unyielding-claw-trail-v2');
+      localStorage.removeItem('unyielding-claw-trail-v1');
+      localStorage.removeItem('unyielding-claw-trail-reward-v1');
+    });
+    await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'networkidle' });
+
+    const homeTree = await page.locator('body').ariaSnapshot();
+
+    for (const required of ['Skip to content', 'Eric Nolan', 'Work', 'Harness Engineering', "Nolan's Workshop", 'About', 'Contact']) {
+      if (!homeTree.includes(required)) {
+        fail(`Accessibility tree: homepage is missing "${required}"`);
+      }
+    }
+
+    for (const hidden of ['Unyielding Explorer', 'PIN THE BADGE', 'RESET FOR NEXT EXPLORER']) {
+      if (homeTree.includes(hidden)) {
+        fail(`Accessibility tree: hidden Trail completion content is exposed before activation ("${hidden}")`);
+      }
+    }
+
+    await page.close();
+    await context.close();
+  }
+
+  {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.goto(new URL('/harness-engineering/', baseURL).toString(), { waitUntil: 'networkidle' });
+
+    const before = await page.locator('body').ariaSnapshot();
+    if (before.includes('THE MODEL IS NOT THE PRODUCT.')) {
+      fail('Accessibility tree: Matrix dialog is exposed before activation');
+    }
+
+    await page.locator('[data-matrix-trigger]').focus();
+    await page.keyboard.press('Enter');
+    const during = await page.locator('body').ariaSnapshot();
+
+    if (!during.includes('THE MODEL IS NOT THE PRODUCT.')) {
+      fail('Accessibility tree: Matrix dialog content is missing after activation');
+    }
+
+    if (during.includes('Technical Product Manager') || during.includes('How I engineer AI')) {
+      fail('Accessibility tree: background page remains exposed while Matrix dialog is modal');
+    }
+
+    await page.keyboard.press('Escape');
+    const after = await page.locator('body').ariaSnapshot();
+    if (after.includes('THE MODEL IS NOT THE PRODUCT.')) {
+      fail('Accessibility tree: Matrix dialog remains exposed after Escape');
+    }
+
+    await page.close();
+    await context.close();
+  }
+
+  {
     const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 
     for (const route of routes) {
