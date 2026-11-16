@@ -71,12 +71,14 @@
 
   const eggToast = document.querySelector('.egg-toast');
   const mizTakeover = document.querySelector('[data-miz-takeover]');
+  const mizAnnouncement = document.querySelector('[data-miz-announcement]');
   const mizKeyboard = document.querySelector('[data-miz-keyboard]');
   const mizEntry = document.querySelector('[data-miz-entry]');
   const mizInput = document.querySelector('[data-miz-input]');
   let eggBuffer = '';
   let eggTimer;
   let mizTimer;
+  let mizAnnouncementTimer;
 
   const showToast = (message, duration = 1800) => {
     if (!eggToast) return;
@@ -94,8 +96,18 @@
 
   const triggerMizTakeover = () => {
     eggBuffer = '';
-    mizInput?.blur();
+    // Return focus before hiding the input; hardware-keyboard callers keep their focus.
+    if (mizInput && document.activeElement === mizInput) {
+      mizKeyboard?.focus({ preventScroll: true });
+    }
     closeMizEntry();
+
+    if (mizAnnouncement) {
+      // A separate update lets repeated calls announce even when the message is identical.
+      clearTimeout(mizAnnouncementTimer);
+      mizAnnouncement.textContent = '';
+      mizAnnouncementTimer = setTimeout(() => { mizAnnouncement.textContent = 'ZOU!'; }, 100);
+    }
 
     if (!mizTakeover) {
       showToast('ZOU!');
@@ -104,7 +116,6 @@
 
     clearTimeout(mizTimer);
     mizTakeover.classList.remove('is-active');
-    mizTakeover.setAttribute('aria-hidden', 'false');
 
     // Restart the animation cleanly if somebody enthusiastically types MIZ again.
     void mizTakeover.offsetWidth;
@@ -112,7 +123,6 @@
 
     mizTimer = setTimeout(() => {
       mizTakeover.classList.remove('is-active');
-      mizTakeover.setAttribute('aria-hidden', 'true');
     }, reduceMotion ? 1200 : 2100);
   };
 
