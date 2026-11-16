@@ -15,14 +15,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   visual="acr"
   repoUrl="https://github.com/unyieldingclaw-dev/ai-code-review-agent"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       “Review this diff” sounds simple until security, correctness, performance, dependencies, tests, migrations, and production behavior all start talking at once. A single broad prompt tends to flatten those concerns together. One bad assumption can color the whole review, while a dozen weak findings bury the one worth fixing.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>How a review runs</h2>
     <p>
       The CLI reads a staged or selected git diff, sanitizes it, and gives specialist agents the change plus their own instructions. They do not see one another's conclusions. Ollama runs the normal inference locally, so a standard review does not require sending source to a cloud model. The orchestrator then deduplicates and cross-references findings into one report.
@@ -32,21 +32,34 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>The specialist lenses</h2>
     <p>
       The repository covers security and secrets, correctness, performance, design, dependencies and licenses, breaking changes, adversarial inputs, integration boundaries, coverage, error handling, observability, migration safety, and complexity. Migration review is skipped when the diff contains no migration files. Focused profiles let me run a smaller review when the full swarm would be wasteful.
     </p>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>Keeping the output useful</h2>
     <p>
       More agents only earn their cost when the result gets sharper. The orchestrator gates severity by confidence, caps the final finding set, and tries to prevent the same issue from appearing as several independent alarms. A finding still needs a developer to verify the evidence. The system should make uncertainty visible, not launder it into authority.
     </p>
+    <figure class="case-evidence">
+      <strong>A recorded calibration finding</strong>
+      <pre><code>{`Model: ornith-1.5:9b · Trial 1 · September 19, 2026
+Fixture: adversarial-dirty
+File: src/core/reviewMetrics.ts · Line: 9
+Title: averageFindingsPerChunk always returns NaN (off-by-one reads undefined)
+Location check: verified
+Matched defect: D2-offbyone-nan-propagation`}</code></pre>
+      <figcaption>
+        Selected fields from a committed calibration record, with labels formatted for reading. This finding concerns an intentionally faulty test fixture, not a production incident. The loop uses <code>i &lt;= findingsPerChunk.length</code>, reads beyond the array, and adds <code>undefined</code> to the total. One finding demonstrates the report's evidence; it does not establish overall accuracy.
+        <a href="https://github.com/unyieldingclaw-dev/ai-code-review-agent/blob/e6a98ba7fd6de1785c21872ae5c8ce1474c51096/calibration/adversarial-dirty-raw.ornith-1-5-9b.json">Read the calibration record →</a>
+      </figcaption>
+    </figure>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>Where it fits</h2>
     <p>
       The review engine is available through the CLI, an MCP tool for Cursor, a source-built editor extension, and a Claude Code command. The local model and installation are real requirements, including the disk space for the default model. I care about whether this fits into the existing review loop, exposes failure clearly, and leaves the developer in charge of the decision.

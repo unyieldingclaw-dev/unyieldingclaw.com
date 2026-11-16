@@ -509,8 +509,9 @@
 
   document.documentElement.classList.add('motion-enabled');
 
+  // Case-study reading sections stay visible; their tilt and hover motion are separate.
   const revealTargets = document.querySelectorAll(
-    '.section-heading, .project-card, .principle, .feature-note, .identity-card, .workshop-card, .case-content > section, .proof-module, .range-card, .manifesto-grid, .work-console, .harness-question, .rule-card, .bench-note, .about-stack__card, .career-timeline article, .personal-tile, .contact-action, .contact-topic-grid article, .case-flow > section, .bridge-card'
+    '.section-heading, .project-card, .principle, .feature-note, .identity-card, .workshop-card, .case-content > section, .proof-module, .range-card, .manifesto-grid, .work-console, .harness-question, .rule-card, .bench-note, .about-stack__card, .career-timeline article, .personal-tile, .contact-action, .contact-topic-grid article, .bridge-card'
   );
 
   revealTargets.forEach((el) => el.classList.add('reveal-ready'));

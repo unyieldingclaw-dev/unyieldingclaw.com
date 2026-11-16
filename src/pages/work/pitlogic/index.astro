@@ -16,14 +16,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   repoUrl="https://github.com/unyieldingclaw-dev/pitlogic"
   liveUrl="https://unyieldingclaw-dev.github.io/pitlogic/"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       Long cooks create plenty of readings and still leave the cook guessing: Is the smoker dipping below its safe working range? Is the meat entering a stall? Is the finish moving away from dinner time? Data is only useful here if it changes what I do next.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>From probe to decision</h2>
     <p>
       PitLogic can connect directly to a ThermoWorks RFX Gateway through ThermaConnect MQTT over WebSocket, discover probes, and show live cook cards with climb rates, estimated finish, and stall probability. Target-temperature notifications, a repeatable low-pit alarm, and stall coaching make a change visible before I have to stare at a chart for ten minutes.
@@ -33,7 +33,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>Useful after the cook</h2>
     <p>
       Cook history, comparisons, recipes, and analytics make the next cook better. The app can import recipes from a Plan to Eat CSV and export or restore a JSON backup. A cook share card gives me a concise record without turning the entire history into a public account.
@@ -43,14 +43,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>The backend I did not build</h2>
     <p>
       There is no PitLogic server or account system. Cook data lives in the browser's local storage, with explicit export and import for portability. The live device connection still talks to the configured telemetry service; “client-side” is an architecture choice, not a claim that the browser never uses a network. This gives me fewer moving parts for a Saturday cook.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>Operating conditions</h2>
     <p>
       It is an installable PWA that can reopen offline after its first load. Keyboard navigation, semantic controls, browser notifications, and mobile use matter when hands are busy and the screen is outdoors. PitLogic is a practical software project: live data, testable rules, and a clear stopping point for infrastructure.

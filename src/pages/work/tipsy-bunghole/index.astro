@@ -14,7 +14,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   tone="copper"
   visual="tipsy"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       Years of tastings produced bottle history, winners, guesses, and club lore, but much of it lived in one person's memory or scattered posts. A club should be able to answer “Have we run this bottle before?” without calling its unofficial archivist.
@@ -24,7 +24,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>A night in the app</h2>
     <p>
       The Host sets up an event and its rounds. A Steward assigns blind A/B codes and starts the tasting without casting a vote. Participants record their own votes, guesses, descriptors, and notes on their phones. The reveal comes after voting, and results are computed from those recorded choices. A bottle can then be traced from someone's collection through the event and into its tasting history.
@@ -34,7 +34,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>Architecture follows the club</h2>
     <p><strong>The app models the club; the club does not change to fit the app.</strong> That rule shapes the implementation:</p>
     <ul>
@@ -46,14 +46,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </ul>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>Testing the awkward moments</h2>
     <p>
       A local QA campaign used separate Host, Steward, Member, and Guest sign-ins through a complete three-round event. It caught a pre-reveal data leak, a missing Guest voting path, stale counts across browsers, late writes after reveal, and a bottle lifecycle that failed to advance. The fixes were tested in a separate QA database; the test record explicitly does not claim a production deployment. That is the kind of evidence I want before a live club night depends on the flow.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>Why it stays private</h2>
     <p>
       Members, collections, event details, and club stories are not portfolio material. The public case study can explain the role design, state transitions, privacy boundary, and failure recovery without exposing the people the software serves.
