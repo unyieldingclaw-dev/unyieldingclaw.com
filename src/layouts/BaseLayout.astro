@@ -91,7 +91,9 @@ const personSchema = {
     <div class="cursor-spotlight" aria-hidden="true"></div>
     <!-- Easter egg 000: Unyielding Claw was a name before it was a domain. -->
     <div class="egg-toast" role="status" aria-live="polite"></div>
-    <div class="miz-takeover" data-miz-takeover role="status" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+    <!-- Keep announcements in the accessibility tree independently of the visual effect. -->
+    <div class="sr-only" data-miz-announcement role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="miz-takeover" data-miz-takeover aria-hidden="true">
       <strong>ZOU!</strong>
     </div>
 
@@ -127,11 +129,11 @@ const personSchema = {
       role="dialog"
       aria-modal="true"
       aria-labelledby="trail-complete-title"
-      aria-describedby="trail-complete-description"
+      aria-describedby="trail-complete-description trail-complete-mission"
       aria-hidden="true"
       inert
     >
-      <div class="trail-complete__mission" aria-hidden="true">
+      <div class="trail-complete__mission" id="trail-complete-mission">
         <span>CONGRATULATIONS!</span>
         <strong>YOU COMPLETED YOUR MISSION.</strong>
         <small>NOW THERE IS ONE THING LEFT TO DO...</small>

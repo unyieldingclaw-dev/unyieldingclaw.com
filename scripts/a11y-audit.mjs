@@ -70,6 +70,88 @@ try {
     await context.close();
   }
 
+  // Check the accessible result and focus behavior, including repeated MIZ calls.
+  for (const reducedMotion of ['reduce', 'no-preference']) {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion });
+    const page = await context.newPage();
+    await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'networkidle' });
+    const keyboard = page.locator('[data-miz-keyboard]');
+    const input = page.locator('[data-miz-input]');
+    const announcement = page.locator('[data-miz-announcement]');
+    if ((await announcement.ariaSnapshot()).includes('ZOU!')) {
+      fail('MIZ: response is announced before the user triggers it');
+    }
+    for (let call = 0; call < 2; call += 1) {
+      await keyboard.focus();
+      await page.keyboard.press('Enter');
+      if (!(await input.evaluate((el) => document.activeElement === el))) {
+        fail('MIZ: opening the entry did not focus its input');
+      }
+      await input.fill('MIZ');
+      await page.waitForFunction(() => document.querySelector('[data-miz-announcement]')?.textContent === 'ZOU!');
+      if (!(await announcement.ariaSnapshot()).includes('ZOU!')) {
+        fail('MIZ: response is absent from the accessibility tree');
+      }
+      if (!(await keyboard.evaluate((el) => document.activeElement === el)) || await input.isVisible()) {
+        fail('MIZ: completing the call did not close the input and restore focus');
+      }
+    }
+    await page.keyboard.type('miz');
+    if (!(await keyboard.evaluate((el) => document.activeElement === el))) {
+      fail('MIZ: hardware-keyboard call unexpectedly moved focus');
+    }
+    await context.close();
+  }
+
+  // Seed prior discoveries, then earn the last marker through its real keyboard control.
+  {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.addInitScript(() => {
+      localStorage.setItem('unyielding-claw-trail-v2', JSON.stringify([
+        'home-proof', 'home-range', 'work-console', 'work-buildlog',
+        'harness-sag', 'harness-trail', 'harness-matrix', 'workshop-trail',
+        'workshop-saw', 'workshop-dust', 'about-crochet', 'about-uc',
+        'about-origin', 'contact-buzzword', 'contact-radio',
+      ]));
+      localStorage.removeItem('unyielding-claw-trail-reward-v1');
+    });
+    for (const closeAction of ['escape', 'continue']) {
+      await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'networkidle' });
+      const marker = page.locator('[data-trail-marker="home-basecamp"]');
+      await marker.focus();
+      await page.keyboard.press('Enter');
+      const dialog = page.getByRole('dialog', { name: 'Unyielding Explorer' });
+      await page.waitForFunction(() => document.activeElement?.hasAttribute('data-trail-continue'));
+      if (!(await dialog.ariaSnapshot()).includes('HIRE NOLAN!')) {
+        fail('Trail completion: mission punchline is absent from the accessibility tree');
+      }
+      const results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+      for (const violation of results.violations) {
+        fail(`Trail completion: axe ${violation.id} — ${violation.help}\n` + compactNodes(violation));
+      }
+      const buttons = dialog.locator('button');
+      await buttons.last().focus();
+      await page.keyboard.press('Tab');
+      if (!(await buttons.first().evaluate((el) => document.activeElement === el))) {
+        fail('Trail completion: Tab escaped the dialog');
+      }
+      await page.keyboard.press('Shift+Tab');
+      if (!(await buttons.last().evaluate((el) => document.activeElement === el))) {
+        fail('Trail completion: Shift+Tab escaped the dialog');
+      }
+      if (closeAction === 'escape') await page.keyboard.press('Escape');
+      else {
+        await page.locator('[data-trail-continue]').focus();
+        await page.keyboard.press('Enter');
+      }
+      if (await dialog.count() || !(await marker.evaluate((el) => document.activeElement === el))) {
+        fail(`Trail completion: ${closeAction} did not close the dialog and restore focus`);
+      }
+    }
+    await context.close();
+  }
+
   for (const viewport of viewports) {
     const context = await browser.newContext({
       viewport: { width: viewport.width, height: viewport.height },
@@ -392,7 +474,7 @@ try {
 
       await input.fill('MIZ');
 
-      if (await page.locator('[data-miz-takeover]').getAttribute('aria-hidden') !== 'false') {
+      if (!(await page.locator('[data-miz-takeover]').evaluate((el) => el.classList.contains('is-active')))) {
         fail('Mobile Safari: typing MIZ did not trigger ZOU');
       }
 
