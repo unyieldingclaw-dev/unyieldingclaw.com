@@ -53,7 +53,7 @@ Title: averageFindingsPerChunk always returns NaN (off-by-one reads undefined)
 Location check: verified
 Matched defect: D2-offbyone-nan-propagation`}</code></pre>
       <figcaption>
-        Selected fields from a committed calibration record, with labels formatted for reading. This finding concerns an intentionally faulty test fixture, not a production incident. The loop uses <code>i &lt;= findingsPerChunk.length</code>, reads beyond the array, and adds <code>undefined</code> to the total. One finding demonstrates the report's evidence; it does not establish overall accuracy.
+        Selected fields from a committed calibration record, with labels formatted for reading. This finding concerns an intentionally faulty test fixture, not a production incident. The loop uses <code>i &lt;= findingsPerChunk.length</code>, reads beyond the array, and adds <code>undefined</code> to the total. One finding demonstrates the report's evidence; it does not establish overall accuracy.{' '}
         <a href="https://github.com/unyieldingclaw-dev/ai-code-review-agent/blob/e6a98ba7fd6de1785c21872ae5c8ce1474c51096/calibration/adversarial-dirty-raw.ornith-1-5-9b.json">Read the calibration record →</a>
       </figcaption>
     </figure>
