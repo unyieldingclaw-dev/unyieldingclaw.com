@@ -87,15 +87,15 @@ const mark = title
 
   <article class={`case-body case-body--wow${visual ? ` case-body--visual case-body--${visual}` : ''}`}>
     <div class="shell case-content case-content--wow">
-      <aside class="case-rail" aria-label="Case study sections">
+      <nav class="case-rail" aria-label="Case study sections">
         <p class="case-rail__label">CASE NOTES</p>
         {sections.map((section, index) => (
-          <div class="case-rail__item">
+          <a class="case-rail__item" href={`#case-note-${index + 1}`}>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <strong>{section}</strong>
-          </div>
+          </a>
         ))}
-      </aside>
+      </nav>
 
       <div class="case-flow">
         <slot />
@@ -116,3 +116,52 @@ const mark = title
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .case-rail__item {
+    text-decoration: none;
+  }
+
+  .case-rail__item:hover strong {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .case-rail__item:focus-visible {
+    outline: 2px solid #2f6fed;
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+  }
+
+  .hero-actions .button-pop {
+    column-gap: 0.5rem;
+  }
+
+/* Anchor destinations clear the sticky header, including keyboard navigation. */
+:global(.case-flow > section[id]) {
+  scroll-margin-top: 7rem;
+}
+
+:global(.case-evidence) {
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  border: 1px solid rgba(47, 111, 237, 0.22);
+  border-radius: 0.5rem;
+  background: #edf2f9;
+}
+
+:global(.case-evidence pre) {
+  margin: 0.75rem 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #152d47;
+}
+
+:global(.case-evidence figcaption) {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+</style>

@@ -38,6 +38,38 @@ const compactNodes = (violation) =>
 const browser = await chromium.launch({ headless: true });
 
 try {
+  // Case notes must work without a scroll-spy or animation dependency.
+  {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    for (const route of routes.filter((route) => route.startsWith('/work/') && route !== '/work/')) {
+      const page = await context.newPage();
+      await page.goto(new URL(route, baseURL).toString(), { waitUntil: 'networkidle' });
+      const links = page.getByRole('navigation', { name: 'Case study sections' }).locator('a');
+      const sections = page.locator('.case-flow > section');
+      if (await links.count() !== await sections.count()) {
+        fail(`${route}: case notes do not match the reading sections`);
+      }
+      if (await sections.evaluateAll((items) => items.some((el) => getComputedStyle(el).opacity !== '1'))) {
+        fail(`${route}: reading content is hidden by scroll-reveal`);
+      }
+      await links.nth(2).focus();
+      await page.keyboard.press('Enter');
+      const destination = await page.evaluate(() => {
+        const target = document.getElementById('case-note-3');
+        return {
+          hash: location.hash,
+          focused: document.activeElement === target,
+          clearsHeader: target.getBoundingClientRect().top >= document.querySelector('.site-header').getBoundingClientRect().bottom,
+        };
+      });
+      if (destination.hash !== '#case-note-3' || !destination.focused || !destination.clearsHeader) {
+        fail(`${route}: keyboard section navigation did not reach a visible, focused destination`);
+      }
+      await page.close();
+    }
+    await context.close();
+  }
+
   for (const viewport of viewports) {
     const context = await browser.newContext({
       viewport: { width: viewport.width, height: viewport.height },

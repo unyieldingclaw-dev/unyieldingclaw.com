@@ -14,14 +14,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   tone="slate"
   visual="bowling"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       A score sheet records the outcome but leaves out the conditions. To learn whether a change helped, I need to know which ball I used, what lane and oil pattern I saw, whether I was practicing or competing, and which leaves kept showing up. The app has to collect that evidence while I am bowling, not demand a spreadsheet afterward.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>Capture without slowing the game</h2>
     <p>
       The Flutter app supports a fast score-entry path and more detailed pin-level entry when I want it. The domain model runs from session to series to game to delivery. Ball attribution belongs to the delivery, because switching equipment mid-game should not make the analysis guess. A local Drift/SQLite store handles the lane-side experience; synchronization can catch up when connectivity returns.
@@ -31,7 +31,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>Rules before dashboards</h2>
     <ul>
       <li>Scoring and handicap rules live in domain services rather than being reconstructed by each screen.</li>
@@ -42,14 +42,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </ul>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>What the history can answer</h2>
     <p>
       The repository includes session history, personal records, rolling averages, per-ball and oil-category views, monthly trends, alley comparisons, leave conversion, and a pin-leave heat map. Those views share the same underlying deliveries and completed-game rules. A chart is worth keeping only if it helps me choose a ball, target a drill, or understand a change.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>Why it stays private</h2>
     <p>
       This is a mobile-first product still under development. The public case study describes the scoring model, offline strategy, and product decisions without publishing the repository or anyone's personal performance records.

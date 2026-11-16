@@ -14,7 +14,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   tone="gold"
   visual="sidequest"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       A trip gets scattered across camera rolls, map history, saved places, text messages, and the people who were there. Recording every detail in the moment kills the experience. Waiting until everyone gets home loses the little things that made a stop memorable.
@@ -24,7 +24,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>Capture now, enrich later</h2>
     <p>
       The product target is a quick place search and visit save, with notes, ratings, tags, and media references added later. The design aims for a capture that takes seconds, not a form that holds up the group. A visit carries its own capture state so an unfinished memory can be found and enriched without pretending it is complete.
@@ -34,7 +34,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>The model underneath</h2>
     <ul>
       <li>A place represents one real-world location. Groups share that place record, while each group's visits and memories remain separate.</li>
@@ -45,14 +45,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </ul>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>What is built and what is next</h2>
     <p>
       The repository has the group, authentication, and data foundation, plus Adventure work that gives a real trip a place in the app. The fast capture and enrichment loop is still being developed and validated. An Adventure-scoped wishlist is in review; a map view, broader search, and quests remain later work. The distinction matters because the value of this product has to be proven in the capture loop.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>The boundaries</h2>
     <p>
       No public reviews, followers, booking flow, navigation, or predictive recommendation engine. “Favorites” can eventually be a useful filter over places the group rated highly and said it would revisit. It does not need to guess what strangers might like. Offline synchronization and native media storage are also outside the first version's scope.

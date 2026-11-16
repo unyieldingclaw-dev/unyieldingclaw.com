@@ -14,14 +14,14 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
   visual="pmb"
   repoUrl="https://github.com/unyieldingclaw-dev/personal-memory-bank"
 >
-  <section>
+  <section id="case-note-1" tabindex="-1">
     <h2>The problem</h2>
     <p>
       AI coding sessions can understand a complicated file and still miss why the team chose that design. Repeating the entire project story at every start is tedious. Dumping a growing pile of notes into the prompt creates a different problem: old assumptions, conflicting instructions, and task state that sounds current long after it has changed.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-2" tabindex="-1">
     <h2>Five files with different jobs</h2>
     <p>
       PMB keeps a compact memory bank: a project brief for durable intent, system patterns for architecture, technical context for the stack, active context for current work, and progress for what has happened. They are not five interchangeable notebooks. The brief has higher authority than a volatile task note; conflicts should be surfaced rather than silently reconciled.
@@ -31,7 +31,7 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
     </p>
   </section>
 
-  <section>
+  <section id="case-note-3" tabindex="-1">
     <h2>Trust requires maintenance</h2>
     <ul>
       <li>Freshness metadata and provenance record when a file was reviewed and whether content has been compacted through an AI summary.</li>
@@ -39,16 +39,32 @@ import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
       <li>Hooks enforce local command rules; CI catches repository-wide invariants. Semantic review has its own focused roles.</li>
       <li>Task contracts and review workflows give the assistant explicit scope and a place to challenge its own conclusions.</li>
     </ul>
+    <figure class="case-evidence">
+      <strong>What context visibility looks like</strong>
+      <pre><code>{`Startup Context
+Files loaded:      6
+Estimated tokens:  ~4500
+Largest contributors:
+  CLAUDE.md                             ~2500 tokens
+  memory-bank/systemPatterns.md         ~780 tokens
+  memory-bank/techContext.md             ~420 tokens
+30-day growth:     +8% [OK]
+Stale but loaded:  none [OK]`}</code></pre>
+      <figcaption>
+        Documented <code>mb doctor</code> example from the repository README, not a fresh measurement of this website. It shows the questions the diagnostic makes visible: how much context loads, what contributes to it, and whether stale material is still included.
+        <a href="https://github.com/unyieldingclaw-dev/personal-memory-bank/blob/414cf8c3857da161c7b53307f60cbc2d72c5939d/README.md#startup-context-visibility">Read the source example →</a>
+      </figcaption>
+    </figure>
   </section>
 
-  <section class="case-callout">
+  <section id="case-note-4" tabindex="-1" class="case-callout">
     <h2>A failure that changed the tool</h2>
     <p>
       A deprecated validation command once printed a helpful redirect and exited successfully. A caller read that zero exit code as “validation passed,” though no validation had run. Moved commands now exit non-zero. It is a small fix with a larger lesson: clear prose does not repair a broken automation contract.
     </p>
   </section>
 
-  <section>
+  <section id="case-note-5" tabindex="-1">
     <h2>Why I keep working on it</h2>
     <p>
       I do not want an assistant with a giant scrapbook. I want the small amount it carries into a session to be worth trusting. Ownership, stale-state detection, handoffs, conflict resolution, and deterministic checks are the real engineering work here. The model can help reason about a decision; it should not be the only witness that the system is healthy.
